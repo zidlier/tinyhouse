@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<!-- Standard Meta, needed for mobile-->
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+
+	<!-- Resources -->
+	<script src="./resources/jquery-3.6.0.min.js"></script>
+
+	<!-- <script src="./resources/jquery/jquery-ui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="./resources/jquery/jquery-ui.min.css"> -->
+
+
+
+	<!-- Semantic UI -->
+	<script src="https://dev.skyciv.com/assets/res/semantic/semantic.min.js"></script>
+	<link href="https://dev.skyciv.com/assets/res/semantic/semantic.min.css" rel="stylesheet" type="text/css">
+
+	<!-- Chart.js -->
+	<!-- <script src="https://dev.skyciv.com/assets/res/chart/Chart.min.js"></script> -->
+
+	<!-- Entry Table -->
+	<script src="https://dev.skyciv.com/assets/res/entry-table/entry-table-c4gLQ5B4xGNcLcvu.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://dev.skyciv.com/assets/res/entry-table/entry-table.css">
+
+
+	<!-- Include renderer and parametric script when live  -->
+	<script src="./resources/skyciv-renderer-dist.js"></script>
+	<script src="./resources/skyciv-parametric-dist.js"></script>
+
+	<!-- JSXGRAPH -->
+	<!-- <script type="text/javascript" charset="UTF-8" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script> -->
+	<!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" /> -->
+
+	<!-- TURFJS -->
+	<!-- <script src='https://unpkg.com/@turf/turf@6.3.0/turf.min.js'></script> -->
+
+
+	<!-- Plotly -->
+	<!-- <script src="https://cdn.plot.ly/plotly-2.3.1.min.js"></script> -->
+
+
+	<!-- SKYCIV_UTILS -->
+	<script src="https://dev.skyciv.com/assets/js/utils-dev-c4gLQ5B4xGNcLcvu.min.js"></script>
+
+
+	<!--SkyCiv scripts-->
+	<script src="https://api.skyciv.com/dist/v3/javascript/skyciv.js"></script>
+
+
+
+
+	<!--Custom scripts-->
+	<!-- <script src="input.js"></script> -->
+	<!-- <script src="output.js"></script> -->
+
+	<script>
+		$(document).ready(function () {
+
+
+			// SkyCivAutoDesigner.init();
+
+			if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+
+				jQuery(".file-control-buttons").hide();
+				jQuery(".ui.button").css({
+					"font- size": "10px !important"
+				})
+			}
+
+			// jQuery("#results-table-optimitizer tbody").on('click', 'td', function() {
+			// 	var content = jQuery(this).html();
+			// 	content = content.split('-');
+			// 	var id = parseFloat(content[1])-1;
+			// 	console.log(id);
+			// 	testDesignCheck(model_cases_repaired[id], id);
+			// });
+
+			// jQuery("#download-model-cases-btn").click(function () {
+			// 	for (var i = 0; i < model_cases.length; i++) {
+			// 		var file_name = 'model_case_' + parseFloat(i + 1);
+			// 		jQuery("<a />", {
+			// 				"download": file_name + ".json",
+			// 				"href": "data:application/json," + encodeURIComponent(JSON.stringify(
+			// 					model_cases[i]))
+			// 			}).appendTo("body")
+			// 			.click(function () {
+			// 				jQuery(this).remove()
+			// 			})[0].click()
+			// 	}
+			// })
+
+
+
+		});
+	</script>
+
+</head>
+
+<body>
+
+
+	<div id="plan-view-outer-container">
+
+		<i id="plan-view-close-btn" class="close big icon"></i>
+
+		<div
+			style="height:100vh; width:70%; float:left; border:none; border-radius:0; border-right: 2px solid #d9d9d9;">
+			
+
+			<div id="plan-view-menu" style="height:80px; width:100%; left: 10px"></div>
+			<div id="plan-view-menu-vertical" style="position: absolute;top: 10px;left: 10px;z-index: 10;"></div>
+
+			<div id="plan-view-board" class="jxgbox" style="height:calc(100vh - 80px); width:100%; border:none"></div>
+
+		</div>
+
+		<div style="height:100vh; width:30%; float:right; overflow-y:auto; background: white; padding: 1em;">
+
+			<h2 class="ui header">At level ${story} - ${height} <span data-unit='length'></span> ${master_story_label}
+			</h2>
+
+			<div class="ui styled fluid accordion plan-view-data-accordion" style="margin-top: 45px;">
+				<div class="title active"><i class="dropdown icon"></i> Gridline Data </div>
+				<div class="content active" data-action="grid-data">
+
+					<div class="ui grid">
+
+						<div class="sixteen wide column"
+							style="margin-right: 14px;margin-left: 14px;margin-bottom: 14px;">
+							<div class="field plan-gridline-entry-table">
+
+								<div class="ui three item menu compact mini plan-gridlines-dropdown">
+									<a class="item plan-gridline-entry-table" id="plan-gridline-entry-table-add">Add
+										Gridline<i class="add blue icon"></i></a>
+
+									<div class="ui mini dropdown item" data-content="Add gridlines by spacing"
+										data-variation="tiny" data-position="right center">Spacing <i
+											class="resize horizontal blue icon"></i> </i>
+										<div class="menu">
+											<div class="ui dropdown item">
+
+												<div class="header" style="padding-bottom: 5px">Parallel to:</div>
+
+												<div class="ui two top attached buttons mini" id="add-spacing-axis">
+
+												</div>
+
+												<div class="ui attached tiny compact segment">
+
+													<div class="ui mini compact input">
+														<input type="text"
+															data-content="Enter ordinate first and then the spacing of the subsequent gridlines separated by ,"
+															data-position="left center"
+															placeholder="Enter ordinate then spacing"
+															id="add-spacing-values">
+													</div>
+												</div>
+												<div class="ui bottom attached mini button compact teal"
+													id="add-spacing-button">Add Gridline <i
+														class="resize horizontal icon"></i></div>
+
+											</div>
+										</div>
+									</div>
+
+									<a class="item plan-gridline-entry-table" id="plan-gridline-entry-table-clear">Clear
+										Gridlines<i class="trash blue icon"></i></a>
+
+								</div>
+
+								<table id="plan-gridline-entry-table"
+									class="ui table celled small compact entry-table center aligned unstackable">
+								</table>
+							</div>
+
+							<div class="field" style="padding-top: 10px;">
+								<div class="ui primary mini blue button fluid" id="draw-gridlines-button">
+									<i class="edit icon"></i> Draw/Update Gridlines'
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div id="section-info" style=" position: absolute; top: 13vh; left: 2vh; font-size: 12px;"></div>
+			<div id="button-info" style=" position: absolute; bottom: 2vh; left: 2vh; font-size: 10px;"></div>
+			<div id="current-function-info" style="position: absolute;top: 2vh;left: 105vh;font-size: 13px;color: red;">
+			</div>
+
+		</div>
+
+</body>
+
+</html>

@@ -258,7 +258,7 @@ TINY_HOUSE.framing = (function () {
                     "length": ['x', "~~door_width~~"],
                     "height": ['y', "~~door_truss_height~~"],
                     "offset": 0, // or [30,30],
-                    "style": 'warren',
+                    "style": 'cross',
                     "web_section_id": 1,
                     "chord_section_id": 2,
                     "segments": 3,
@@ -553,7 +553,6 @@ TINY_HOUSE.framing = (function () {
         }
 
 
-
         let side_panel_1 = [
             // TOP BEAM
 
@@ -825,6 +824,37 @@ TINY_HOUSE.framing = (function () {
             }
         }
 
+
+        if ((eaveHeight - truss_height) > (door_height + door_truss_height)) {
+            back_panel.push( 
+                // door truss
+                {
+                    "cad_type": 'cad_truss',
+                    "type": '2D',
+                    "ref_pt": ["~~(building_width*0.5-window_width*0.5)~~","~~door_height~~","~~-building_length~~"],
+                    "length": ['x', "~~window_width~~"],
+                    "height": ['y', "~~door_truss_height~~"],
+                    "offset": 0, // or [30,30],
+                    "style": 'cross',
+                    "web_section_id": 1,
+                    "chord_section_id": 2,
+                    "segments": 3,
+                }
+            )
+
+            side_panel_1.push({
+                "cad_type": 'cad_truss',
+                "type": '2D',
+                "ref_pt": [0,"~~door_height~~","~~-building_length*0.5 -  window_width*0.5~~"],
+                "length": ['z', "~~window_width~~"],
+                "height": ['y', "~~door_truss_height~~"],
+                "offset": 0, // or [30,30],
+                "style": 'cross',
+                "web_section_id": 1,
+                "chord_section_id": 2,
+                "segments": 3,
+            })
+        }
 
         let final_assembly = []
         final_assembly = [...final_assembly, ...front_panel, ...back_panel, ...side_panel_1]

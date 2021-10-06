@@ -1,11 +1,11 @@
-#heading {
+/* #heading {
     text-align: center;
 	background: #ffcccc;
 	color: red;
 	vertical-align: middle;
 	font-size: 20px;
-}
+} */
 
-/* #mainwindow {
-
-}  */
+#render-window {
+    height: 100%;
+} 

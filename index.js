@@ -70,14 +70,10 @@ var INDEX = (function () {
     functions.updateRender = function(){
         $("#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset")
             .change(function () {
-
                 data = INDEX.getData()
-
                 TINY_HOUSE.init(data);
-
         }).change();
         
-        // var 
 
     }
 
@@ -89,7 +85,7 @@ var INDEX = (function () {
         jQuery('#main-tab .item').tab();
        
         jQuery('#results_button').click(function () {
-            // TINY_HOUSE.init(data); //--> band aid solution only
+
       
 
             // jQuery(".renderer-update").change(function () {
@@ -97,7 +93,7 @@ var INDEX = (function () {
             //     if (data_tab_active == '3d-figure') SKYCIV_DESIGN.renderer.renderAssembly()
             // });
 
-            // jQuery('#results').modal('show');
+            jQuery('#results').modal('show');
 
         });
 

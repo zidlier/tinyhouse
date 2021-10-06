@@ -6,6 +6,7 @@ var TINY_HOUSE = (function () {
 
 
 	functions.init = function () {
+		
 		viewer = new SKYCIV.renderer({
 			container_selector: '#renderer-container',
 		});

@@ -35,6 +35,8 @@ var TINY_HOUSE = (function () {
 	}
 	
 
+	functions.updateRenderer
+
 
 	return functions;
 

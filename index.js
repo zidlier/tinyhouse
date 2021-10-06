@@ -69,17 +69,17 @@ var INDEX = (function () {
 
     $(document).ready(function () {
 
-        var data = INDEX.getData()
 
-        debugger
+        //insert function the getting the inputs update
+        //get hover update when is updating
         TINY_HOUSE.init(data); //--> default values from the input parameters
 
-        // INDEX.updateData();
         jQuery('#main-tab .item').tab();
-        // jQuery('#input-door-height').val('0.8')  //--> need to create defaults value
        
         jQuery('#results_button').click(function () {
-            // alert("working")
+            TINY_HOUSE.init(data); //--> band aid solution only
+      
+
             // jQuery(".renderer-update").change(function () {
             //     let data_tab_active = jQuery('#display-container-menu .item.active').tab().attr('data-tab');
             //     if (data_tab_active == '3d-figure') SKYCIV_DESIGN.renderer.renderAssembly()

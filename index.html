@@ -113,120 +113,133 @@
 		<div id="heading" class="row">
 			SKYCIV HACKATHON | TINY HOUSE PROJECT<sup><strong>BETA</strong></sup>
 		</div> -->
-		<div class ="ui grid">
-		<div id="render-window"  class="ten wide column">
+	<div class="ui grid">
+		<div id="render-window" class="ten wide column">
 			<div id="renderer-container"></div>
 		</div>
 
 		<div id="input-window" class="six wide column">
 			<br>
-			<center><img src="svg/logo.svg"/></center>
+			<center><img src="svg/logo.svg" /></center>
 			<br>
-			<div class="ui three steps">
-				<div class="step">
-				  <i class="truck icon"></i>
-				  <div class="content">
-					<div class="title">Project Information</div>
-				  </div>
-				</div>
-				<div class="active step">
-				  <i class="payment icon"></i>
-				  <div class="content">
-					<div class="title">Parameters</div>
-				  </div>
-				</div>
-			  </div>
 
-			<div class="ui segment">
-			<div class="ui form">
-				<div class="field" style="padding-left: 15px;">
-					<label>Project Name</label>
-					<input id="project-name" type="text" placeholder="Project Name">
-				</div>
-				<div class="field" style="padding-left: 15px;">
-					<label>Company</label>
-					<input id="project-company" type="text" placeholder="Company">
-				</div>
-				<div class="field" style="padding-left: 15px;">
-					<label>Designer</label>
-					<input id="project-designer" type="text" placeholder="Designer">
-				</div>
-				<div class="field" style="padding-left: 15px;">
-					<label>Structure height</label>
-					<input id="input-height" value="2">
-				</div>
-				<div class="field" style="padding-left: 15px;">
-					<label>Slab thickness</label>
-					<input id="input-thickness" value="0.3">
-				</div>
+			<div id='main-tab' class="ui top attached tabular menu">
+				<a class="item active" data-tab="project-tab">PROJECT DETAILS</a>
+				<a class="item" data-tab="truss-tab">STRUCTURE</a>
+				<a class="item" data-tab="structure-tab">STRUCTURE</a>
+				<a class="item" data-tab="window-tab">WINDOW</a>
+				<a class="item" data-tab="door-tab">DOOR</a>
+			</div>
 
-				<div class="field" style="padding-left: 15px;">
-					<label>Truss panel spacing</label>
-					<input id="input-truss-panel-spacing" value="1">
-				</div>
-				<div class="field" style="padding-left: 15px;">
-					<label>Truss Height</label>
-					<input id="input-truss-height" value="0.5">
-				</div>
-				<div class="field" style="padding-left: 15px;">
-					<label>Door Height</label>
-					<input id="input-door-height" value="0.9">
-				</div>
-				<div class="field" style="padding-left: 15px;">
-					<label>Door Width</label>
-					<input id="input-door-width" value="0.9">
-				</div>
-				<div class="field" style="padding-left: 15px;">
-					<label>Door Truss Height</label>
-					<input id="input-door-truss-height" value="1.5">
-				</div>
-				<div class="field" style="padding-left: 15px;">
-					<label>Window width</label>
-					<input id="input-window-width" value="1.5">
-				</div>
-				<div class="field" style="padding-left: 15px;">
-					<label>Window Height</label>
-					<input id="input-window-height" value="0.9">
-				</div>
-				<div class="field" style="padding-left: 15px;">
-					<label>Vertical truss width</label>
-					<input id="input-vertical-truss-width" value="0.3">
-				</div>
-				<!-- <div class="field" style="padding-left: 15px;">
-					<label>Section Height</label>
-					<input id="section-height" value="0.3">
-				</div>
-				
-				<div class="field" style="padding-left: 15px;">
-					<label>Section Width</label>
-					<input id="section-width" value="0.3">
-				</div>
-				
-				<div class="field" style="padding-left: 15px;">
-					<label>Section thickness</label>
-					<input id="section-thickness" value="0.05">
-				</div> -->
-				<div class="field" style="padding-left: 15px;">
-					<label>Roof Angle</label>
-					<input id="roof-angle" value="0.05">
+			<div class="ui bottom attached tab segment active" data-tab="project-tab">
+				<div class="ui segment">
+
+					<div class="ui form">
+						<div class="field" style="padding-left: 15px;">
+							<label>Project Name</label>
+							<input id="project-name" type="text" placeholder="Project Name">
+						</div>
+						<div class="field" style="padding-left: 15px;">
+							<label>Company</label>
+							<input id="project-company" type="text" placeholder="Company">
+						</div>
+						<div class="field" style="padding-left: 15px;">
+							<label>Designer</label>
+							<input id="project-designer" type="text" placeholder="Designer">
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-			<button class="positive ui button">RUN DESIGN</button>
-			<br>
-			software disclaimer 
+			<div class="ui bottom attached tab segment" data-tab="structure-tab">
+				<div class="ui segment">
 
-		</div>
+					<div class="ui form">
+						<div class="field" style="padding-left: 15px;">
+							<label>Structure height</label>
+							<input id="input-height" value="2">
+						</div>
+						<div class="field" style="padding-left: 15px;">
+							<label>Slab thickness</label>
+							<input id="input-thickness" value="0.3">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="window-tab">
+				<div class="ui segment">
 
-	</div>
-
-<!-- </div> -->
+					<div class="ui form">
 
 
 
+						<div class="field" style="padding-left: 15px;">
+							<label>Window width</label>
+							<input id="input-window-width" value="1.5">
+						</div>
+						<div class="field" style="padding-left: 15px;">
+							<label>Window Height</label>
+							<input id="input-window-height" value="0.9">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="door-tab">
+				<div class="ui segment">
 
-			
-			
+					<div class="ui form">
+						<div class="field" style="padding-left: 15px;">
+							<label>Door Height</label>
+							<input id="input-door-height" value="0.9">
+						</div>
+						<div class="field" style="padding-left: 15px;">
+							<label>Door Width</label>
+							<input id="input-door-width" value="0.9">
+						</div>
+						<div class="field" style="padding-left: 15px;">
+							<label>Door Truss Height</label>
+							<input id="input-door-truss-height" value="1.5">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="truss-tab">
+				<div class="ui segment">
+
+					<div class="ui form">
+						<div class="field" style="padding-left: 15px;">
+							<label>Truss panel spacing</label>
+							<input id="input-truss-panel-spacing" value="1">
+						</div>
+						<div class="field" style="padding-left: 15px;">
+							<label>Truss Height</label>
+							<input id="input-truss-height" value="0.5">
+						</div>
+						<div class="field" style="padding-left: 15px;">
+							<label>Vertical truss width</label>
+							<input id="input-vertical-truss-width" value="0.3">
+						</div>
+
+						<div class="field" style="padding-left: 15px;">
+							<label>Roof Angle</label>
+							<input id="roof-angle" value="0.05">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+
+				<button class="positive ui button">RUN DESIGN</button>
+				<br>
+				software disclaimer
+
+			</div>
+
+
+
+
+
+
+
 
 </body>
 

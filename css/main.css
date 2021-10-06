@@ -1,0 +1,16 @@
+#beta-container {
+    text-align: center;
+    /* padding: 10px; */
+	background: #ffcccc;
+	color: red;
+	vertical-align: middle;
+	font-size: 20px;
+	font-family:Garamond;
+}
+
+#heading-container {
+	background: #0d5c30;
+	text-indent: 30px;
+	margin-top: 0.5px;
+}
+

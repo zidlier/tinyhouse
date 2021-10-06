@@ -1,3 +1,1 @@
-# tinyhouse
-
-Hackathon project
+# Hackathon Project | Tiny House

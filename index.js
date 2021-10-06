@@ -67,17 +67,29 @@ var INDEX = (function () {
     }
 
 
+    functions.updateRender = function(){
+        $("#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset")
+            .change(function () {
+
+                data = INDEX.getData()
+
+                TINY_HOUSE.init(data);
+
+        }).change();
+        
+        // var 
+
+    }
+
     $(document).ready(function () {
 
 
-        //insert function the getting the inputs update
-        //get hover update when is updating
-        TINY_HOUSE.init(data); //--> default values from the input parameters
+        INDEX.updateRender();
 
         jQuery('#main-tab .item').tab();
        
         jQuery('#results_button').click(function () {
-            TINY_HOUSE.init(data); //--> band aid solution only
+            // TINY_HOUSE.init(data); //--> band aid solution only
       
 
             // jQuery(".renderer-update").change(function () {

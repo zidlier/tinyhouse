@@ -73,8 +73,6 @@ var INDEX = (function () {
                 data = INDEX.getData()
                 TINY_HOUSE.init(data);
         }).change();
-        
-
     }
 
     $(document).ready(function () {

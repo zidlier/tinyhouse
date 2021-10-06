@@ -3,7 +3,13 @@ TINY_HOUSE.analysis = (function () {
     var functions = {}
 	
 
-    functions.generateLoads = function () {
+    functions.generateLoads = function (data) {
+
+        let { input_height, input_width, input_length, input_truss_height } = data
+
+        let roof_mean_height = (input_truss_height+input_height)*0.5
+        let roof_angle = Math.atan((input_truss_height-input_height)/(input_length/2))*(180/Math.PI)
+       
 
         let wind_api_object = {
             "auth": {
@@ -45,7 +51,7 @@ TINY_HOUSE.analysis = (function () {
                                 "structure_level": [
                                     {
                                         "floor_level": "Roof Mean Height",
-                                        "floor_elevation": "3.5"
+                                        "floor_elevation": roof_mean_height
                                     }
                                 ],
                                 "wall_cladding_area": "",
@@ -60,12 +66,12 @@ TINY_HOUSE.analysis = (function () {
                                 "sloped_roof_surface_condition": "slippery",
                                 "balance_unbalance": false
                             },
-                            "roof_profile": "monoslope",
+                            "roof_profile": "gable",
                             "building_dimensions": {
-                                "length": 3,
-                                "width": "3",
-                                "roof_angle": "12",
-                                "mean_roof_height": "3.5"
+                                "length": input_length,
+                                "width": input_width,
+                                "roof_angle": roof_angle,
+                                "mean_roof_height": roof_mean_height
                             }
                         }
                     }

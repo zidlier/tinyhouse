@@ -963,29 +963,16 @@ TINY_HOUSE.framing = (function () {
 
         // Gable
         let monoslope_roof = [
-            // {
-            //     "cad_type": 'cad_truss',
-            //     "type": '2D',
-            //     "ref_pt": [0, "~~building_height~~", "~~-building_length - roof_overhang~~"],
-            //     "length": ['z', "~~building_length+roof_overhang*2~~"],
-            //     "height": ['y', "~~roof_apex_height-building_height~~"],
-            //     "offset": 0, // or [30,30],
-            //     "style": 'cross',
-            //     "web_section_id": 1,
-            //     "chord_section_id": 2,
-            //     "segments": "~~side_number_of_panels~~",
-            // }
-
             {
                 cad_type: 'cad_truss',
                 type: 'nodes',
                 start_pts: [
-                    [0, "~~building_height~~", "~~-building_length - roof_overhang~~"], // or {x: 1, y: 2, z: 1} or {cad_id : "2_1", cad_perc: 33},
-                    [0, "~~building_height + 0.6~~", "~~-building_length - roof_overhang~~"], // or {x: 1, y: 2, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                    [0, "~~building_height+0.05~~", "~~-building_length - roof_overhang~~"], // or {x: 1, y: 2, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                    [0, "~~building_height+0.05 + 0.3~~", "~~-building_length - roof_overhang~~"], // or {x: 1, y: 2, z: 1} or {cad_id : "2_1", cad_perc: 33},
                 ],
                 end_pts: [
-                    [0, "~~building_height~~", "~~roof_overhang~~"], // or {x: 1, y: 2, z: 1} or {cad_id : "2_1", cad_perc: 33},
-                    [0, "~~roof_apex_height~~", "~~roof_overhang~~"], // or {x: 1, y: 2, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                    [0, "~~building_height+0.05~~", "~~roof_overhang~~"], // or {x: 1, y: 2, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                    [0, "~~building_height+0.05 + 0.6~~", "~~roof_overhang~~"], // or {x: 1, y: 2, z: 1} or {cad_id : "2_1", cad_perc: 33},
                 ],
                 bays: "~~side_number_of_panels~~",
                 web_section_id: 1,
@@ -994,7 +981,23 @@ TINY_HOUSE.framing = (function () {
             }
         ]
 
-        return monoslope_roof
+        let gable_roof = [
+            {
+                "cad_type": 'cad_truss',
+                "type": '2D',
+                "ref_pt": [0, "~~building_height~~", "~~-building_length - roof_overhang~~"],
+                "length": ['z', "~~building_length+roof_overhang*2~~"],
+                "height": ['y', "~~roof_apex_height-building_height~~"],
+                "offset": "~~(building_length+roof_overhang*2)/2~~", // or [30,30],
+                "style": 'warren',
+                "web_section_id": 1,
+                "chord_section_id": 2,
+                "segments": 10,
+            }
+
+        ]
+
+        return gable_roof
     }
 
 	

@@ -11,7 +11,7 @@ var TINY_HOUSE = (function () {
 			container_selector: '#renderer-container',
 		});
 
-		let s3d_model = TINY_HOUSE.framing.generateWallFramingS3DModel(3,6,3,4.5,0.8)
+		let s3d_model = TINY_HOUSE.framing.generateWallFramingS3DModel(6,10,4.5,5,0.8)
 
 		
 		viewer.model.set(s3d_model);

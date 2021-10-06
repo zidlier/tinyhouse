@@ -801,7 +801,7 @@ TINY_HOUSE.framing = (function () {
             for (let n = 1; n < num_vertical_studs_side; n++) {
 
                 let this_x_1 = -buildingLength + vertical_truss_width+(n*vert_stud_space)
-                let this_x_2 = -buildingLength + (buildingWidth*0.5+window_width*0.5)+(n*vert_stud_space)
+                let this_x_2 = -buildingLength + (buildingLength*0.5+window_width*0.5)+(n*vert_stud_space)
         
                 side_panel_1.push({
                     "cad_type": 'cad_line',

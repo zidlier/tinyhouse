@@ -6,6 +6,9 @@
 	font-size: 20px;
 } */
 
-#render-window {
+#input-window {
     height: 100%;
 } 
+/* html, body {
+	height: 100%;
+  } */

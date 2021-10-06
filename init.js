@@ -5,11 +5,14 @@ var TINY_HOUSE = (function () {
 	var functions = {}
 
 
-	functions.init = function () {
+	functions.init = function (data) {
 
 		viewer = new SKYCIV.renderer({
 			container_selector: '#renderer-container',
 		});
+		//TODO for the dynamics from the inputs
+		var data = INDEX.getData()
+
 
 
 		// (buildingLength, buildingWidth, eaveHeight, roofApex, roofOverhang)

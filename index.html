@@ -109,15 +109,108 @@
 
 	<div class="ui grid">
 		<div id="render-window" class="ten wide column">
-			<div id="renderer-container"></div>
+			<div id="renderer-container" style="height:100vh; float:left;"></div>
 		</div>
 
-		<div id="input-window" class="six wide column" id="menu-input">
+		<div id="input-window" class="six wide column" id="menu-input" >
 			<br>
 			<center><img src="svg/logo.svg" /></center>
 			<br>
 
-			<div id='main-tab' class="ui top attached tabular menu">
+
+			<div class="ui styled accordion input-data" style="height:100vh; float:right;">
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Structure Data
+				</div>
+				<div class="content">
+					<div class="ui form">
+						<div class="field" style="padding-left: 15px;">
+							<label>Structure Height (<span> meters</span> ) </label>
+							<input id="input-height" data-key="input-height" value="3">
+							<!-- <input id="input-height" data-key="input-height"> -->
+						</div>
+						<div class="field" style="padding-left: 15px;">
+							<label>Structure Width (<span> meters</span> ) </label>
+							<input id="input-width" data-key="input-width" value="10">
+						</div>
+						<div class="field" style="padding-left: 15px;">
+							<label>Structure Length (<span> meters</span> ) </label>
+							<input id="input-length" data-key="input-length" value="6">
+						</div>
+
+						<div class="field" style="padding-left: 15px;">
+							<label>Slab thickness</label>
+							<input id="input-thickness" data-key="input-thickness" value="0.3">
+						</div>
+
+						<div class="field" style="padding-left: 15px;">
+							<label>Truss panel spacing</label>
+							<input id="input-truss-panel-spacing" data-key="input-truss-panel-spacing" value="1">
+						</div>
+						<div class="field" style="padding-left: 15px;">
+							<label>Truss Height (<span> meters</span> ) </label>
+							<input id="input-truss-height" data-key="input-truss-height" value="5">
+						</div>
+
+					</div>
+				</div>
+
+				<div class="title active">
+					<i class="dropdown icon"></i>
+					Site Data
+				</div>
+				<div class="content active">
+					
+					<div class="field" style="padding-left: 15px;">
+						<label>Site Address</label>
+						<input id="input-site-address" data-key="input-site-address" value="1">
+					</div>
+					
+					<div class="field">
+						<label>Risk Category</label>
+						<div class="ui fluid selection dropdown" id="input-risk-category">
+							<input type="hidden" name="input-risk-category">
+							<i class="dropdown icon"></i>
+							<div class="default text">Select Risk Category</div>
+							<div class="menu">
+								<div class="item" data-value="I">Risk Category I</div>
+								<div class="item" data-value="II">Risk Category II</div>
+								<div class="item" data-value="III">Risk Category III</div>
+								<div class="item" data-value="IV">Risk Category IV</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="field ">
+						<label>Exposure Category</label>
+						<div class="ui fluid selection dropdown" id="input-exposure-category">
+							<input type="hidden" name="input-exposure-category">
+							<i class="dropdown icon"></i>
+							<div class="default text">Select Exposure Category</div>
+							<div class="menu">
+								<div class="item" data-value="B">Exposure Category B</div>
+								<div class="item" data-value="C">Exposure Category C</div>
+								<div class="item" data-value="D">Exposure Category D</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Member Design
+				</div>
+				<div class="content">
+
+				</div>
+			</div>
+
+			
+
+
+			<!-- <div id='main-tab' class="ui top attached tabular menu">
 				<a class="item active" data-tab="project-tab">PROJECT DETAILS</a>
 				<a class="item" data-tab="structure-tab">STRUCTURE</a>
 				<a class="item" data-tab="truss-tab">TRUSS</a>
@@ -152,7 +245,6 @@
 						<div class="field" style="padding-left: 15px;">
 							<label>Structure Height (<span> meters</span> ) </label>
 							<input id="input-height" data-key="input-height" value="3">
-							<!-- <input id="input-height" data-key="input-height"> -->
 						</div>
 						<div class="field" style="padding-left: 15px;">
 							<label>Structure Width (<span> meters</span> ) </label>
@@ -172,7 +264,6 @@
 			</div>
 			<div class="ui bottom attached tab segment" data-tab="window-tab">
 				<div class="ui segment">
-					<!-- <div id="input-window-width" class="ui bottom aligned labeled slider"></div> -->
 					<div class="ui form">
 						<div class="field" style="padding-left: 15px;">
 							<label>Window Width</label>
@@ -193,7 +284,6 @@
 						<div class="field" style="padding-left: 15px;">
 							<label>Door Height</label>
 							<input id="input-door-height" data-key="input-door-height" value="0.9">
-							<!-- <input id="input-door-height" data-key="input-door-height"> -->
 						</div>
 						<div class="field" style="padding-left: 15px;">
 							<label>Door Width</label>
@@ -239,24 +329,27 @@
 				</div>
 			</div>
 			<div>
-				<!-- <button id="test_button" class="positive ui button">TEST RUN</button> -->
 				<button id="results_button" class="positive ui button">RUN DESIGN</button>
 				<br>
 				<strong>Software disclaimer</strong>
 				<p></p>
-			</div>
+			</div> -->
+
+
 		</div>
 
-			<div class="ui modal" id="results">
 
-				<div class="header">Results Summary</div>
-				<div class="content">
-					RESULT HERE!!! TAKTENG YAN!!!
-				</div>
+
+		<!-- <div class="ui modal" id="results">
+
+			<div class="header">Results Summary</div>
+			<div class="content">
+				RESULT HERE!!! TAKTENG YAN!!!
 			</div>
+		</div> -->
 
 
-
+	</div>
 
 
 </body>

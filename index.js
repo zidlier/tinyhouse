@@ -79,6 +79,8 @@ var INDEX = (function () {
 
     $(document).ready(function () {
 
+        // INIT ACCORDION DATA INPUT
+        jQuery('.input-data.accordion').accordion()
 
         INDEX.updateRender();
 

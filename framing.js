@@ -13,12 +13,20 @@ TINY_HOUSE.framing = (function () {
         let door_truss_height = 0.3
         let window_width = 1.5
         let window_height = 0.9
-        let num_panel_truss_front = Math.ceil(buildingLength/truss_panel_spacing)
+        let num_panel_truss_front = Math.ceil(buildingWidth/truss_panel_spacing)
         
         let vertical_truss_width = 0.3
-        let vertical_web_length = Math.sqrt(vertical_truss_width*vertical_truss_width + (buildingLength-truss_height)*(buildingLength-truss_height))
+        let vertical_web_length = Math.sqrt(vertical_truss_width*vertical_truss_width + ((eaveHeight-truss_height)/3)*((eaveHeight-truss_height)/3))
         let num_panel_truss_front_vertical = Math.ceil(eaveHeight/1)
 
+        let col_to_door_jamb_dist_front = (buildingWidth*0.5-door_width*0.5) - vertical_truss_width
+        let num_vertical_studs_front = Math.ceil(col_to_door_jamb_dist_front/1)
+
+        let col_to_wind_jamb_dist_back = (buildingWidth*0.5-window_width*0.5) - vertical_truss_width
+        let num_vertical_studs_back = Math.ceil(col_to_wind_jamb_dist_back/1)
+        
+        let col_to_wind_jamb_dist_side = (buildingLength*0.5-window_width*0.5) - vertical_truss_width
+        let num_vertical_studs_side = Math.ceil(col_to_wind_jamb_dist_side/1)
 
         // FRONT PANEL
         let front_panel = [
@@ -121,7 +129,6 @@ TINY_HOUSE.framing = (function () {
                 "length": "~~building_height - truss_height~~",
                 "section_id": 1,
             },
-
             {
                 "cad_type": 'cad_line',
                 "type": 'vector',
@@ -140,7 +147,6 @@ TINY_HOUSE.framing = (function () {
                 "length": "~~vertical_truss_width~~",
                 "section_id": 1,
             },
-            
             {
                 "cad_type": 'cad_line',
                 "type": 'vector',
@@ -168,8 +174,6 @@ TINY_HOUSE.framing = (function () {
                 "length": "~~vertical_web_length~~",
                 "section_id": 1,
             },
-
-
 
             // DOOR JAMB
             {
@@ -211,7 +215,6 @@ TINY_HOUSE.framing = (function () {
                 "section_id": 1,
             },
 
-
             // BOTTOM BEAM
             {
                 "cad_type": 'cad_line',
@@ -241,6 +244,40 @@ TINY_HOUSE.framing = (function () {
                 }
             )
         }
+
+        if (num_vertical_studs_front > 1) {
+            let vert_stud_space = col_to_door_jamb_dist_front/num_vertical_studs_front
+
+            for (let n = 1; n < num_vertical_studs_front; n++) {
+
+                let this_x_1 = vertical_truss_width+(n*vert_stud_space)
+                let this_x_2 = (buildingWidth*0.5+door_width*0.5)+(n*vert_stud_space)
+                
+
+                front_panel.push({
+                    "cad_type": 'cad_line',
+                    "type": 'vector',
+                    "ref_pt": [this_x_1,0,0], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                    "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
+                    "segments": 1,
+                    "length": "~~building_height - truss_height~~",
+                    "section_id": 1,
+                })
+                
+                front_panel.push({
+                    "cad_type": 'cad_line',
+                    "type": 'vector',
+                    "ref_pt": [this_x_2,0,0], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                    "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
+                    "segments": 1,
+                    "length": "~~building_height - truss_height~~",
+                    "section_id": 1,
+                })
+                
+            }
+
+        }
+
 
 
         // BACK PANEL - WITH WINDOW
@@ -323,7 +360,6 @@ TINY_HOUSE.framing = (function () {
                 "length": "~~vertical_web_length~~",
                 "section_id": 1,
             },
-
 
             // SIDE COLUMN 2
             {
@@ -464,6 +500,40 @@ TINY_HOUSE.framing = (function () {
             }
         ]
        
+
+
+        if (num_vertical_studs_back > 1) {
+            let vert_stud_space = col_to_wind_jamb_dist_back/num_vertical_studs_back
+
+            for (let n = 1; n < num_vertical_studs_back; n++) {
+
+                let this_x_1 = vertical_truss_width+(n*vert_stud_space)
+                let this_x_2 = (buildingWidth*0.5+window_width*0.5)+(n*vert_stud_space)
+        
+                back_panel.push({
+                    "cad_type": 'cad_line',
+                    "type": 'vector',
+                    "ref_pt": [this_x_1,0,"~~-building_length~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                    "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
+                    "segments": 1,
+                    "length": "~~building_height - truss_height~~",
+                    "section_id": 1,
+                })
+                
+                back_panel.push({
+                    "cad_type": 'cad_line',
+                    "type": 'vector',
+                    "ref_pt": [this_x_2,0,"~~-building_length~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                    "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
+                    "segments": 1,
+                    "length": "~~building_height - truss_height~~",
+                    "section_id": 1,
+                })
+                
+            }
+        }
+
+
 
         let side_panel_1 = [
             // TOP BEAM
@@ -670,7 +740,7 @@ TINY_HOUSE.framing = (function () {
                 "ref_pt": [0,"~~((building_height - truss_height)/2)~~","~~-building_length*0.5+window_width*0.5~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
                 "vector": [0,0,1], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
-                "length": "~~(building_width-vertical_truss_width) -(building_width*0.5+window_width*0.5)~~",
+                "length": "~~building_length*0.5-window_width*0.5 - vertical_truss_width~~",
                 "section_id": 1,
             },
         
@@ -685,10 +755,38 @@ TINY_HOUSE.framing = (function () {
                 "section_id": 1,
             }
         ]
+        
 
-        console.log(front_panel.length+back_panel.length)
+        if (num_vertical_studs_side > 1) {
+            let vert_stud_space = col_to_wind_jamb_dist_side/num_vertical_studs_side
 
+            for (let n = 1; n < num_vertical_studs_side; n++) {
 
+                let this_x_1 = -buildingLength + vertical_truss_width+(n*vert_stud_space)
+                let this_x_2 = -buildingLength + (buildingWidth*0.5+window_width*0.5)+(n*vert_stud_space)
+        
+                side_panel_1.push({
+                    "cad_type": 'cad_line',
+                    "type": 'vector',
+                    "ref_pt": [0,0,this_x_1], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                    "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
+                    "segments": 1,
+                    "length": "~~building_height - truss_height~~",
+                    "section_id": 1,
+                })
+                
+                side_panel_1.push({
+                    "cad_type": 'cad_line',
+                    "type": 'vector',
+                    "ref_pt": [0,0,this_x_2], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                    "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
+                    "segments": 1,
+                    "length": "~~building_height - truss_height~~",
+                    "section_id": 1,
+                })
+                
+            }
+        }
 
 
         let final_assembly = []

@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="140.51372mm"
-   height="10.461377mm"
-   viewBox="0 0 140.51372 10.461377"
+   width="170.35237mm"
+   height="10.131975mm"
+   viewBox="0 0 170.35237 10.131975"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="242.17084"
-     inkscape:cy="0.057428357"
+     inkscape:zoom="1.4"
+     inkscape:cx="312.27376"
+     inkscape:cy="21.602733"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -37,7 +37,7 @@
      fit-margin-bottom="0"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
-     inkscape:window-x="-8"
+     inkscape:window-x="1912"
      inkscape:window-y="-8"
      inkscape:window-maximized="1" />
   <metadata
@@ -56,18 +56,18 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-33.139062,-120.79961)">
+     transform="translate(-34.851532,-120.71096)">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.70845222px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.09173341;stroke-miterlimit:4;stroke-dasharray:none"
-       x="31.027077"
-       y="138.71664"
+       style="font-style:normal;font-weight:normal;font-size:8.88002968px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0839058;stroke-miterlimit:4;stroke-dasharray:none"
+       x="30.202579"
+       y="148.41612"
        id="text817"
-       transform="scale(1.0673069,0.93693761)"><tspan
+       transform="scale(1.1474587,0.8714911)"><tspan
          sodipodi:role="line"
          id="tspan815"
-         x="31.027077"
-         y="138.71664"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.65014362px;line-height:1.24999988;font-family:'Showcard Gothic';-inkscape-font-specification:'Showcard Gothic Italic';fill:#ae0000;fill-opacity:1;stroke:#110000;stroke-width:0.09173341;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">TINY  HOUSE  DESIGNER</tspan></text>
+         x="30.202579"
+         y="148.41612"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.65603638px;line-height:1.24999988;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script Italic';fill:#ae0000;fill-opacity:1;stroke:#110000;stroke-width:0.0839058;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">TINY  HOUSE  DESIGNER</tspan></text>
   </g>
 </svg>

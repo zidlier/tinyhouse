@@ -392,8 +392,6 @@ TINY_HOUSE.framing = (function () {
                 "section_id": 1,
             },
 
-
-
             // WINDOW JAMB
             {
                 "cad_type": 'cad_line',
@@ -467,14 +465,251 @@ TINY_HOUSE.framing = (function () {
         ]
        
 
+        let side_panel_1 = [
+            // TOP BEAM
+            {
+                "cad_type": 'cad_truss',
+                "type": '2D',
+                "ref_pt": [0, "~~building_height - truss_height~~", "~~-building_length~~"],
+                "length": ['z', "~~building_length~~"],
+                "height": ['y', "~~truss_height~~"],
+                "offset": 0, // or [30,30],
+                "style": 'pratt',
+                "web_section_id": 1,
+                "chord_section_id": 2,
+                "segments": "~~side_number_of_panels~~",
+            },
 
+            // SIDE COLUMN 1
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,0,"~~-building_length~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~building_height~~",
+                "section_id": 1,
+            },
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,0,"~~-building_length+vertical_truss_width~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~building_height - truss_height~~",
+                "section_id": 1,
+            },
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,"~~(building_height - truss_height)/3~~","~~-building_length~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0, 0, 1], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~vertical_truss_width~~",
+                "section_id": 1,
+            },
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,"~~2*((building_height - truss_height)/3)~~","~~-building_length~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0, 0, 1], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~vertical_truss_width~~",
+                "section_id": 1,
+            },
+        
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,0,"~~-building_length+ vertical_truss_width~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0,"~~((building_height - truss_height)/3)/vertical_web_length~~","~~-vertical_truss_width/vertical_web_length~~"], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~vertical_web_length~~",
+                "section_id": 1,
+            },
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,"~~((building_height - truss_height)/3)~~","~~-building_length + vertical_truss_width~~"],
+                "vector": [0,"~~((building_height - truss_height)/3)/vertical_web_length~~","~~-vertical_truss_width/vertical_web_length~~"], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~vertical_web_length~~",
+                "section_id": 1,
+            },
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,"~~2*((building_height - truss_height)/3)~~","~~-building_length+vertical_truss_width~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0,"~~((building_height - truss_height)/3)/vertical_web_length~~","~~-vertical_truss_width/vertical_web_length~~"], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~vertical_web_length~~",
+                "section_id": 1,
+            },
+        
+        
+            // SIDE COLUMN 2
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,0,0], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~building_height~~",
+                "section_id": 1,
+            },
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,0,"~~-vertical_truss_width~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~building_height - truss_height~~",
+                "section_id": 1,
+            },
+        
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,"~~(building_height - truss_height)/3~~","~~-vertical_truss_width~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0, 0, 1], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~vertical_truss_width~~",
+                "section_id": 1,
+            },
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,"~~2*((building_height - truss_height)/3)~~","~~-vertical_truss_width~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0, 0, 1], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~vertical_truss_width~~",
+                "section_id": 1,
+            },
+            
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,0,"~~-vertical_truss_width~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0,"~~((building_height - truss_height)/3)/vertical_web_length~~","~~vertical_truss_width/vertical_web_length~~"], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~vertical_web_length~~",
+                "section_id": 1,
+            },
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,"~~((building_height - truss_height)/3)~~","~~-vertical_truss_width~~"],
+                "vector": [0,"~~((building_height - truss_height)/3)/vertical_web_length~~","~~vertical_truss_width/vertical_web_length~~"], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~vertical_web_length~~",
+                "section_id": 1,
+            },
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,"~~2*((building_height - truss_height)/3)~~","~~-vertical_truss_width~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0,"~~((building_height - truss_height)/3)/vertical_web_length~~","~~vertical_truss_width/vertical_web_length~~"], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~vertical_web_length~~",
+                "section_id": 1,
+            },
+        
+            // WINDOW JAMB
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,0,"~~-building_length*0.5 - window_width*0.5~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~building_height - truss_height~~",
+                "section_id": 1,
+            },
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,0,"~~-building_length*0.5 + window_width*0.5~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~building_height - truss_height~~",
+                "section_id": 1,
+            },
 
+            // WINDOW SILL
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,"~~window_height~~","~~-building_length*0.5-window_width*0.5~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0,0,1], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~building_length*0.5+window_width*0.5 - (building_length*0.5 - window_width*0.5)~~",
+                "section_id": 1,
+            },
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,0,"~~-building_length*0.5~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~window_height~~",
+                "section_id": 1,
+            },
+        
+            // HORIZONTAL STUDS
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,"~~((building_height - truss_height)/2)~~","~~-building_length+vertical_truss_width~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0,0,1], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~building_length*0.5-window_width*0.5 - vertical_truss_width~~",
+                "section_id": 1,
+            },
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,"~~((building_height - truss_height)/2)~~","~~-building_length*0.5+window_width*0.5~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0,0,1], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~(building_width-vertical_truss_width) -(building_width*0.5+window_width*0.5)~~",
+                "section_id": 1,
+            },
+        
+            // BOTTOM BEAM
+            {
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [0,0,"~~-building_length~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [0, 0, 1], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length": "~~building_length~~",
+                "section_id": 1,
+            }
+        ]
+
+        console.log(front_panel.length+back_panel.length)
 
 
 
 
         let final_assembly = []
-        final_assembly = [...final_assembly, ...front_panel, ...back_panel]
+        final_assembly = [...final_assembly, ...front_panel, ...back_panel, ...side_panel_1]
+
+        let side_panel_1_ids = []
+        for (let i = 1; i <= final_assembly.length; i++) {
+            if (i > (front_panel.length+back_panel.length)) side_panel_1_ids.push(String(i))
+        }
+        
+
+        final_assembly.push({
+            cad_type: 'cad_repeat',
+            type: 'vector',
+            repetitions: 1,
+            ref_ids: side_panel_1_ids,
+            vector: [1, 0, 0], // or {x: 1, y: 2, z: 1},
+            length: "~~building_width~~",
+        })
+        
+
 
         let assembly_obj = {
 			"id": 1,

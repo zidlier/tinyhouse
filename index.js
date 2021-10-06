@@ -1,6 +1,6 @@
 var INDEX = (function () {
     var functions = {}
-    
+
     var data = {}
 
     var default_data = {
@@ -17,10 +17,10 @@ var INDEX = (function () {
         "input_truss_height": 5,
         "input_truss_offset": 0.8,
         "input_vertical_truss_width": 0.3,
-        "input_roof_angle": 0.05, 
+        "input_roof_angle": 0.05,
     }
 
-    functions.setDefaultData = function(){
+    functions.setDefaultData = function () {
         return default_data
     }
 
@@ -41,23 +41,27 @@ var INDEX = (function () {
             "input_truss_offset": parseFloat(jQuery('#input-truss-offset').val()),
             "input_vertical_truss_width": parseFloat(jQuery('#input-vertical-truss-width').val()),
             "input_roof_angle": parseFloat(jQuery('#roof-angle').val()),
+            "input-risk-category": jQuery("#input-risk-category").dropdown('get value'),
+            "input-exposure-category": jQuery("#input-exposure-category").dropdown('get value'),
+
+
         }
 
         return data
 
     }
 
-    functions.updateData = function (){
+    functions.updateData = function () {
         var data_keys = Object.keys(default_data);
         var form_fields = {}
         var $form_fields = {}
         debugger
 
-        for(var i = 0; i < data_keys.length; i++){
+        for (var i = 0; i < data_keys.length; i++) {
             data_key = data_keys[i]
             $form_fields[data_key] = jQuery('#menu-input [data-key="' + data_key + '"]');
             // debugger
-            form_fields[data_keys]  = parseFloat($form_fields[data_key].val())
+            form_fields[data_keys] = parseFloat($form_fields[data_key].val())
         }
 
 
@@ -67,12 +71,12 @@ var INDEX = (function () {
     }
 
 
-    functions.updateRender = function(){
+    functions.updateRender = function () {
         $("#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset")
             .change(function () {
                 data = INDEX.getData()
                 TINY_HOUSE.init(data);
-        }).change();
+            }).change();
     }
 
     $(document).ready(function () {
@@ -83,10 +87,13 @@ var INDEX = (function () {
         INDEX.updateRender();
 
         jQuery('#main-tab .item').tab();
-       
+
+        jQuery("#input-risk-category").dropdown('set selected', "I");
+        jQuery("#input-exposure-category").dropdown('set selected', "B");
+
         jQuery('#results_button').click(function () {
 
-      
+
 
             // jQuery(".renderer-update").change(function () {
             //     let data_tab_active = jQuery('#display-container-menu .item.active').tab().attr('data-tab');

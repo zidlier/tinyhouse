@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<!-- Standard Meta, needed for mobile-->
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+	<link rel="stylesheet" href="https://semantic-ui.com/dist/semantic.css" />
+	<link rel="stylesheet" href="main.css" />
+
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
+	<!-- SKYCIV_UTILS -->
+	<script src="https://dev.skyciv.com/assets/js/utils-dev-c4gLQ5B4xGNcLcvu.min.js"></script>
+	
+	<!--SkyCiv scripts-->
+	<script src="https://api.skyciv.com/dist/v3/javascript/skyciv.js"></script>
+	<!-- <script src="skyciv.js"></script> -->
+	<script src="core.js"></script>
+	<script src="https://api.skyciv.com/dist/v3/javascript/skyciv-renderer-dist.js"></script>
+	<script src="https://api.skyciv.com/dist/v3/javascript/skyciv-parametric-dist.js"></script>
+
+
+
+	<!--Custom scripts-->
+	<script src="input.js"></script>
+	<script src="output.js"></script>
+
+	<script>
+		$(document).ready(function () {
+
+			
+			SkyCivAutoDesigner.init();
+
+			if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+
+				jQuery(".file-control-buttons").hide();
+				jQuery(".ui.button").css({
+					"font- size": "10px !important"
+				})
+			}
+
+			// jQuery("#results-table-optimitizer tbody").on('click', 'td', function() {
+			// 	var content = jQuery(this).html();
+			// 	content = content.split('-');
+			// 	var id = parseFloat(content[1])-1;
+			// 	console.log(id);
+			// 	testDesignCheck(model_cases_repaired[id], id);
+			// });
+			
+			jQuery("#download-model-cases-btn").click(function() {
+				for (var i = 0; i < model_cases.length; i++) {
+					var file_name = 'model_case_'+ parseFloat(i+1);
+					jQuery("<a />", {
+						"download": file_name+".json",
+						"href" : "data:application/json," + encodeURIComponent(JSON.stringify(model_cases[i]))
+					}).appendTo("body")
+					.click(function() {
+						jQuery(this).remove()
+					})[0].click()
+				}
+			})
+
+
+			
+		});
+	</script>
+
+</head>
+
+<body>
+
+	<div class="ui modal" id="order-alert">
+		<i class="close icon"></i>
+		<div class="header">Send to Manufacturer</div>
+		<div class="image content">
+			<!-- <div class="ui medium image">
+				<img class='company-logo' src="/images/avatar/large/chris.jpg">
+			</div> -->
+			<div class="description">
+				<div class="ui header">Thank you for your Design.</div>
+				<p>This form will send your design to our sales staff to assist you with your needs.</p>
+				<p>Click send to send this information</p>
+			</div>
+		</div>
+		<div class="actions">
+			<div class="ui deny button">
+				Cancel
+			</div>
+			<div class="ui positive right labeled icon button">
+				Send
+				<i class="checkmark icon"></i>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="ui stackable four column grid">
+		<div class="four wide column set-containers pushable" id="left-set-div">
+			<div class="ui buttons file-control-buttons">
+				<input type="file" id="myFile" style="display:none;">
+				<button class="ui button" id="save-file-btn">Save</button>
+				<button class="ui button" id="load-file-btn">Load</button>
+				<button class="ui button" id="share-data-btn">Share</button>
+				<button class="ui button blue send-to-s3d-btn">Send to S3D</button>
+				<button class="ui button icon" id="settings-btn"><i class="cog icon"></i></button>
+			</div>
+			<div style="margin-left:auto; margin-right: auto; text-align: center;">
+				<img src="https://skyciv.com/media/logos/SkyCiv-Structural-Analysis-Software-Logo-sml.png"
+					class="company-logo mobile-only" />
+				<h2 id="main-heading">Warehouse Optimizer</h2>
+				<div id="main-description"><button class="positive ui mini button" onClick="generateModelCases()" id="generate-model-cases-btn">Generate Model Cases</button>
+					<button class="ui labeled red icon mini button" onClick="animateCases()" id="animate-cases-btn"><i class="play icon"></i>Animate</button>
+				</div><br>
+			</div>
+			<!-- <p class="desktop-only" id="main-description">Input fields go here. Your inputs can be completely
+				customized.</p> -->
+			<div id="input-form">
+				
+			</div>
+
+
+		</div>
+		<div class="seven wide column " id="renderer-set-div">
+			<div id="renderer-container"></div>
+		</div>
+		<div class="five wide column pushable" id="right-set-div">
+			<div style="margin-left:auto; margin-right: auto; text-align: center;">
+				<img src="https://skyciv.com/media/logos/SkyCiv-Structural-Analysis-Software-Logo-sml.png"
+					class="company-logo desktop-only" /><br>
+				<button class="ui button green" id="design-check-btn">Design Check</button>
+				<button class="ui button green" id="download-model-cases-btn">Download Model Cases</button>
+				<!-- <button class="ui button green" id="run-btn">Check</button> -->
+				<!-- <button class="ui right labeled icon button order-btn"><i class="right arrow icon"></i>Order</button> -->
+
+			</div>  <br>
+			<div class="ui message" id="api-status-msg">
+				<p></p>
+			</div>
+			<div id="results-output"></div>
+
+		</div>
+		<div>
+
+
+</body>
+
+</html>

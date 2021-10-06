@@ -1,0 +1,93 @@
+.set-containers {
+	height: 100vh;
+}
+
+.mobile-only {
+	display:none;
+}
+
+
+/* --- Left set --- */
+#left-set-div {
+	background: #ececec;
+	padding:20px;
+}
+
+#left-set-div label{
+	min-width: 120px;
+	display: inline-block;
+	margin: 6px 0px;
+}
+
+.design-input-div {
+	margin-bottom: 7px;
+}
+
+#input-form {
+    margin-left: 5%;
+}
+
+
+/* --- Renderer --- */
+#renderer-set-div {
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+
+
+
+
+
+/* --- Right set --- */
+#right-set-div {
+	background: #ececec;
+	padding:20px;
+}
+
+.company-logo {
+	width: 50%;
+}
+
+#run-btn {
+	margin-top: 10px;
+}
+
+#api-status-msg{
+	display:none;
+}
+
+
+/* ---- order popup --- */
+#order-alert img{
+	margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+	.ui.button {
+		font-size: 10px;
+	}
+
+	.file-control-buttons {
+		display: none !important;
+	}
+
+	.set-containers {
+		height: auto;
+	}
+
+	#renderer-set-div {
+		min-height: 375px;
+	}
+
+	.mobile-only {
+		display:block;
+	}
+
+	.desktop-only {
+		display:none;
+	}
+}

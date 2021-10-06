@@ -11,6 +11,8 @@ var TINY_HOUSE = (function () {
 			container_selector: '#renderer-container',
 		});
 
+
+		// (buildingLength, buildingWidth, eaveHeight, roofApex, roofOverhang)
 		let s3d_model = TINY_HOUSE.framing.generateWallFramingS3DModel(6,10,3,5,0.8)
 
 		
@@ -24,6 +26,8 @@ var TINY_HOUSE = (function () {
 		return viewer
 	}
 	
+
+	functions.updateRenderer
 
 
 	return functions;

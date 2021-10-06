@@ -6,12 +6,13 @@ var TINY_HOUSE = (function () {
 
 
 	functions.init = function () {
-		
+
 		viewer = new SKYCIV.renderer({
 			container_selector: '#renderer-container',
 		});
 
-		let s3d_model = TINY_HOUSE.framing.generateWallFramingS3DModel(3,6,3)
+		let s3d_model = TINY_HOUSE.framing.generateWallFramingS3DModel(3,6,3,4.5,0.8)
+
 		
 		viewer.model.set(s3d_model);
 		viewer.model.buildStructure();

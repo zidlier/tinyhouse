@@ -4,9 +4,9 @@ TINY_HOUSE.framing = (function () {
 
     var wall_assembly = []
 
-    functions.generateWallFramingS3DModel = function (buildingLength, buildingWidth, eaveHeight) {
+    functions.generateWallFramingS3DModel = function (buildingLength, buildingWidth, eaveHeight, roofApex, roofOverhang) {
 
-        let truss_panel_spacing = 0.6
+        let truss_panel_spacing = 1
         let door_height = 2.1
         let truss_height = 0.5
         let door_width = 0.9
@@ -14,10 +14,12 @@ TINY_HOUSE.framing = (function () {
         let window_width = 1.5
         let window_height = 0.9
         let vertical_truss_width = 0.3
+        let truss_spacing = 3
 
         let num_panel_truss_front = Math.ceil(buildingWidth/truss_panel_spacing)
         let num_panel_truss_side = Math.ceil(buildingLength/truss_panel_spacing)
-        
+        let number_of_trusses = Math.ceil(buildingWidth/truss_spacing)
+
         let vertical_web_length = Math.sqrt(vertical_truss_width*vertical_truss_width + ((eaveHeight-truss_height)/3)*((eaveHeight-truss_height)/3))
         let num_panel_truss_front_vertical = Math.ceil(eaveHeight/1)
 
@@ -875,7 +877,20 @@ TINY_HOUSE.framing = (function () {
         })
         
 
+        let roof_assembly = functions.generateRoofTrusses('gable')
 
+        final_assembly = [...final_assembly, ...roof_assembly]
+
+        final_assembly.push({
+            cad_type: 'cad_repeat',
+            type: 'vector',
+            repetitions: "~~number_of_trusses~~",
+            ref_ids: [String(final_assembly.length)],
+            vector: [1, 0, 0], // or {x: 1, y: 2, z: 1},
+            length: "~~building_width~~",
+        })        
+        
+        
         let assembly_obj = {
 			"id": 1,
 			"title": "Tiny House",
@@ -884,6 +899,8 @@ TINY_HOUSE.framing = (function () {
 				"building_length": { "value": buildingLength, "type": "float", "units": "length" },
 				"building_width": { "value": buildingWidth, "type": "float", "units": "length" },
 				"truss_height": { "value": truss_height, "type": "float", "units": "length" },
+				"roof_apex_height": { "value": roofApex, "type": "float", "units": "length" },
+				"roof_overhang": { "value": roofOverhang, "type": "float", "units": "length" },
 
 				"front_truss_style": { "value": "pratt", "type": "truss_style" },
 				"front_number_of_panels": { "value": num_panel_truss_front, "type": "integer" },
@@ -896,9 +913,9 @@ TINY_HOUSE.framing = (function () {
                 "window_width":{"value":  window_width, "type": "float", "units": "length"},
                 "window_height": {"value":  window_height, "type": "float", "units": "length"},
 
-                
 				"side_truss_style": { "value": "pratt", "type": "truss_style" },
 				"side_number_of_panels": { "value": num_panel_truss_side, "type": "integer" },
+                "number_of_trusses": { "value": number_of_trusses, "type": "integer" },
 			},
 			"steps": final_assembly
             
@@ -913,23 +930,43 @@ TINY_HOUSE.framing = (function () {
     }
     
 
-    functions.generateRoofTrusses = function (roofProfile, roofApex, eaveHeight) {
+    functions.generateRoofTrusses = function (roofProfile) {
+
+
         // Gable
-        let gable_roof = [
+        let monoslope_roof = [
+            // {
+            //     "cad_type": 'cad_truss',
+            //     "type": '2D',
+            //     "ref_pt": [0, "~~building_height~~", "~~-building_length - roof_overhang~~"],
+            //     "length": ['z', "~~building_length+roof_overhang*2~~"],
+            //     "height": ['y', "~~roof_apex_height-building_height~~"],
+            //     "offset": 0, // or [30,30],
+            //     "style": 'cross',
+            //     "web_section_id": 1,
+            //     "chord_section_id": 2,
+            //     "segments": "~~side_number_of_panels~~",
+            // }
+
             {
-                "cad_type": 'cad_truss',
-                "type": '2D',
-                "ref_pt": [0, "~~building_height - truss_height~~", "~~-building_length~~"],
-                "length": ['z', "~~building_length~~"],
-                "height": ['y', "~~truss_height~~"],
-                "offset": 0, // or [30,30],
-                "style": 'pratt',
-                "web_section_id": 1,
-                "chord_section_id": 2,
-                "segments": "~~side_number_of_panels~~",
+                cad_type: 'cad_truss',
+                type: 'nodes',
+                start_pts: [
+                    [0, "~~building_height~~", "~~-building_length - roof_overhang~~"], // or {x: 1, y: 2, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                    [0, "~~building_height + 0.6~~", "~~-building_length - roof_overhang~~"], // or {x: 1, y: 2, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                ],
+                end_pts: [
+                    [0, "~~building_height~~", "~~roof_overhang~~"], // or {x: 1, y: 2, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                    [0, "~~roof_apex_height~~", "~~roof_overhang~~"], // or {x: 1, y: 2, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                ],
+                bays: "~~side_number_of_panels~~",
+                web_section_id: 1,
+                chord_section_id: 2,
+                style: 'cross',
             }
         ]
 
+        return monoslope_roof
     }
 
 	

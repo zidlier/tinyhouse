@@ -112,7 +112,7 @@
 			<div id="renderer-container"></div>
 		</div>
 
-		<div id="input-window" class="six wide column">
+		<div id="input-window" class="six wide column" id="menu-input">
 			<br>
 			<center><img src="svg/logo.svg" /></center>
 			<br>
@@ -150,20 +150,21 @@
 					<div class="ui form">
 						<div class="field" style="padding-left: 15px;">
 							<label>Structure Height</label>
-							<input id="input-height" value="3">
+							<input id="input-height" data-key="input-height" value="3">
+							<!-- <input id="input-height" data-key="input-height"> -->
 						</div>
 						<div class="field" style="padding-left: 15px;">
 							<label>Structure Width</label>
-							<input id="input-width" value="10">
+							<input id="input-width" data-key="input-width" value="10">
 						</div>
 						<div class="field" style="padding-left: 15px;">
 							<label>Structure Length</label>
-							<input id="input-length" value="6">
+							<input id="input-length" data-key="input-length" value="6">
 						</div>
 
 						<div class="field" style="padding-left: 15px;">
 							<label>Slab thickness</label>
-							<input id="input-thickness" value="0.3">
+							<input id="input-thickness" data-key="input-thickness" value="0.3">
 						</div>
 					</div>
 				</div>
@@ -174,12 +175,12 @@
 					<div class="ui form">
 						<div class="field" style="padding-left: 15px;">
 							<label>Window Width</label>
-							<input id="input-window-width" value="1.5">
-		
+							<input id="input-window-width" data-key="input-window-width" value="1.5">
+
 						</div>
 						<div class="field" style="padding-left: 15px;">
 							<label>Window Height</label>
-							<input id="input-window-height" value="0.9">
+							<input id="input-window-height" data-key="input-window-height" value="0.9">
 						</div>
 					</div>
 				</div>
@@ -190,15 +191,16 @@
 					<div class="ui form">
 						<div class="field" style="padding-left: 15px;">
 							<label>Door Height</label>
-							<input id="input-door-height" value="0.9">
+							<!-- <input id="input-door-height" data-key="input-door-height" value="0.9"> -->
+							<input id="input-door-height" data-key="input-door-height">
 						</div>
 						<div class="field" style="padding-left: 15px;">
 							<label>Door Width</label>
-							<input id="input-door-width" value="0.9">
+							<input id="input-door-width" data-key="input-door-width" value="0.9">
 						</div>
 						<div class="field" style="padding-left: 15px;">
 							<label>Door Truss Height</label>
-							<input id="input-door-truss-height" value="1.5">
+							<input id="input-door-truss-height" data-key="input-door-truss-height" value="1.5">
 						</div>
 					</div>
 				</div>
@@ -209,41 +211,41 @@
 					<div class="ui form">
 						<div class="field" style="padding-left: 15px;">
 							<label>Truss panel spacing</label>
-							<input id="input-truss-panel-spacing" value="1">
+							<input id="input-truss-panel-spacing" data-key="input-truss-panel-spacing" value="1">
 						</div>
 						<div class="field" style="padding-left: 15px;">
 							<label>Truss Height</label>
-							<input id="input-truss-height" value="5">
+							<input id="input-truss-height" data-key="input-truss-height" value="5">
 						</div>
 						<div class="field" style="padding-left: 15px;">
 							<label>Vertical truss width</label>
-							<input id="input-vertical-truss-width" value="0.3">
+							<input id="input-vertical-truss-width" data-key="input-vertical-truss-width" value="0.3">
 						</div>
 						<div class="field" style="padding-left: 15px;">
 							<label>Truss Offset</label>
-							<input id="input-truss-offset" value="0.8">
+							<input id="input-truss-offset" data-key="input-truss-offset" value="0.8">
 						</div>
 						<div class="field" style="padding-left: 15px;">
 							<label>Roof Angle</label>
-							<input id="roof-angle" value="0.05">
+							<input id="roof-angle" data-key="roof-angle" value="0.05">
 						</div>
 					</div>
 				</div>
 			</div>
 			<div>
-			<button id="test_button" class="positive ui button">TEST RUN</button>
-			<button id="results_button" class="positive ui button">RUN DESIGN</button>
-			<br>
-			<strong>Software disclaimer</strong>
-			<p></p>
+				<button id="test_button" class="positive ui button">TEST RUN</button>
+				<button id="results_button" class="positive ui button">RUN DESIGN</button>
+				<br>
+				<strong>Software disclaimer</strong>
+				<p></p>
 			</div>
-
+		</div>
 
 			<div class="ui modal" id="results">
 
 				<div class="header">Results Summary</div>
 				<div class="content">
-						RESULT HERE!!!  TAKTENG YAN!!!
+					RESULT HERE!!! TAKTENG YAN!!!
 				</div>
 			</div>
 

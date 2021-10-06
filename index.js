@@ -47,21 +47,34 @@ var INDEX = (function () {
 
     }
 
-    functions.loadData = function (){
+    functions.updateData = function (){
+        var data_keys = Object.keys(default_data);
+        var form_fields = {}
+        var $form_fields = {}
+        debugger
+        for(var i = 0; i < data_keys.length; i++){
+            data_key = data_keys[i]
+            form_fields[data_key] = jQuery('#menu-input [data-key="' + data_key + '"]');
+            // debugger
+        }
+        // data[foundation_id] = form_data;
 
+
+        // if()
+        // debugger
     }
 
 
     $(document).ready(function () {
 
 
-        TINY_HOUSE.init(data);
+        TINY_HOUSE.init(data); //--> default values from the input parameters
 
 
         jQuery('#main-tab .item').tab();
 
         jQuery('#results_button').click(function () {
-            alert("working")
+            // alert("working")
             // jQuery(".renderer-update").change(function () {
             //     let data_tab_active = jQuery('#display-container-menu .item.active').tab().attr('data-tab');
             //     if (data_tab_active == '3d-figure') SKYCIV_DESIGN.renderer.renderAssembly()

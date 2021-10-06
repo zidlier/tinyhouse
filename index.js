@@ -57,10 +57,11 @@ var INDEX = (function () {
             data_key = data_keys[i]
             $form_fields[data_key] = jQuery('#menu-input [data-key="' + data_key + '"]');
             // debugger
+            form_fields[data_keys]  = parseFloat($form_fields[data_key].val())
         }
-        form_fields[data_keys]  = parseFloat($form_fields[data_key].val())
 
 
+        data = form_fields
         // if()
         // debugger
     }
@@ -68,12 +69,15 @@ var INDEX = (function () {
 
     $(document).ready(function () {
 
+        var data = INDEX.getData()
 
+        debugger
         TINY_HOUSE.init(data); //--> default values from the input parameters
 
         // INDEX.updateData();
         jQuery('#main-tab .item').tab();
-
+        // jQuery('#input-door-height').val('0.8')  //--> need to create defaults value
+       
         jQuery('#results_button').click(function () {
             // alert("working")
             // jQuery(".renderer-update").change(function () {

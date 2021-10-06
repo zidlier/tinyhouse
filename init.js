@@ -11,7 +11,7 @@ var TINY_HOUSE = (function () {
 			container_selector: '#renderer-container',
 		});
 		//TODO for the dynamics from the inputs
-		var data = INDEX.getData()
+		// var data = INDEX.getData()
 		
 		let buildingLength =  data["input_length"]
 		let buildingWidth = data["input_width"]

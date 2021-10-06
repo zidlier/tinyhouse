@@ -52,12 +52,13 @@ var INDEX = (function () {
         var form_fields = {}
         var $form_fields = {}
         debugger
+
         for(var i = 0; i < data_keys.length; i++){
             data_key = data_keys[i]
-            form_fields[data_key] = jQuery('#menu-input [data-key="' + data_key + '"]');
+            $form_fields[data_key] = jQuery('#menu-input [data-key="' + data_key + '"]');
             // debugger
         }
-        // data[foundation_id] = form_data;
+        form_fields[data_keys]  = parseFloat($form_fields[data_key].val())
 
 
         // if()
@@ -70,7 +71,7 @@ var INDEX = (function () {
 
         TINY_HOUSE.init(data); //--> default values from the input parameters
 
-
+        // INDEX.updateData();
         jQuery('#main-tab .item').tab();
 
         jQuery('#results_button').click(function () {

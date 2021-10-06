@@ -1,51 +1,79 @@
-var INDEX =  (function(){
+var INDEX = (function () {
     var functions = {}
+    
     var data = {}
-    functions.getData = function (){
-   
-        var data =  {
-        "input_height" : parseFloat(jQuery('#input-height').val()),
-        "input_width" : parseFloat(jQuery('#input-width').val()),
-        "input_length" : parseFloat(jQuery('#input-length').val()),
-        "input_thk" : parseFloat(jQuery('#input-thickness').val()),
-        "input_window_width" : parseFloat(jQuery('#input-window-width').val()),
-        "input_window_height" : parseFloat(jQuery('#input-window-height').val()),
-        "input_door_height" : parseFloat(jQuery('#input-door-height').val()),
-        "input_door_width" : parseFloat(jQuery('#input-door-width').val()),
-        "input_door_truss_height" : parseFloat(jQuery('#input-door-truss-height').val()),
-        "input_truss_panel_spacing" : parseFloat(jQuery('#input-truss-panel-spacing').val()),
-        "input_truss_height" : parseFloat(jQuery('#input-truss-height').val()),
-        "input_truss_offset" : parseFloat(jQuery('#input-truss-offset').val()),
-        "input_vertical_truss_width" : parseFloat(jQuery('#input-vertical-truss-width').val()),
-        "input_roof_angle" : parseFloat(jQuery('#roof-angle').val()),
+
+    var default_data = {
+        "input_height": 3,
+        "input_width": 10,
+        "input_length": 6,
+        "input_thk": 0.3,
+        "input_window_width": 1.5,
+        "input_window_height": 0.9,
+        "input_door_height": 0.9,
+        "input_door_width": 0.9,
+        "input_door_truss_height": 1.5,
+        "input_truss_panel_spacing": 1,
+        "input_truss_height": 5,
+        "input_truss_offset": 0.8,
+        "input_vertical_truss_width": 0.3,
+        "input_roof_angle": 0.05, 
     }
 
-    return data
+    functions.setDefaultData = function(){
+        return default_data
+    }
+
+    functions.getData = function () {
+
+        var data = {
+            "input_height": parseFloat(jQuery('#input-height').val()),
+            "input_width": parseFloat(jQuery('#input-width').val()),
+            "input_length": parseFloat(jQuery('#input-length').val()),
+            "input_thk": parseFloat(jQuery('#input-thickness').val()),
+            "input_window_width": parseFloat(jQuery('#input-window-width').val()),
+            "input_window_height": parseFloat(jQuery('#input-window-height').val()),
+            "input_door_height": parseFloat(jQuery('#input-door-height').val()),
+            "input_door_width": parseFloat(jQuery('#input-door-width').val()),
+            "input_door_truss_height": parseFloat(jQuery('#input-door-truss-height').val()),
+            "input_truss_panel_spacing": parseFloat(jQuery('#input-truss-panel-spacing').val()),
+            "input_truss_height": parseFloat(jQuery('#input-truss-height').val()),
+            "input_truss_offset": parseFloat(jQuery('#input-truss-offset').val()),
+            "input_vertical_truss_width": parseFloat(jQuery('#input-vertical-truss-width').val()),
+            "input_roof_angle": parseFloat(jQuery('#roof-angle').val()),
+        }
+
+        return data
+
+    }
+
+    functions.loadData = function (){
 
     }
 
 
-$(document).ready(function () {
-    TINY_HOUSE.init(data);
+    $(document).ready(function () {
 
 
-    jQuery('#main-tab .item').tab();
-
-    // jQuery(".renderer-update").change(function () {
-    //     let data_tab_active = jQuery('#display-container-menu .item.active').tab().attr('data-tab');
-    //     if (data_tab_active == '3d-figure') SKYCIV_DESIGN.renderer.renderAssembly()
-    // });
+        TINY_HOUSE.init(data);
 
 
-    jQuery('#results_button').click(function () {
+        jQuery('#main-tab .item').tab();
 
-        jQuery('#results').modal('show');
+        jQuery('#results_button').click(function () {
+            alert("working")
+            // jQuery(".renderer-update").change(function () {
+            //     let data_tab_active = jQuery('#display-container-menu .item.active').tab().attr('data-tab');
+            //     if (data_tab_active == '3d-figure') SKYCIV_DESIGN.renderer.renderAssembly()
+            // });
+
+            // jQuery('#results').modal('show');
+
+        });
+
+
 
     });
 
-
-
-});
-
-return functions;
+    return functions;
 })();

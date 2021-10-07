@@ -5,6 +5,7 @@ TINY_HOUSE.analysis = (function () {
 
     
 
+
     functions.generateLoads = function (data) {
 
         let { input_height, input_width, input_length, input_truss_height } = data
@@ -85,6 +86,8 @@ TINY_HOUSE.analysis = (function () {
             console.log(res);
 
             if (res.response.status == 0) {
+
+                debugger
                 var wind_load_arr  = res.response.data.pressures;
                 console.log(res.response.data.pressures)
                 
@@ -128,6 +131,15 @@ TINY_HOUSE.analysis = (function () {
     
     }
 
+
+    functions.testRun = function () {
+        let this_data = INDEX.getData()
+        functions.generateLoads(this_data)
+    }
+
+    functions.runAnalysis = function () {
+
+    }
 
 
 	return functions;

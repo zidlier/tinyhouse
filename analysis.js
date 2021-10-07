@@ -15,8 +15,8 @@ TINY_HOUSE.analysis = (function () {
         let risk_category = data["input-risk-category"]
 
         // TODO - INTEGRATE TO data
-        var liveload = 1.9*data["input-live-load"]
-        var sdeadload = 2.5*data["input-dead-load"]
+        var liveload = data["input-live-load"]
+        var sdeadload = data["input-dead-load"]
         let member_design_code = "AISI_S100-12_LRFD" //NDC
         let wall_section = ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"]
         let truss_section = ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"]
@@ -149,6 +149,8 @@ TINY_HOUSE.analysis = (function () {
                     }
                 }
 
+                console.log(JSON.stringify(processed_model))
+
                 let s3d_api = {
                     "auth": {
                         "username": "patrick@skyciv.com",
@@ -206,10 +208,15 @@ TINY_HOUSE.analysis = (function () {
                 }
 
 
+                console.log(JSON.stringify(s3d_api))
+
                 skyciv.request(s3d_api, function (res) {
+                    console.log(res)
                     
                     if (res.response.status == 0) {
                         debugger
+
+                       
                     } else {
 
                     }
@@ -242,7 +249,7 @@ TINY_HOUSE.analysis = (function () {
 		return null
 	}
 
-    var getNodeIDsOfSurfaces = function (data, nodes) {
+    var getNodeIDsOfSurfaces = function (data, nodes, noOfStories) {
         // 0 DEGREES
         let buildingLength =  data["input_length"]
 		let buildingWidth = data["input_width"]
@@ -251,26 +258,29 @@ TINY_HOUSE.analysis = (function () {
 		let roofOverhang = data["input_truss_offset"]
 		let trussSpacing = data["input_truss_panel_spacing"]
 
+
+        let final_eave_height = noOfStories*eaveHeight
+
         let node1_windward_wall = getNodeIDFromModel(0,0,0,nodes)
-        let node2_windward_wall = getNodeIDFromModel(0,eaveHeight,0,nodes)
-        let node3_windward_wall = getNodeIDFromModel(buildingWidth,eaveHeight,0,nodes)
+        let node2_windward_wall = getNodeIDFromModel(0,final_eave_height,0,nodes)
+        let node3_windward_wall = getNodeIDFromModel(buildingWidth,final_eave_height,0,nodes)
         let node4_windward_wall = getNodeIDFromModel(buildingWidth,0,0,nodes)
 
         let node1_leeward_wall = getNodeIDFromModel(buildingWidth,0,-buildingLength,nodes)
-        let node2_leeward_wall = getNodeIDFromModel(buildingWidth,eaveHeight,-buildingLength,nodes)
-        let node3_leeward_wall = getNodeIDFromModel(0,eaveHeight,-buildingLength,nodes)
+        let node2_leeward_wall = getNodeIDFromModel(buildingWidth,final_eave_height,-buildingLength,nodes)
+        let node3_leeward_wall = getNodeIDFromModel(0,final_eave_height,-buildingLength,nodes)
         let node4_leeward_wall = getNodeIDFromModel(0,0,-buildingLength,nodes)
 
 
-        let node1_roof_windward = getNodeIDFromModel(0,eaveHeight,0,nodes)
+        let node1_roof_windward = getNodeIDFromModel(0,final_eave_height,0,nodes)
         let node2_roof_windward = getNodeIDFromModel(0,roofApex,-buildingLength*0.5,nodes)
         let node3_roof_windward = getNodeIDFromModel(buildingWidth,roofApex,-buildingLength*0.5,nodes)
-        let node4_roof_windward = getNodeIDFromModel(buildingWidth,eaveHeight,0,nodes)
+        let node4_roof_windward = getNodeIDFromModel(buildingWidth,final_eave_height,0,nodes)
 
-        let node1_roof_leeward = getNodeIDFromModel(buildingWidth,eaveHeight,-buildingLength,nodes)
+        let node1_roof_leeward = getNodeIDFromModel(buildingWidth,final_eave_height,-buildingLength,nodes)
         let node2_roof_leeward = getNodeIDFromModel(buildingWidth,roofApex,-buildingLength*0.5,nodes)
         let node3_roof_leeward = getNodeIDFromModel(0,roofApex,-buildingLength*0.5,nodes)
-        let node4_roof_leeward = getNodeIDFromModel(0,eaveHeight,-buildingLength,nodes)
+        let node4_roof_leeward = getNodeIDFromModel(0,final_eave_height,-buildingLength,nodes)
 
         let obj = {
             'windward_wall': `${node1_windward_wall},${node2_windward_wall},${node3_windward_wall},${node4_windward_wall}`,
@@ -282,18 +292,24 @@ TINY_HOUSE.analysis = (function () {
         return obj
     }
 
-    var getNodeIDsOfFloor = function (data, nodes) {
+    var getNodeIDsOfFloor = function (data, nodes, numberOfTrusess) {
         // 0 DEGREES
         let buildingLength =  data["input_length"]
 		let buildingWidth = data["input_width"]
 		let eaveHeight = data["input_height"]
 
+        let spacing = buildingWidth/numberOfTrusess
+
+        let result = []
+
         let node1 = getNodeIDFromModel(0,eaveHeight,0,nodes)
         let node2 = getNodeIDFromModel(0,eaveHeight,-buildingLength,nodes)
-        let node3 = getgetNodeIDFromModel(buildingWidth,eaveHeight,-buildingLength,nodes)
+        let node3 = getNodeIDFromModel(buildingWidth,eaveHeight,-buildingLength,nodes)
         let node4 = getNodeIDFromModel(buildingWidth,eaveHeight,0,nodes)
+
+        result = [node1, node2, node3, node4]
         
-        return `${node1},${node2},${node3},${node4}`
+        return result
     }
 
     var getNodeDirections = function (data, nodes) {
@@ -402,12 +418,13 @@ TINY_HOUSE.analysis = (function () {
 		let roofApex = data["input_truss_height"]
 		let roofOverhang = data["input_truss_offset"]
 		let trussSpacing = data["input_truss_panel_spacing"]
+        let number_of_trusses = Math.ceil(buildingWidth/trussSpacing)
 
         // TODO
         let number_of_stories = 2
 
 
-        let surface_nodes = getNodeIDsOfSurfaces(data, nodes)
+        let surface_nodes = getNodeIDsOfSurfaces(data, nodes, number_of_stories)
         let node_directions = getNodeDirections(data, nodes)
 
         let load_id = 1
@@ -578,41 +595,41 @@ TINY_HOUSE.analysis = (function () {
 
 
         if (number_of_stories > 1) {
-            let floor_nodes = getNodeIDsOfFloor()
-            floor_nodes = floor_nodes.split(',')
+            let floor_nodes = getNodeIDsOfFloor(data, nodes, number_of_trusses)
 
-            let load_id_live = String(load_id)
-            load_id++
-
-            area_loads[load_id_live] = {
-                "type": "two_way",
+            let this_id = String(load_id)
+            area_loads[this_id] = {
+                "type": "open_structure",
                 "nodes": floor_nodes,
                 "members": null,
-                "mag": live,
+                "mag": -live,
                 "direction": "Y",
                 "elevations": null,
                 "mags": null,
                 "column_direction": null,
-                "loaded_members_axis": null,
+                "loaded_members_axis": "all",
                 "LG": "Live"
             }
 
-            load_id_live = String(load_id)
+
             load_id++
 
-            area_loads[load_id_live] = {
-                "type": "two_way",
+            this_id = String(load_id)
+            area_loads[this_id] = {
+                "type": "open_structure",
                 "nodes": floor_nodes,
                 "members": null,
-                "mag": sdead,
+                "mag": -sdead,
                 "direction": "Y",
                 "elevations": null,
                 "mags": null,
                 "column_direction": null,
-                "loaded_members_axis": null,
+                "loaded_members_axis": "all",
                 "LG": "SDead"
             }
 
+            load_id++
+            
         }
 
 
@@ -706,7 +723,6 @@ TINY_HOUSE.analysis = (function () {
             }
         }
 
-        console.log(JSON.stringify(s3d_model))
 
         return s3d_model
 

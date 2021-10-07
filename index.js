@@ -87,81 +87,55 @@ var INDEX = (function () {
 
         var AISI_main = Object.keys(AISI)
         var NDS_main = Object.keys(NDS)
-
+        var AISI_data = AISI["C-Sections W Lips (I-1)"]
+        var AISI_length = AISI_data.length;
         var AISI_main_arr = []
         var NDS_main_arr = []
 
-        for (var i in AISI) {
-            var data_arr = AISI[i]
-            // for(var j = 0; j< data_arr.length; i++){
-            //     var test = data_arr[j]
-            //     debugger
-            // }
-            // debugger
-            // for(var j = 0; j < data_arr.length; i++){
-            //     AISI_main_arr.push(j)
-            // }
-
-        }
         // debugger
-        // for(var i = 0; i< NDS_main.length; i++){
-        //     if(i == 0){
-        //         NDS_main_arr.push({
-        //             "name" : NDS_main[i],
-        //             "value" : NDS_main[i],
-        //             "selected" : true
-        //         })
-        //     } else {
-        //         NDS_main_arr.push({
-        //             "name" : NDS_main[i],
-        //             "value" : NDS_main[i]
-        //         })
-        //     }
+        for (var i = 0; i < AISI_length; i++) {
+            var  data_arr = AISI_data[i] 
+            // debugger
+            AISI_main_arr.push(data_arr)
+        }
 
-
-
-        // }
+        debugger
+        // for(var i = 0; i < AISI_data; i++){
+        //     var index = AISI["C-Sections W Lips (I-1)"][i]
+        //     // AISI_main_arr.push(index)
+        //     // debugger 
+        // }  
 
         var checkbox_checker = jQuery('.ui.checkbox').is(':checked');
 
-        let generate_filter_dropdown = ''
-
-        var random = ['red', 'green', 'blue', 'black', 'purple', 'orange', 'yellow', 'white']
-        //initialize first
-        generate_filter_dropdown += `
-   
-        <div class="ui fluid search selection dropdown" id="material-dropdown">
-          <input type="hidden" name="country">
-            <i class="dropdown icon"></i>
-            <div class="default text">Select Country</div>
-            <div class="menu">
-
+        function generateDropdown(html1,html2){
+            let generate_filter_dropdown = ''
+            generate_filter_dropdown += `
+       
+            <div class="ui fluid search selection dropdown" id="${html2}">
+              <input type="hidden" name="country">
+                <i class="dropdown icon"></i>
+                <div class="default text">Select Selection</div>
+                <div class="menu">
+    
+                `
+                for (var i = 0; i < AISI_main_arr.length; i++) {
+                    generate_filter_dropdown += `
+                            <div class="item" data-value="${AISI_main_arr[i]}">${AISI_main_arr[i]}</div>
+                            `
+                }
+            generate_filter_dropdown += `
+                    </div>
+                </div>
             `
 
-        if (!checkbox_checker) {
-            for (var i = 0; i < AISI_main.length; i++) {
-
-                generate_filter_dropdown += `
-                        <div class="item" data-value="${AISI_main_arr[i]}"></i>${AISI_main_arr[i]}/div>
-                        `
-            }
-        } else {
-            for (var i = 0; i < NDS_main.length; i++) {
-
-                generate_filter_dropdown += `
-                        <div class="item" data-value="${AISI_main_arr[i]}"><i class="af flag"></i>${AISI_main_arr[i]}/div>
-                        `
-            }
+            jQuery(`#${html1}`).append(generate_filter_dropdown);
+            jQuery(`#${html2}`).dropdown('set selected', AISI_main_arr[0]);
         }
-
-        generate_filter_dropdown += `
-                </div>
-            </div>
-        `
-        // debugger
-        jQuery('#filter-section').append(generate_filter_dropdown);
-        jQuery('#material-dropdown').dropdown();
-
+        
+        generateDropdown('filter-section','material-dropdown')
+        generateDropdown('filter-section-2','material-dropdown-2')
+        generateDropdown('filter-section-3','material-dropdown-3')
 
     }
 

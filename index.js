@@ -44,6 +44,7 @@ var INDEX = (function () {
             "input-risk-category": jQuery("#input-risk-category").dropdown('get value'),
             "input-exposure-category": jQuery("#input-exposure-category").dropdown('get value'),
             "input-site-address": jQuery('#input-site-address').val(),
+            "input-dead-load": jQuery('#input-dead-load').val(),
             "input-live-load": jQuery('#input-live-load').val(),
             // "AISI-dropdown" : jQuery("#AISI-dropdown").dropdown('get value'),
             // "AISI-dropdown-profile" :  jQuery("#AISI-dropdown-profile").dropdown('get value'),

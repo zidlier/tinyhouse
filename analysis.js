@@ -3,6 +3,8 @@ TINY_HOUSE.analysis = (function () {
     var functions = {}
 	
 
+    
+
     functions.generateLoads = function (data) {
 
         let { input_height, input_width, input_length, input_truss_height } = data

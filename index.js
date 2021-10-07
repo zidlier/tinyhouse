@@ -100,6 +100,14 @@ var INDEX = (function () {
         generateDropdown(NDS,"Sawn Lumber",'filter-section-3b','material-dropdown-3b')
     }
 
+    functions.woodMat = function (){
+        return 'wood'
+    }
+
+    functions.cfMat = function(){
+        return 'cf'
+    }
+
     $(document).ready(function () {
 
         jQuery('.input-data.accordion').accordion()
@@ -122,7 +130,7 @@ var INDEX = (function () {
 
         jQuery('.ui.checkbox').checkbox({
             onChecked: function () {
-
+                
                 jQuery('#material-dropdown').hide()
                 jQuery('#material-dropdown-2').hide()       
                 jQuery('#material-dropdown-3').hide()

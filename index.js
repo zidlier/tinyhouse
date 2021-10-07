@@ -79,17 +79,74 @@ var INDEX = (function () {
             }).change();
     }
 
+    functions.dropdownData = function (){
+        var AISI = INDEX.general_data.getAISI()
+        var NDS = INDEX.general_data.getNDS()
+
+        var AISI_main = Object.keys(AISI)    
+        var NDS_main = Object.keys(NDS)
+
+        var AISI_main_arr = []
+        var NDS_main_arr = []
+
+        for(var i = 0; i< AISI_main.length; i++){
+            if(i == 0){
+                AISI_main_arr.push({
+                    "name" : AISI_main[i],
+                    "value" : AISI_main[i],
+                    "selected" : true
+                })
+            } else {
+                AISI_main_arr.push({
+                    "name" : AISI_main[i],
+                    "value" : AISI_main[i]
+                }) 
+            }
+        }
+
+        for(var i = 0; i< NDS_main.length; i++){
+            if(i == 0){
+                NDS_main_arr.push({
+                    "name" : NDS_main[i],
+                    "value" : NDS_main[i],
+                    "selected" : true
+                })
+            } else {
+                NDS_main_arr.push({
+                    "name" : NDS_main[i],
+                    "value" : NDS_main[i]
+                })
+            }
+            
+            
+
+        }
+
+        // AISI_main_arr[0].selected = true;
+
+		jQuery('#AISI-dropdown').dropdown({
+			values: AISI_main_arr,
+		});
+		jQuery('#NDS-dropdown').dropdown({
+			values: NDS_main_arr,
+		});
+
+
+    }
+
     $(document).ready(function () {
 
         jQuery('.input-data.accordion').accordion()
 
         INDEX.updateRender();
+        INDEX.dropdownData();
 
         jQuery('#main-tab .item').tab();
 
         jQuery("#input-risk-category").dropdown('set selected', "I");
         jQuery("#input-exposure-category").dropdown('set selected', "B");
 
+        // jQuery("#AISI-dropdown").dropdown('set selected', "C-Sections W Lips (I-1)");
 
         jQuery('.ui.checkbox').checkbox({
             onChecked: function() {

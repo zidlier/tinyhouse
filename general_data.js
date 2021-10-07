@@ -1,5 +1,6 @@
 INDEX.general_data = (function () {
     
+    var functions = {}
 
     var AISI_sections = {
         "C-Sections W Lips (I-1)": [
@@ -1029,9 +1030,14 @@ INDEX.general_data = (function () {
         ]
     }
     
-    return {
-        AISI_sections,
-        NDS_sections
-    };
+    functions.getAISI = function (){
+        return AISI_sections
+    }
+
+    functions.getNDS = function (){
+        return NDS_sections
+    }
+
+    return functions
 
 })();

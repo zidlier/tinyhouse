@@ -79,7 +79,7 @@ var INDEX = (function () {
                 jQuery(`#label-height`).html(`Storey Height`)
             }
 
-        }).change();
+        });
     }
 
     functions.dropdownData = function () {
@@ -198,28 +198,11 @@ var INDEX = (function () {
         jQuery('.input-data.accordion').accordion()
 
         INDEX.dropdownData();
-        // INDEX.dropdownData2();
-
         jQuery('#main-tab .item').tab();
 
         jQuery("#input-risk-category").dropdown('set selected', "I");
         jQuery("#input-exposure-category").dropdown('set selected', "B");
         jQuery("#input-stories").dropdown('set selected', "1");
-
-    //     jQuery("#input-stories").dropdown({
-    //         on : function (value){
-    //             if(value == 1){
-    //                 jQuery(`label-height`).html(`Structure Height`)
-    //             } else {
-    //                 jQuery(`label-height`).html(`Storey Height`)
-    //             }
-    //         } 
-    //    });
-
-        // jQuery('#NDS-dropdown').hide()
-        // jQuery('#NDS-dropdown-profile').hide()
-
-        // label-height
 
         jQuery('.ui.checkbox').checkbox({
             onChecked: function () {
@@ -243,7 +226,9 @@ var INDEX = (function () {
         });
 
 
-        INDEX.updateRender();
+        setTimeout(function () {
+            INDEX.updateRender();
+        }, 1000)
 
     });
 

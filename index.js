@@ -80,7 +80,7 @@ var INDEX = (function () {
     // #NDS-dropdown-profile,
 
     functions.updateRender = function () {
-        $(`#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset, #input-truss-panel-spacing
+        $(`#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset, #input-truss-panel-spacing,
         #input-risk-category,
         #input-exposure-category,
         #input-site-address,

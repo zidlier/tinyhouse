@@ -1,19 +1,15 @@
 TINY_HOUSE.analysis = (function () {
 
     var functions = {}
-	
-
-    
-
+	var wind_pressure = null
+    var snow_pressure = null
 
     functions.generateLoads = function (data) {
 
         let { input_height, input_width, input_length, input_truss_height } = data
-
         let roof_mean_height = (input_truss_height+input_height)*0.5
         let roof_angle = Math.atan((input_truss_height-input_height)/(input_length/2))*(180/Math.PI)
        
-
         let wind_api_object = {
             "auth": {
                 "username": "patrick@skyciv.com",
@@ -83,13 +79,11 @@ TINY_HOUSE.analysis = (function () {
         }
     
         skyciv.request(wind_api_object, function (res) {
-            console.log(res);
 
             if (res.response.status == 0) {
 
-                debugger
-                var wind_load_arr  = res.response.data.pressures;
-                console.log(res.response.data.pressures)
+                var wind_load_arr  = res.response.data.wind_pressure.pressures;
+                var snow_load  = res.response.data.snow_pressure.balance_case.ps;
                 
                 var dump_obj = {
                     "windward_wall": {'pos': null, 'neg': null},
@@ -114,18 +108,14 @@ TINY_HOUSE.analysis = (function () {
                     }
                 }
 
-                wind_result.push(dump_obj);
+                snow_pressure = snow_load
+                wind_result = dump_obj
 
-                var message = `Wind Load Pressure returned from API. You can now add wind load to model cases <br><br>
-                    <center><div><button class="positive ui mini button" onClick="addDistributedLoadOnMembers()" id="add-wind-load-btn">Add Wind Load</button></div></center>
-                    `;	
-            
+                return {'wind': dump_obj, 'snow': snow_pressure}
+                
             } else {
-                var message = `<center><div>An error occured in Wind API</div></center>`;
+
             }
-            
-            jQuery('#generate-model-cases-btn').removeClass('loading');
-            SKYCIV_UTILS.alert(message)	
             
         })
     
@@ -137,7 +127,26 @@ TINY_HOUSE.analysis = (function () {
         functions.generateLoads(this_data)
     }
 
+    var getNodeIDFromModel = function(xval, yval, zval, nodes) {
+		for (let i = 1; i < nodes.length; i++) {
+			let this_node_val = nodes[i]
+			if (this_node_val == null) continue
+			if (xval == this_node_val[0] && yval == this_node_val[1] && zval == this_node_val[2]) return i
+		}
+		return null
+	}
+
     functions.runAnalysis = function () {
+        let this_data = INDEX.getData()
+        let load_gen = functions.generateLoads(this_data)
+        let {wind, snow} = load_gen
+
+        let s3d_model = TINY_HOUSE.getS3DModel()
+        let {nodes} = s3d_model
+
+        
+        // APPLY SNOW_LOAD
+
 
     }
 

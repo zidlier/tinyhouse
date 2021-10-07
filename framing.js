@@ -55,8 +55,6 @@ TINY_HOUSE.framing = (function () {
         let num_horizontal_studs = Math.ceil((eaveHeight - truss_height)/spacing_horizontal_stud)
         let spacing_horizontal_studs = (eaveHeight - truss_height)/num_horizontal_studs
 
-        console.log('spacing_horizontal_studs '+ spacing_horizontal_studs)
-
 
         // FRONT PANEL
         let front_panel = [
@@ -1024,7 +1022,7 @@ TINY_HOUSE.framing = (function () {
                     "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
                     "segments": 1,
                     "length":  "~~(building_width)~~",
-                    "section_id": 7,
+                    "section_id": 3,
                 },
                 {
                     "cad_type": 'cad_line',
@@ -1033,7 +1031,7 @@ TINY_HOUSE.framing = (function () {
                     "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
                     "segments": 1,
                     "length":  "~~(building_width)~~",
-                    "section_id": 7,
+                    "section_id": 3,
                 }
             ]
 

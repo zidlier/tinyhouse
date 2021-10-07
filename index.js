@@ -73,19 +73,17 @@ var INDEX = (function () {
         // 
     }
 
-
+        // #AISI-dropdown-profile,
+        // #NDS-dropdown-profile,
     functions.updateRender = function () {
         $(`#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset, #input-truss-panel-spacing
         #input-risk-category,
         #input-exposure-category,
-        #AISI-dropdown-profile,
-        #NDS-dropdown-profile,
         #input-site-address
-        `)
-            .change(function () {
+        `).change(function () {
                 data = INDEX.getData()
                 TINY_HOUSE.init(data);
-            }).change();
+        }).change();
     }
 
     functions.dropdownData = function (){

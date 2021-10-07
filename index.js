@@ -106,6 +106,11 @@ var INDEX = (function () {
         jQuery("#input-exposure-category").dropdown('set selected', "B");
         jQuery("#input-stories").dropdown('set selected', "1");
 
+        jQuery('#optimize-button').click(function () {
+            jQuery('#modal-results').modal('show');
+
+        });
+
         // jQuery('.ui.checkbox').checkbox({
         //     onChecked: function () {
         //         // INDEX.dropdownData();

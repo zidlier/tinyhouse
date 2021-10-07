@@ -37,7 +37,7 @@
      fit-margin-bottom="0"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
-     inkscape:window-x="1912"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1" />
   <metadata
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -68,6 +68,6 @@
          id="tspan815"
          x="30.202579"
          y="148.41612"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.65603638px;line-height:1.24999988;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script Italic';fill:#ae0000;fill-opacity:1;stroke:#110000;stroke-width:0.0839058;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">TINY  HOUSE  DESIGNER</tspan></text>
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.65603638px;line-height:1.24999988;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold,  Italic';fill:#ae0000;fill-opacity:1;stroke:#110000;stroke-width:0.0839058;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">TINY  HOUSE  DESIGNER</tspan></text>
   </g>
 </svg>

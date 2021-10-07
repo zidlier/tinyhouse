@@ -203,7 +203,7 @@ var INDEX = (function () {
 
         INDEX.updateRender();
         INDEX.dropdownData();
-        INDEX.dropdownData2();
+        // INDEX.dropdownData2();
 
         jQuery('#main-tab .item').tab();
 
@@ -216,17 +216,17 @@ var INDEX = (function () {
         jQuery('.ui.checkbox').checkbox({
             onChecked: function() {
                 //  jQuery('#material-type-slider').html('Wood Material');
-                 jQuery('#NDS-dropdown').show()
-                 jQuery('#NDS-dropdown-profile').show()
-                 jQuery('#AISI-dropdown').hide()
-                 jQuery('#AISI-dropdown-profile').hide()
+                //  jQuery('#NDS-dropdown').show()
+                //  jQuery('#NDS-dropdown-profile').show()
+                //  jQuery('#AISI-dropdown').hide()
+                //  jQuery('#AISI-dropdown-profile').hide()
             },
             onUnchecked: function() {
                 // jQuery('#material-type-slider').html('Cold-formed Steel Material');
-                jQuery('#NDS-dropdown').hide()
-                jQuery('#NDS-dropdown-profile').hide()
-                jQuery('#AISI-dropdown').show()
-                jQuery('#AISI-dropdown-profile').show()
+                // jQuery('#NDS-dropdown').hide()
+                // jQuery('#NDS-dropdown-profile').hide()
+                // jQuery('#AISI-dropdown').show()
+                // jQuery('#AISI-dropdown-profile').show()
             }
 
 

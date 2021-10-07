@@ -43,6 +43,7 @@ var INDEX = (function () {
             "input_roof_angle": parseFloat(jQuery('#roof-angle').val()),
             "input-risk-category": jQuery("#input-risk-category").dropdown('get value'),
             "input-exposure-category": jQuery("#input-exposure-category").dropdown('get value'),
+            "input-stories": parseFloat( jQuery("#input-stories").dropdown('get value') ),
             "input-site-address": jQuery('#input-site-address').val(),
             "input-dead-load": jQuery('#input-dead-load').val(),
             "input-live-load": jQuery('#input-live-load').val(),
@@ -83,10 +84,18 @@ var INDEX = (function () {
         #input-risk-category,
         #input-exposure-category,
         #input-site-address,
-        #input-live-load
+        #input-live-load,
+        #input-stories
         `).change(function () {
             data = INDEX.getData()
             TINY_HOUSE.init(data);
+            var height = data["input-stories"]
+            if(height == 1){
+                jQuery(`#label-height`).html(`Structure Height`)
+            } else if (height == 2){
+                jQuery(`#label-height`).html(`Storey Height`)
+            }
+
         }).change();
     }
 
@@ -100,21 +109,19 @@ var INDEX = (function () {
         var AISI_main_arr = []
         var NDS_main_arr = []
 
-        for (var i = 0; i < AISI_main.length; i++) {
-            // if(i == 0){
-            //     AISI_main_arr.push({
-            //         "name" : AISI_main[i],
-            //         "value" : AISI_main[i],
-            //         "selected" : true
-            //     })
-            // } else {
-            //     AISI_main_arr.push({
-            //         "name" : AISI_main[i],
-            //         "value" : AISI_main[i]
-            //     }) 
+        for (var i in AISI) {
+            var data_arr = AISI[i]
+            // for(var j = 0; j< data_arr.length; i++){
+            //     var test = data_arr[j]
+            //     debugger
             // }
-        }
+            // debugger
+            // for(var j = 0; j < data_arr.length; i++){
+            //     AISI_main_arr.push(j)
+            // }
 
+        }
+        // debugger
         // for(var i = 0; i< NDS_main.length; i++){
         //     if(i == 0){
         //         NDS_main_arr.push({
@@ -139,42 +146,36 @@ var INDEX = (function () {
 
         var random = ['red', 'green', 'blue', 'black', 'purple', 'orange', 'yellow', 'white']
         //initialize first
-        generate_filter_dropdown += `<div class="ui floating dropdown labeled icon button" id="material-dropdown">			
-            <i class="filter icon"></i>
-            <span class="text">Filter Section</span>
+        generate_filter_dropdown += `
+   
+        <div class="ui fluid search selection dropdown" id="material-dropdown">
+          <input type="hidden" name="country">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Country</div>
             <div class="menu">
-            <div class="ui icon search input">
-                <i class="search icon"></i>
-                <input type="text" placeholder="Search tags...">
-            </div>
-            <div class="divider"></div>
-            <div class="header">
-                <i class="tags icon"></i>
-                Tag Label
-            </div>
-            <div class="scrolling menu">`
+
+            `
 
         if (!checkbox_checker) {
             for (var i = 0; i < AISI_main.length; i++) {
 
-                generate_filter_dropdown += `<div class="item">
-                        <div class="ui ${random[i]} empty circular label"></div>
-                        ${AISI_main[i]}
-                        </div>`
+                generate_filter_dropdown += `
+                        <div class="item" data-value="${AISI_main_arr[i]}"></i>${AISI_main_arr[i]}/div>
+                        `
             }
         } else {
             for (var i = 0; i < NDS_main.length; i++) {
 
-                generate_filter_dropdown += `<div class="item">
-                        <div class="ui ${random[i]} empty circular label"></div>
-                        ${NDS_main[i]}
-                        </div>`
+                generate_filter_dropdown += `
+                        <div class="item" data-value="${AISI_main_arr[i]}"><i class="af flag"></i>${AISI_main_arr[i]}/div>
+                        `
             }
         }
 
-        generate_filter_dropdown += `</div>
+        generate_filter_dropdown += `
+                </div>
             </div>
-        </div>`
+        `
         // debugger
         jQuery('#filter-section').append(generate_filter_dropdown);
         jQuery('#material-dropdown').dropdown();
@@ -247,9 +248,22 @@ var INDEX = (function () {
 
         jQuery("#input-risk-category").dropdown('set selected', "I");
         jQuery("#input-exposure-category").dropdown('set selected', "B");
+        jQuery("#input-stories").dropdown('set selected', "1");
+
+    //     jQuery("#input-stories").dropdown({
+    //         on : function (value){
+    //             if(value == 1){
+    //                 jQuery(`label-height`).html(`Structure Height`)
+    //             } else {
+    //                 jQuery(`label-height`).html(`Storey Height`)
+    //             }
+    //         } 
+    //    });
 
         // jQuery('#NDS-dropdown').hide()
         // jQuery('#NDS-dropdown-profile').hide()
+
+        // label-height
 
         jQuery('.ui.checkbox').checkbox({
             onChecked: function () {

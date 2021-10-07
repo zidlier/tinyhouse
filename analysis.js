@@ -420,9 +420,8 @@ TINY_HOUSE.analysis = (function () {
 		let trussSpacing = data["input_truss_panel_spacing"]
         let number_of_trusses = Math.ceil(buildingWidth/trussSpacing)
 
-        // TODO
-        let number_of_stories = 2
-
+        let number_of_stories = data["input-stories"]
+        debugger
 
         let surface_nodes = getNodeIDsOfSurfaces(data, nodes, number_of_stories)
         let node_directions = getNodeDirections(data, nodes)

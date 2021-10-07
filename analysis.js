@@ -13,7 +13,13 @@ TINY_HOUSE.analysis = (function () {
         let address = data["input-site-address"]
         let exposure_category = data["input-exposure-category"]
         let risk_category = data["input-risk-category"]
+
+        // TODO - INTEGRATE TO data
         var liveload = 0.6*20.88543423315
+        let member_design_code = "AISI_S100-12_LRFD"
+        let wall_section = ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"]
+        let truss_section = ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"]
+        let purlin_section = ["American", "AISI", "Z-Sections W Lips (I-4)", "3.5ZS1.5x059"]
 
         // input-risk-category
         let wind_api_object = {
@@ -126,7 +132,20 @@ TINY_HOUSE.analysis = (function () {
                 let supports = assignSupports(data, processed_model.nodes)
                 processed_model.supports = supports
 
-                let member_design_code = "AISI_S100-12_LRFD"
+                processed_model.sections =  {
+                    "1": {
+                        "load_section": wall_section,
+                        "material_id": 1
+                    },
+                    "2": {
+                        "load_section": truss_section,
+                        "material_id": 1
+                    },
+                    "3": {
+                        "load_section": purlin_section,
+                        "material_id": 1
+                    }
+                }
 
                 let s3d_api = {
                     "auth": {

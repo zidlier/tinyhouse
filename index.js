@@ -72,7 +72,7 @@ var INDEX = (function () {
 
 
     functions.updateRender = function () {
-        $("#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset")
+        $("#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset, #input-truss-panel-spacing")
             .change(function () {
                 data = INDEX.getData()
                 TINY_HOUSE.init(data);

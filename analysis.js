@@ -13,6 +13,7 @@ TINY_HOUSE.analysis = (function () {
         let address = data["input-site-address"]
         let exposure_category = data["input-exposure-category"]
         let risk_category = data["input-risk-category"]
+        var liveload = 0.6*20.88543423315
 
         // input-risk-category
         let wind_api_object = {
@@ -155,41 +156,41 @@ TINY_HOUSE.analysis = (function () {
                                 "design_code": member_design_code
                             }
                         },
-                        {
-                            "function": "S3D.member_design.optimize",
-                            "arguments": {
-                                "design_code": member_design_code,
-                                "simplified": true,
-                                "settings": {
-                                    "max_ur": 0.8,
-                                    "optimize_by": {
-                                        "item": "sections",
-                                        "ids": null
-                                    },
-                                    "section_height": {
-                                        "min": 6,
-                                        "max": 12
-                                    },
-                                    "section_width": {
-                                        "min": null,
-                                        "max": null
-                                    }
-                                }
-                            }
-                        }
+                        // {
+                        //     "function": "S3D.member_design.optimize",
+                        //     "arguments": {
+                        //         "design_code": member_design_code,
+                        //         "simplified": true,
+                        //         "settings": {
+                        //             "max_ur": 0.8,
+                        //             "optimize_by": {
+                        //                 "item": "sections",
+                        //                 "ids": null
+                        //             },
+                        //             "section_height": {
+                        //                 "min": 6,
+                        //                 "max": 12
+                        //             },
+                        //             "section_width": {
+                        //                 "min": null,
+                        //                 "max": null
+                        //             }
+                        //         }
+                        //     }
+                        // }
                     ]
                 }
 
 
-                // skyciv.request(s3d_api, function (res) {
+                skyciv.request(s3d_api, function (res) {
                     
-                //     if (res.response.status == 0) {
-                //         debugger
-                //     } else {
+                    if (res.response.status == 0) {
+                        debugger
+                    } else {
 
-                //     }
+                    }
 
-                // })
+                })
                 
             } else {
 

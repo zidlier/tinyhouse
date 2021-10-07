@@ -117,13 +117,77 @@ TINY_HOUSE.analysis = (function () {
                 snow_pressure = snow_load
                 wind_result = dump_obj
 
-                let processed_model = functions.setupLoads(wind_result, snow_pressure)
+                let processed_model = functions.setupLoads(wind_result, snow_pressure, liveload)
 
 
+                let member_design_code = "AISI_S100-12_LRFD"
 
-                skyciv.request(wind_api_object, function (res) {
+                let s3d_api = {
+                    "auth": {
+                        "username": "patrick@skyciv.com",
+                        "key": "LVBZgXsQgMcqykLB8EfYaIeHqdyaitYKqkXNZuGKH0RLAYIrvtCTdP8rzmLtCq2H"
+                    },
+                    "functions": [
+                        {
+                            "function": "S3D.session.start",
+                            "arguments": {}
+                        },
+                        {
+                            "function": "S3D.model.set",
+                            "arguments": {
+                                "s3d_model": processed_model
+                            }
+                        },
+                        
+                        {
+                            "function": "S3D.model.solve",
+                            "arguments": {
+                                "analysis_type": "nonlinear",
+                                "repair_model": true,
+                                "return_results": false
+                            }
+                        },
+                        {
+                            "function": "S3D.member_design.check",
+                            "arguments": {
+                                "design_code": member_design_code
+                            }
+                        },
+                        {
+                            "function": "S3D.member_design.optimize",
+                            "arguments": {
+                                "design_code": member_design_code,
+                                "simplified": true,
+                                "settings": {
+                                    "max_ur": 0.8,
+                                    "optimize_by": {
+                                        "item": "sections",
+                                        "ids": null
+                                    },
+                                    "section_height": {
+                                        "min": 6,
+                                        "max": 12
+                                    },
+                                    "section_width": {
+                                        "min": null,
+                                        "max": null
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+
+
+                // skyciv.request(s3d_api, function (res) {
                     
-                })
+                //     if (res.response.status == 0) {
+                //         debugger
+                //     } else {
+
+                //     }
+
+                // })
                 
             } else {
 
@@ -231,7 +295,7 @@ TINY_HOUSE.analysis = (function () {
         return obj
     }
 
-    functions.setupLoads = function (wind, snow) {
+    functions.setupLoads = function (wind, snow, live) {
 
         let data = INDEX.getData()
 
@@ -366,7 +430,7 @@ TINY_HOUSE.analysis = (function () {
             "mags": null,
             "column_direction": null,
             "loaded_members_axis": null,
-            "LG": "LG"
+            "LG": "Snow"
         }
         
         load_id_snow = String(load_id)
@@ -382,18 +446,129 @@ TINY_HOUSE.analysis = (function () {
             "mags": null,
             "column_direction": null,
             "loaded_members_axis": null,
-            "LG": "LG"
+            "LG": "Snow"
         }
 
-       
-        
+        // LIVE LOAD
+        let load_id_live = String(load_id)
+        load_id++
+
+        area_loads[load_id_live] = {
+            "type": "two_way",
+            "nodes": roof_leeward_nodes,
+            "members": null,
+            "mag": live,
+            "direction": "X",
+            "elevations": null,
+            "mags": null,
+            "column_direction": null,
+            "loaded_members_axis": null,
+            "LG": "Live"
+        }
+
+        load_id_live = String(load_id)
+        load_id++
+
+        area_loads[load_id_live] = {
+            "type": "two_way",
+            "nodes": roof_leeward_nodes,
+            "members": null,
+            "mag": live,
+            "direction": "X",
+            "elevations": null,
+            "mags": null,
+            "column_direction": null,
+            "loaded_members_axis": null,
+            "LG": "Live"
+        }
+
+
         s3d_model['area_loads'] = area_loads
-        
+        s3d_model.self_weight = {
+            "enabled": true,
+            "x": 0,
+            "y": -1,
+            "z": 0
+        }
+
+        s3d_model.load_combinations = {
+            "1": {
+              "name": "1.4D",
+              "SW1": 1.4,
+              "Live": 0,
+              "Wind_Case1": 0,
+              "Wind_Case2": 0,
+              "Wind_Case3": 0,
+              "Wind_Case4": 0,
+              "Snow": 0
+            },
+            "2": {
+              "name": "1.2D + 0.5Lr",
+              "SW1": 1.2,
+              "Live": 0.5,
+              "Wind_Case1": 0,
+              "Wind_Case2": 0,
+              "Wind_Case3": 0,
+              "Wind_Case4": 0,
+              "Snow": 0
+            },
+            "3": {
+                "name": "1.2D + 0.5S",
+                "SW1": 1.2,
+                "Live": 0,
+                "Wind_Case1": 0,
+                "Wind_Case2": 0,
+                "Wind_Case3": 0,
+                "Wind_Case4": 0,
+                "Snow": 0.5
+            },
+            "4": {
+                "name": "1.2D + 1.6W1",
+                "SW1": 1.2,
+                "Live": 0,
+                "Wind_Case1": 1.6,
+                "Wind_Case2": 0,
+                "Wind_Case3": 0,
+                "Wind_Case4": 0,
+                "Snow": 0
+            },
+            "5": {
+                "name": "1.2D + 1.6W2",
+                "SW1": 1.2,
+                "Live": 0,
+                "Wind_Case1": 0,
+                "Wind_Case2": 1.6,
+                "Wind_Case3": 0,
+                "Wind_Case4": 0,
+                "Snow": 0
+            },
+            "6": {
+                "name": "1.2D + 1.6W3",
+                "SW1": 1.2,
+                "Live": 0,
+                "Wind_Case1": 0,
+                "Wind_Case2": 0,
+                "Wind_Case3": 1.6,
+                "Wind_Case4": 0,
+                "Snow": 0
+            },
+            "7": {
+                "name": "1.2D + 1.6W4",
+                "SW1": 1.2,
+                "Live": 0,
+                "Wind_Case1": 0,
+                "Wind_Case2": 0,
+                "Wind_Case3": 0,
+                "Wind_Case4": 1.6,
+                "Snow": 0
+            }
+        }
 
         console.log(JSON.stringify(s3d_model))
 
         return s3d_model
 
+    
     }
 
 

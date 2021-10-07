@@ -18,7 +18,7 @@ var TINY_HOUSE = (function () {
 		let roofOverhang = data["input_truss_offset"]
 		let trussSpacing = data["input_truss_panel_spacing"]
 
-		let s3d_model = TINY_HOUSE.framing.generateWallFramingS3DModel(buildingLength, buildingWidth, eaveHeight, roofApex, roofOverhang, trussSpacing)
+		s3d_model = TINY_HOUSE.framing.generateWallFramingS3DModel(buildingLength, buildingWidth, eaveHeight, roofApex, roofOverhang, trussSpacing)
 
 		viewer.model.set(s3d_model);
 		viewer.model.buildStructure();

@@ -1,5 +1,13 @@
 TINY_HOUSE.framing = (function () {
 
+    /**
+     * SECTION IDS
+     * Wall - 1,2
+     * Beam - 3,4
+     * Truss - 5,6
+     * Purlin 7
+     */
+
     var functions = {}
 
     var wall_assembly = []
@@ -58,8 +66,8 @@ TINY_HOUSE.framing = (function () {
                 "height": ['y', "~~truss_height~~"],
                 "offset": 0, // or [30,30],
                 "style": 'cross',
-                "web_section_id": 1,
-                "chord_section_id": 2,
+                "chord_section_id": 3,
+                "web_section_id": 4,
                 "segments": "~~front_number_of_panels~~",
             },
            
@@ -202,7 +210,7 @@ TINY_HOUSE.framing = (function () {
                 "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~building_height - truss_height~~",
-                "section_id": 1,
+                "section_id": 2,
             },
             {
                 "cad_type": 'cad_line',
@@ -211,28 +219,8 @@ TINY_HOUSE.framing = (function () {
                 "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~building_height - truss_height~~",
-                "section_id": 1,
+                "section_id": 2,
             },
-
-            // HORIZONTAL STUDS
-            // {
-            //     "cad_type": 'cad_line',
-            //     "type": 'vector',
-            //     "ref_pt": ["~~vertical_truss_width~~","~~((building_height - truss_height)/2)~~",0], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
-            //     "vector": [1,0,0], // or {x : 0, y: 1, z: 0},
-            //     "segments": 1,
-            //     "length": "~~building_width*0.5-door_width*0.5 - vertical_truss_width~~",
-            //     "section_id": 1,
-            // },
-            // {
-            //     "cad_type": 'cad_line',
-            //     "type": 'vector',
-            //     "ref_pt": ["~~building_width*0.5+door_width*0.5~~","~~((building_height - truss_height)/2)~~",0], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
-            //     "vector": [1,0,0], // or {x : 0, y: 1, z: 0},
-            //     "segments": 1,
-            //     "length": "~~(building_width-vertical_truss_width) -(building_width*0.5+door_width*0.5)~~",
-            //     "section_id": 1,
-            // },
 
             // BOTTOM BEAM
             {
@@ -242,7 +230,7 @@ TINY_HOUSE.framing = (function () {
                 "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~building_width~~",
-                "section_id": 1,
+                "section_id": 3,
             }
         ]
 
@@ -258,8 +246,8 @@ TINY_HOUSE.framing = (function () {
                     "height": ['y', "~~door_truss_height~~"],
                     "offset": 0, // or [30,30],
                     "style": 'cross',
-                    "web_section_id": 1,
-                    "chord_section_id": 2,
+                    "web_section_id": 4,
+                    "chord_section_id": 3,
                     "segments": 3,
                 }
             )
@@ -281,7 +269,7 @@ TINY_HOUSE.framing = (function () {
                     "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
                     "segments": 1,
                     "length": "~~building_height - truss_height~~",
-                    "section_id": 1,
+                    "section_id": 2,
                 })
                 
                 front_panel.push({
@@ -291,7 +279,7 @@ TINY_HOUSE.framing = (function () {
                     "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
                     "segments": 1,
                     "length": "~~building_height - truss_height~~",
-                    "section_id": 1,
+                    "section_id": 2,
                 })
                 
             }
@@ -314,7 +302,7 @@ TINY_HOUSE.framing = (function () {
                     "vector": [1,0,0], // or {x : 0, y: 1, z: 0},
                     "segments": 1,
                     "length": "~~building_width*0.5-door_width*0.5 - vertical_truss_width~~",
-                    "section_id": 1,
+                    "section_id": 2,
                 })
 
                 front_panel.push({
@@ -324,7 +312,7 @@ TINY_HOUSE.framing = (function () {
                     "vector": [1,0,0], // or {x : 0, y: 1, z: 0},
                     "segments": 1,
                     "length": "~~(building_width-vertical_truss_width) - (building_width*0.5+door_width*0.5)~~",
-                    "section_id": 1,
+                    "section_id": 2,
                 })
             }
         }
@@ -341,8 +329,8 @@ TINY_HOUSE.framing = (function () {
                 "height": ['y', "~~truss_height~~"],
                 "offset": 0, // or [30,30],
                 "style": 'cross',
-                "web_section_id": 1,
-                "chord_section_id": 2,
+                "web_section_id": 4,
+                "chord_section_id": 3,
                 "segments": "~~front_number_of_panels~~",
             },
 
@@ -486,7 +474,7 @@ TINY_HOUSE.framing = (function () {
                 "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~building_height - truss_height~~",
-                "section_id": 1,
+                "section_id": 2,
             },
             {
                 "cad_type": 'cad_line',
@@ -495,7 +483,7 @@ TINY_HOUSE.framing = (function () {
                 "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~building_height - truss_height~~",
-                "section_id": 1,
+                "section_id": 2,
             },
             // WINDOW SILL
             {
@@ -505,7 +493,7 @@ TINY_HOUSE.framing = (function () {
                 "vector": [1,0,0], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~building_width*0.5+window_width*0.5 - (building_width*0.5 - window_width*0.5)~~",
-                "section_id": 1,
+                "section_id": 2,
             },
             {
                 "cad_type": 'cad_line',
@@ -514,7 +502,7 @@ TINY_HOUSE.framing = (function () {
                 "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~window_height~~",
-                "section_id": 1,
+                "section_id": 2,
             },
 
             // BOTTOM BEAM
@@ -525,7 +513,7 @@ TINY_HOUSE.framing = (function () {
                 "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~building_width~~",
-                "section_id": 1,
+                "section_id": 3,
             }
         ]
        
@@ -544,7 +532,7 @@ TINY_HOUSE.framing = (function () {
                     "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
                     "segments": 1,
                     "length": "~~building_height - truss_height~~",
-                    "section_id": 1,
+                    "section_id": 2,
                 })
                 
                 back_panel.push({
@@ -554,7 +542,7 @@ TINY_HOUSE.framing = (function () {
                     "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
                     "segments": 1,
                     "length": "~~building_height - truss_height~~",
-                    "section_id": 1,
+                    "section_id": 2,
                 })
                 
             }
@@ -575,7 +563,7 @@ TINY_HOUSE.framing = (function () {
                     "vector": [1,0,0], // or {x : 0, y: 1, z: 0},
                     "segments": 1,
                     "length": "~~building_width*0.5-window_width*0.5 - vertical_truss_width~~",
-                    "section_id": 1,
+                    "section_id": 2,
                 })
 
                 back_panel.push({
@@ -585,7 +573,7 @@ TINY_HOUSE.framing = (function () {
                     "vector": [1,0,0], // or {x : 0, y: 1, z: 0},
                     "segments": 1,
                     "length": "~~(building_width-vertical_truss_width) -(building_width*0.5+window_width*0.5)~~",
-                    "section_id": 1,
+                    "section_id": 2,
                 })
             }
         }
@@ -603,8 +591,8 @@ TINY_HOUSE.framing = (function () {
                 "height": ['y', "~~truss_height~~"],
                 "offset": 0, // or [30,30],
                 "style": 'cross',
-                "web_section_id": 1,
-                "chord_section_id": 2,
+                "web_section_id": 4,
+                "chord_section_id": 3,
                 "segments": "~~side_number_of_panels~~",
             },
 
@@ -750,7 +738,7 @@ TINY_HOUSE.framing = (function () {
                 "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~building_height - truss_height~~",
-                "section_id": 1,
+                "section_id": 2,
             },
             {
                 "cad_type": 'cad_line',
@@ -759,7 +747,7 @@ TINY_HOUSE.framing = (function () {
                 "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~building_height - truss_height~~",
-                "section_id": 1,
+                "section_id": 2,
             },
 
             // WINDOW SILL
@@ -770,7 +758,7 @@ TINY_HOUSE.framing = (function () {
                 "vector": [0,0,1], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~building_length*0.5+window_width*0.5 - (building_length*0.5 - window_width*0.5)~~",
-                "section_id": 1,
+                "section_id": 2,
             },
             {
                 "cad_type": 'cad_line',
@@ -779,7 +767,7 @@ TINY_HOUSE.framing = (function () {
                 "vector": [0, 1, 0], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~window_height~~",
-                "section_id": 1,
+                "section_id": 2,
             },
         
             // BOTTOM BEAM
@@ -838,8 +826,8 @@ TINY_HOUSE.framing = (function () {
                     "height": ['y', "~~door_truss_height~~"],
                     "offset": 0, // or [30,30],
                     "style": 'cross',
-                    "web_section_id": 1,
-                    "chord_section_id": 2,
+                    "web_section_id": 4,
+                    "chord_section_id": 3,
                     "segments": 3,
                 }
             )
@@ -852,8 +840,8 @@ TINY_HOUSE.framing = (function () {
                 "height": ['y', "~~door_truss_height~~"],
                 "offset": 0, // or [30,30],
                 "style": 'cross',
-                "web_section_id": 1,
-                "chord_section_id": 2,
+                "web_section_id": 4,
+                "chord_section_id": 3,
                 "segments": 3,
             })
         }
@@ -873,7 +861,7 @@ TINY_HOUSE.framing = (function () {
                     "vector": [0,0,1], // or {x : 0, y: 1, z: 0},
                     "segments": 1,
                     "length": "~~building_length*0.5-window_width*0.5 - vertical_truss_width~~",
-                    "section_id": 1,
+                    "section_id": 2,
                 })
 
                 side_panel_1.push({
@@ -883,7 +871,7 @@ TINY_HOUSE.framing = (function () {
                     "vector": [0,0,1], // or {x : 0, y: 1, z: 0},
                     "segments": 1,
                     "length": "~~building_length*0.5-window_width*0.5 - vertical_truss_width~~",
-                    "section_id": 1,
+                    "section_id": 2,
                 })
             }
         }
@@ -931,7 +919,7 @@ TINY_HOUSE.framing = (function () {
             "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
             "segments": 1,
             "length":  "~~(building_width)~~",
-            "section_id": 1,
+            "section_id": 7,
         }]
 
         let purlin_incr_height = (roofApex-eaveHeight)/num_purlins_half
@@ -950,7 +938,7 @@ TINY_HOUSE.framing = (function () {
                     "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
                     "segments": 1,
                     "length":  "~~(building_width)~~",
-                    "section_id": 1,
+                    "section_id": 7,
                 },
                 {
                     "cad_type": 'cad_line',
@@ -959,7 +947,7 @@ TINY_HOUSE.framing = (function () {
                     "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
                     "segments": 1,
                     "length":  "~~(building_width)~~",
-                    "section_id": 1,
+                    "section_id": 7,
                 }
             ]
 
@@ -1028,8 +1016,8 @@ TINY_HOUSE.framing = (function () {
                     [0, "~~building_height+0.05 + 0.6~~", "~~roof_overhang~~"], // or {x: 1, y: 2, z: 1} or {cad_id : "2_1", cad_perc: 33},
                 ],
                 bays: "~~side_number_of_panels~~",
-                web_section_id: 1,
-                chord_section_id: 2,
+                web_section_id: 6,
+                chord_section_id: 5,
                 style: 'cross',
             }
         ]
@@ -1043,8 +1031,8 @@ TINY_HOUSE.framing = (function () {
                 "height": ['y', "~~roof_apex_height-building_height~~"],
                 "offset": "~~(building_length+roof_overhang*2)/2~~", // or [30,30],
                 "style": 'warren',
-                "web_section_id": 1,
-                "chord_section_id": 2,
+                "web_section_id": 6,
+                "chord_section_id": 5,
                 "segments": 10,
             }
 

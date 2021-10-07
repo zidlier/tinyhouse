@@ -47,10 +47,9 @@ var INDEX = (function () {
             "input-site-address": jQuery('#input-site-address').val(),
             "input-dead-load": jQuery('#input-dead-load').val(),
             "input-live-load": jQuery('#input-live-load').val(),
-            // "AISI-dropdown" : jQuery("#AISI-dropdown").dropdown('get value'),
-            // "AISI-dropdown-profile" :  jQuery("#AISI-dropdown-profile").dropdown('get value'),
-            // "NDS-dropdown" : jQuery("#NDS-dropdown").dropdown('get value'),
-            // "NDS-dropdown-profile" :  jQuery("#NDS-dropdown-profile").dropdown('get value'),             
+            "material-dropdown" : jQuery("#material-dropdown").dropdown('get value'),
+            "material-dropdown-2" : jQuery("#material-dropdown-2").dropdown('get value'),
+            "material-dropdown-3" : jQuery("#material-dropdown-3").dropdown('get value')         
         }
 
         return data
@@ -151,7 +150,7 @@ var INDEX = (function () {
 
         jQuery('#main-tab .item').tab();
 
-        jQuery("#input-risk-category").dropdown('set selected', "I");
+        jQuery("#input-risk-category").dropdown('set selected', "II");
         jQuery("#input-exposure-category").dropdown('set selected', "B");
         jQuery("#input-stories").dropdown('set selected', "1");
 

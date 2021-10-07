@@ -129,12 +129,12 @@ var INDEX = (function () {
 
         // }
 
-        // AISI_main_arr[0].selected = true;
+        var checkbox_checker = jQuery('.ui.checkbox').is(':checked');
 
         let generate_filter_dropdown = ''
         
         var random = ['red','green','blue','black','purple','orange','yellow','white']
-
+        //initialize first
         generate_filter_dropdown += `<div class="ui floating dropdown labeled icon button" id="material-dropdown">			
             <i class="filter icon"></i>
             <span class="text">Filter Section</span>
@@ -149,13 +149,22 @@ var INDEX = (function () {
                 Tag Label
             </div>
             <div class="scrolling menu">`
-                
-             for(var i = 0; i< AISI_main.length; i++){
-                
-                generate_filter_dropdown +=`<div class="item">
-                    <div class="ui ${random[i]} empty circular label"></div>
-                    ${AISI_main[i]}
-                    </div>`        
+            if(checkbox_checker  == false){
+                for(var i = 0; i< AISI_main.length; i++){
+                    
+                    generate_filter_dropdown +=`<div class="item">
+                        <div class="ui ${random[i]} empty circular label"></div>
+                        ${AISI_main[i]}
+                        </div>`        
+            }
+            } else {
+                for(var i = 0; i< NDS_main.length; i++){
+                    
+                    generate_filter_dropdown +=`<div class="item">
+                        <div class="ui ${random[i]} empty circular label"></div>
+                        ${NDS_main[i]}
+                        </div>`                    
+            }
             }
             generate_filter_dropdown += `</div>
             </div>
@@ -242,11 +251,12 @@ var INDEX = (function () {
         jQuery("#input-risk-category").dropdown('set selected', "I");
         jQuery("#input-exposure-category").dropdown('set selected', "B");
 
-        jQuery('#NDS-dropdown').hide()
-        jQuery('#NDS-dropdown-profile').hide()
+        // jQuery('#NDS-dropdown').hide()
+        // jQuery('#NDS-dropdown-profile').hide()
 
         jQuery('.ui.checkbox').checkbox({
             onChecked: function() {
+                // INDEX.dropdownData();
                 //  jQuery('#material-type-slider').html('Wood Material');
                 //  jQuery('#NDS-dropdown').show()
                 //  jQuery('#NDS-dropdown-profile').show()
@@ -254,6 +264,7 @@ var INDEX = (function () {
                 //  jQuery('#AISI-dropdown-profile').hide()
             },
             onUnchecked: function() {
+                // INDEX.dropdownData();
                 // jQuery('#material-type-slider').html('Cold-formed Steel Material');
                 // jQuery('#NDS-dropdown').hide()
                 // jQuery('#NDS-dropdown-profile').hide()

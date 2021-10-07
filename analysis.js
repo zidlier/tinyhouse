@@ -167,11 +167,22 @@ TINY_HOUSE.analysis = (function () {
                                 "s3d_model": processed_model
                             }
                         },
-                        
+                        {
+                            "function": "S3D.model.repair",
+                            "arguments": {
+                                "checks": [
+                                    "unused_nodes",
+                                    "large_structure",
+                                    "merge_nodes",
+                                    "zero_members",
+                                    "default_section",
+                                ]
+                            }
+                        },
                         {
                             "function": "S3D.model.solve",
                             "arguments": {
-                                "analysis_type": "nonlinear",
+                                "analysis_type": "linear",
                                 "repair_model": true,
                                 "return_results": false
                             }

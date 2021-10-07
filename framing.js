@@ -53,6 +53,7 @@ TINY_HOUSE.framing = (function () {
         let num_horizontal_studs = Math.ceil((eaveHeight - truss_height)/spacing_horizontal_stud)
         let spacing_horizontal_studs = (eaveHeight - truss_height)/num_horizontal_studs
 
+        console.log('generateWallFramingS3DModel')
 
         // FRONT PANEL
         let front_panel = [

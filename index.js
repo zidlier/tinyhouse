@@ -47,10 +47,9 @@ var INDEX = (function () {
             "input-site-address": jQuery('#input-site-address').val(),
             "input-dead-load": jQuery('#input-dead-load').val(),
             "input-live-load": jQuery('#input-live-load').val(),
-            // "AISI-dropdown" : jQuery("#AISI-dropdown").dropdown('get value'),
-            // "AISI-dropdown-profile" :  jQuery("#AISI-dropdown-profile").dropdown('get value'),
-            // "NDS-dropdown" : jQuery("#NDS-dropdown").dropdown('get value'),
-            // "NDS-dropdown-profile" :  jQuery("#NDS-dropdown-profile").dropdown('get value'),             
+            "material-dropdown" : jQuery("#material-dropdown").dropdown('get value'),
+            "material-dropdown-2" : jQuery("#material-dropdown-2").dropdown('get value'),
+            "material-dropdown-3" : jQuery("#material-dropdown-3").dropdown('get value')         
         }
 
         return data
@@ -89,27 +88,26 @@ var INDEX = (function () {
         var AISI_main = Object.keys(AISI)
         var NDS_main = Object.keys(NDS)
         var AISI_data = AISI["C-Sections W Lips (I-1)"]
-        var AISI_length = AISI_data.length;
+        var AISI_Zdata = AISI["Z-Sections WO Lips (I-5)"]
+        var AISI_length = AISI_Zdata.length;
         var AISI_main_arr = []
         var NDS_main_arr = []
 
-        // debugger
         for (var i = 0; i < AISI_length; i++) {
-            var  data_arr = AISI_data[i] 
-            // debugger
+            var  data_arr = AISI_Zdata[i] 
             AISI_main_arr.push(data_arr)
         }
 
-        debugger
-        // for(var i = 0; i < AISI_data; i++){
-        //     var index = AISI["C-Sections W Lips (I-1)"][i]
-        //     // AISI_main_arr.push(index)
-        //     // debugger 
-        // }  
-
-        // var checkbox_checker = jQuery('.ui.checkbox').is(':checked');
-
-        function generateDropdown(html1,html2){
+        function generateDropdown(section,html1,html2){
+            // var AISI = INDEX.general_data.getAISI()
+            var AISI_data = AISI[section]
+            var AISI_length = AISI_data.length;
+            var AISI_main_arr = []
+            for (var i = 0; i < AISI_length; i++) {
+                var  data_arr = AISI_data[i] 
+                AISI_main_arr.push(data_arr)
+            }
+            
             let generate_filter_dropdown = ''
             generate_filter_dropdown += `
        
@@ -134,64 +132,13 @@ var INDEX = (function () {
             jQuery(`#${html2}`).dropdown('set selected', AISI_main_arr[0]);
         }
         
-        generateDropdown('filter-section','material-dropdown')
-        generateDropdown('filter-section-2','material-dropdown-2')
-        generateDropdown('filter-section-3','material-dropdown-3')
+        generateDropdown("C-Sections W Lips (I-1)",'filter-section','material-dropdown')
+        generateDropdown("C-Sections W Lips (I-1)",'filter-section-2','material-dropdown-2')
+        generateDropdown("Z-Sections WO Lips (I-5)",'filter-section-3','material-dropdown-3')
 
     }
 
-    functions.dropdownData2 = function () {
-        
-        var AISI = INDEX.general_data.getAISI()
-        var NDS = INDEX.general_data.getNDS()
 
-        var AISI_main = jQuery('#AISI-dropdown').dropdown('get value')
-        var AISI_profile = AISI[AISI_main]
-        var AISI_profile_arr = []
-
-        for (var i = 0; i < AISI_profile.length; i++) {
-            if (i == 0) {
-                AISI_profile_arr.push({
-                    "name": AISI_profile[i],
-                    "value": AISI_profile[i],
-                    "selected": true
-                })
-            } else {
-                AISI_profile_arr.push({
-                    "name": AISI_profile[i],
-                    "value": AISI_profile[i]
-                })
-            }
-        }
-
-        var NDS_main = jQuery('#NDS-dropdown').dropdown('get value')
-        var NDS_profile = NDS[NDS_main]
-        var NDS_profile_arr = []
-
-        for (var i = 0; i < NDS_profile.length; i++) {
-            if (i == 0) {
-                NDS_profile_arr.push({
-                    "name": NDS_profile[i],
-                    "value": NDS_profile[i],
-                    "selected": true
-                })
-            } else {
-                NDS_profile_arr.push({
-                    "name": NDS_profile[i],
-                    "value": NDS_profile[i]
-                })
-            }
-        }
-
-
-        jQuery('#AISI-dropdown-profile').dropdown({
-            values: AISI_profile_arr
-        });
-
-        jQuery('#NDS-dropdown-profile').dropdown({
-            values: NDS_profile_arr
-        });
-    }
 
     $(document).ready(function () {
 
@@ -200,7 +147,7 @@ var INDEX = (function () {
         INDEX.dropdownData();
         jQuery('#main-tab .item').tab();
 
-        jQuery("#input-risk-category").dropdown('set selected', "I");
+        jQuery("#input-risk-category").dropdown('set selected', "II");
         jQuery("#input-exposure-category").dropdown('set selected', "B");
         jQuery("#input-stories").dropdown('set selected', "1");
 

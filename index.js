@@ -222,12 +222,6 @@ var INDEX = (function () {
                 jQuery('#AISI-dropdown-profile').show()
             }
 
-            // jQuery(".renderer-update").change(function () {
-            //     let data_tab_active = jQuery('#display-container-menu .item.active').tab().attr('data-tab');
-            //     if (data_tab_active == '3d-figure') SKYCIV_DESIGN.renderer.renderAssembly()
-            // });
-
-            // jQuery('#results').modal('show');
 
         });
 

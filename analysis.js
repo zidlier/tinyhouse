@@ -212,7 +212,7 @@ TINY_HOUSE.analysis = (function () {
                                     "max_ur": 0.8,
                                     "optimize_by": {
                                         "item": "sections",
-                                        "ids": null
+                                        "ids": [1,2,3]
                                     },
                                     "section_height": {
                                         "min": 3,

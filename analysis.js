@@ -91,7 +91,6 @@ TINY_HOUSE.analysis = (function () {
                 var wind_load_arr  = res.response.data.wind_pressure.pressures;
                 var snow_load  = res.response.data.snow_pressure.balance_case.ps;
                 
-                debugger
                 var dump_obj = {
                     "windward_wall": {'pos': null, 'neg': null},
                     "leeward_wall": {'pos': null, 'neg': null},

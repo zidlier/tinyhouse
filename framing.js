@@ -4,7 +4,10 @@ TINY_HOUSE.framing = (function () {
 
     var wall_assembly = []
 
-    functions.generateWallFramingS3DModel = function (buildingLength, buildingWidth, eaveHeight, roofApex, roofOverhang) {
+    functions.generateWallFramingS3DModel = function (buildingLength, buildingWidth, eaveHeight, roofApex, roofOverhang, trussSpacing) {
+
+
+        let truss_spacing = trussSpacing
 
         let truss_panel_spacing = 1
         let door_height = 2.1
@@ -14,7 +17,6 @@ TINY_HOUSE.framing = (function () {
         let window_width = 1.5
         let window_height = 0.9
         let vertical_truss_width = 0.3
-        let truss_spacing = 3
         let spacing_horizontal_stud = 1.5
         let purlin_spacing = 0.6
 

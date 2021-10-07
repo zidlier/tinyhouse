@@ -93,10 +93,10 @@ var INDEX = (function () {
 
         jQuery('.ui.checkbox').checkbox({
             onChecked: function() {
-                 jQuery('#material-type-slider').html('Cold-formed Steel Material');
+                 jQuery('#material-type-slider').html('Wood Material');
             },
             onUnchecked: function() {
-                jQuery('#material-type-slider').html('Wood Material');
+                jQuery('#material-type-slider').html('Cold-formed Steel Material');
             }
 
             // jQuery(".renderer-update").change(function () {

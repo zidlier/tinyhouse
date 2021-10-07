@@ -159,7 +159,9 @@ TINY_HOUSE.analysis = (function () {
                     "functions": [
                         {
                             "function": "S3D.session.start",
-                            "arguments": {}
+                            "arguments": {
+                                "keep_open": false
+                            }
                         },
                         {
                             "function": "S3D.model.set",
@@ -187,12 +189,13 @@ TINY_HOUSE.analysis = (function () {
                                 "return_results": false
                             }
                         },
-                        {
-                            "function": "S3D.member_design.check",
-                            "arguments": {
-                                "design_code": member_design_code
-                            }
-                        },
+                        // {
+                        //     "function": "S3D.member_design.check",
+                        //     "arguments": {
+                        //         "design_code": member_design_code
+                        //     }
+                        // },
+
                         // {
                         //     "function": "S3D.member_design.optimize",
                         //     "arguments": {

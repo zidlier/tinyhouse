@@ -197,7 +197,6 @@ var INDEX = (function () {
 
         jQuery('.input-data.accordion').accordion()
 
-        INDEX.updateRender();
         INDEX.dropdownData();
         // INDEX.dropdownData2();
 
@@ -244,6 +243,7 @@ var INDEX = (function () {
         });
 
 
+        INDEX.updateRender();
 
     });
 

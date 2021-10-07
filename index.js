@@ -76,19 +76,6 @@ var INDEX = (function () {
         var AISI = INDEX.general_data.getAISI()
         var NDS = INDEX.general_data.getNDS()
 
-        var AISI_main = Object.keys(AISI)
-        var NDS_main = Object.keys(NDS)
-        var AISI_data = AISI["C-Sections W Lips (I-1)"]
-        var AISI_Zdata = AISI["Z-Sections WO Lips (I-5)"]
-        var AISI_length = AISI_Zdata.length;
-        var AISI_main_arr = []
-        var NDS_main_arr = []
-
-        for (var i = 0; i < AISI_length; i++) {
-            var  data_arr = AISI_Zdata[i] 
-            AISI_main_arr.push(data_arr)
-        }
-
         function generateDropdown(section,html1,html2){
             // var AISI = INDEX.general_data.getAISI()
             var AISI_data = AISI[section]
@@ -140,26 +127,26 @@ var INDEX = (function () {
         jQuery("#input-exposure-category").dropdown('set selected', "B");
         jQuery("#input-stories").dropdown('set selected', "1");
 
-        jQuery('.ui.checkbox').checkbox({
-            onChecked: function () {
-                // INDEX.dropdownData();
-                //  jQuery('#material-type-slider').html('Wood Material');
-                //  jQuery('#NDS-dropdown').show()
-                //  jQuery('#NDS-dropdown-profile').show()
-                //  jQuery('#AISI-dropdown').hide()
-                //  jQuery('#AISI-dropdown-profile').hide()
-            },
-            onUnchecked: function () {
-                // INDEX.dropdownData();
-                // jQuery('#material-type-slider').html('Cold-formed Steel Material');
-                // jQuery('#NDS-dropdown').hide()
-                // jQuery('#NDS-dropdown-profile').hide()
-                // jQuery('#AISI-dropdown').show()
-                // jQuery('#AISI-dropdown-profile').show()
-            }
+        // jQuery('.ui.checkbox').checkbox({
+        //     onChecked: function () {
+        //         // INDEX.dropdownData();
+        //         //  jQuery('#material-type-slider').html('Wood Material');
+        //         //  jQuery('#NDS-dropdown').show()
+        //         //  jQuery('#NDS-dropdown-profile').show()
+        //         //  jQuery('#AISI-dropdown').hide()
+        //         //  jQuery('#AISI-dropdown-profile').hide()
+        //     },
+        //     onUnchecked: function () {
+        //         // INDEX.dropdownData();
+        //         // jQuery('#material-type-slider').html('Cold-formed Steel Material');
+        //         // jQuery('#NDS-dropdown').hide()
+        //         // jQuery('#NDS-dropdown-profile').hide()
+        //         // jQuery('#AISI-dropdown').show()
+        //         // jQuery('#AISI-dropdown-profile').show()
+        //     }
 
 
-        });
+        // });
 
 
         setTimeout(function () {

@@ -5,7 +5,8 @@ TINY_HOUSE.analysis = (function () {
     var snow_pressure = null
 
     functions.generateLoads = function (data) {
-        //     
+        
+        debugger
         let { input_height, input_width, input_length, input_truss_height } = data
         let roof_mean_height = (input_truss_height+input_height)*0.5
         let roof_angle = Math.atan((input_truss_height-input_height)/(input_length/2))*(180/Math.PI)
@@ -17,7 +18,9 @@ TINY_HOUSE.analysis = (function () {
         // TODO - INTEGRATE TO data
         var liveload = data["input-live-load"]
         var sdeadload = data["input-dead-load"]
-        // let member_design_code = "AISI_S100-12_LRFD" //NDC
+
+        // TODO
+        let member_design_code = "AISI_S100-12_LRFD" //NDC
         let wall_section = ["American", "AISI", "C-Sections W Lips (I-1)", data["material-dropdown"]]
         let truss_section = ["American", "AISI", "C-Sections W Lips (I-1)", data["material-dropdown-2"]]
         let purlin_section = ["American", "AISI", "Z-Sections WO Lips (I-5)", data["material-dropdown-3"]]
@@ -151,6 +154,11 @@ TINY_HOUSE.analysis = (function () {
 
                 console.log(JSON.stringify(processed_model))
 
+                debugger
+                var result = skyciv.validator.model(processed_model);
+
+                console.log(result)
+
                 let s3d_api = {
                     "auth": {
                         "username": "patrick@skyciv.com",
@@ -185,16 +193,15 @@ TINY_HOUSE.analysis = (function () {
                             "function": "S3D.model.solve",
                             "arguments": {
                                 "analysis_type": "linear",
-                                "repair_model": true,
                                 "return_results": false
                             }
                         },
-                        // {
-                        //     "function": "S3D.member_design.check",
-                        //     "arguments": {
-                        //         "design_code": member_design_code
-                        //     }
-                        // },
+                        {
+                            "function": "S3D.member_design.check",
+                            "arguments": {
+                                "design_code": member_design_code
+                            }
+                        },
 
                         // {
                         //     "function": "S3D.member_design.optimize",
@@ -384,6 +391,7 @@ TINY_HOUSE.analysis = (function () {
 
             let this_support_id = String(ctr)
 
+            nodeid = parseInt(nodeid)
             support_obj[this_support_id] = {
                 "direction_code": "BBBBBB",
                 "tx": 0,
@@ -543,6 +551,9 @@ TINY_HOUSE.analysis = (function () {
         // Convert snow load in psf to Kpa
         // snow = 0.047880258888889*snow
 
+        roof_windward_nodes = roof_windward_nodes.map(v => parseInt(v))
+        roof_leeward_nodes = roof_leeward_nodes.map(v => parseInt(v))
+
         area_loads[load_id_snow] = {
             "type": "two_way",
             "nodes": roof_windward_nodes,
@@ -609,6 +620,7 @@ TINY_HOUSE.analysis = (function () {
 
         if (number_of_stories > 1) {
             let floor_nodes = getNodeIDsOfFloor(data, nodes, number_of_trusses)
+            floor_nodes = floor_nodes.map(v => parseInt(v))
 
             let this_id = String(load_id)
             area_loads[this_id] = {

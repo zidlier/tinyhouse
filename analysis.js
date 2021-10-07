@@ -6,7 +6,7 @@ TINY_HOUSE.analysis = (function () {
 
     functions.generateLoads = function (data) {
         
-        debugger
+        
         let { input_height, input_width, input_length, input_truss_height } = data
         let roof_mean_height = (input_truss_height+input_height)*0.5
         let roof_angle = Math.atan((input_truss_height-input_height)/(input_length/2))*(180/Math.PI)
@@ -154,7 +154,7 @@ TINY_HOUSE.analysis = (function () {
 
                 console.log(JSON.stringify(processed_model))
 
-                debugger
+                
                 var result = skyciv.validator.model(processed_model);
 
                 console.log(result)
@@ -202,25 +202,192 @@ TINY_HOUSE.analysis = (function () {
                                 "design_code": member_design_code
                             }
                         },
+                        {
+                            "function": "S3D.member_design.optimize",
+                            "arguments": {
+                                "design_code": member_design_code,
+                                "simplified": true,
+                                "settings": {
+                                    "max_ur": 0.8,
+                                    "optimize_by": {
+                                        "item": "sections",
+                                        "ids": null
+                                    },
+                                    "section_height": {
+                                        "min": 3,
+                                        "max": 12
+                                    },
+                                    "section_width": {
+                                        "min": null,
+                                        "max": null
+                                    }
+                                }
+                            }
+                        },
 
                         // {
-                        //     "function": "S3D.member_design.optimize",
+                        //     "function": "S3D.s3d_optimizer.run",
                         //     "arguments": {
-                        //         "design_code": member_design_code,
-                        //         "simplified": true,
-                        //         "settings": {
-                        //             "max_ur": 0.8,
-                        //             "optimize_by": {
-                        //                 "item": "sections",
-                        //                 "ids": null
+                        //         "opt_obj": {
+                        //             "general": {
+                        //                 "autocommit": true
                         //             },
-                        //             "section_height": {
-                        //                 "min": 6,
-                        //                 "max": 12
-                        //             },
-                        //             "section_width": {
-                        //                 "min": null,
-                        //                 "max": null
+                        //             "analysis": {
+                        //                 "animate": true,
+                        //                 "step_params": {
+                        //                     "alpha": null,
+                        //                     "beta": null
+                        //                 },
+                        //                 "collect_data": true,
+                        //                 "alt_models": 5,
+                        //                 "method": "hill_climbing",
+                        //                 "hc_steps": 40,
+                        //                 "variables": [
+                        //                     null,
+                        //                     {
+                        //                         "name": "Sec1: W21x48",
+                        //                         "operation": "change-section",
+                        //                         "opts": {
+                        //                             "library": ["American", "AISC", "W shapes"],
+                        //                             "section_number": 1,
+                        //                             "exclusion_string": [],
+                        //                             "inclusion_string": [],
+                        //                             "change_shape": [],
+                        //                             "change_lib": [],
+                        //                             "dim_limits": {
+                        //                                 "depth_lower_limit": 15,
+                        //                                 "depth_upper_limit": 22,
+                        //                                 "width_lower_limit": null,
+                        //                                 "width_upper_limit": null
+                        //                             },
+                        //                             "disabled": false
+                        //                         }
+                        //                     },
+                        //                     {
+                        //                         "name": "Sec2: W24x84",
+                        //                         "operation": "change-section",
+                        //                         "opts": {
+                        //                             "library": ["American", "AISC", "W shapes"],
+                        //                             "section_number": 2,
+                        //                             "exclusion_string": [],
+                        //                             "inclusion_string": [],
+                        //                             "change_shape": [],
+                        //                             "change_lib": [],
+                        //                             "dim_limits": {
+                        //                                 "depth_lower_limit": null,
+                        //                                 "depth_upper_limit": null,
+                        //                                 "width_lower_limit": null,
+                        //                                 "width_upper_limit": null
+                        //                             },
+                        //                             "disabled": false
+                        //                         }
+                        //                     },
+                        //                     {
+                        //                         "name": "Sec3: HSS2-1/2x1-1/2x1/8",
+                        //                         "operation": "change-section",
+                        //                         "opts": {
+                        //                             "library": ["American", "AISC", "Rectangular HSS"],
+                        //                             "section_number": 3,
+                        //                             "exclusion_string": [],
+                        //                             "inclusion_string": [],
+                        //                             "change_shape": [],
+                        //                             "change_lib": [],
+                        //                             "dim_limits": {
+                        //                                 "depth_lower_limit": null,
+                        //                                 "depth_upper_limit": null,
+                        //                                 "width_lower_limit": null,
+                        //                                 "width_upper_limit": null
+                        //                             },
+                        //                             "disabled": false
+                        //                         }
+                        //                     },
+                        //                     {
+                        //                         "name": "Sec4: L2.5x2.5x3/8",
+                        //                         "operation": "change-section",
+                        //                         "opts": {
+                        //                             "library": ["American", "AISC", "Equal angles"],
+                        //                             "section_number": 4,
+                        //                             "exclusion_string": [],
+                        //                             "inclusion_string": [],
+                        //                             "change_shape": [],
+                        //                             "change_lib": [],
+                        //                             "dim_limits": {
+                        //                                 "depth_lower_limit": null,
+                        //                                 "depth_upper_limit": null,
+                        //                                 "width_lower_limit": null,
+                        //                                 "width_upper_limit": null
+                        //                             },
+                        //                             "disabled": false
+                        //                         }
+                        //                     },
+                        //                     null,
+                        //                     {
+                        //                         "name": "Sec6: ST12x40",
+                        //                         "operation": "change-section",
+                        //                         "opts": {
+                        //                             "library": ["American", "AISC", "ST shapes"],
+                        //                             "section_number": 6,
+                        //                             "exclusion_string": [],
+                        //                             "inclusion_string": [],
+                        //                             "change_shape": [],
+                        //                             "change_lib": [],
+                        //                             "dim_limits": {
+                        //                                 "depth_lower_limit": null,
+                        //                                 "depth_upper_limit": null,
+                        //                                 "width_lower_limit": null,
+                        //                                 "width_upper_limit": null
+                        //                             },
+                        //                             "disabled": false
+                        //                         }
+                        //                     }
+                        //                 ],
+                        //                 "criteria": [
+                        //                     {
+                        //                         "operation": "value-limits",
+                        //                         "opts": {
+                        //                             "displacement_y": {
+                        //                                 "min": null,
+                        //                                 "max": null,
+                        //                                 "abs": null
+                        //                             }
+                        //                         }
+                        //                     },
+                        //                     {
+                        //                         "operation": "utility-check",
+                        //                         "opts": {
+                        //                             "check_name": "Deflection/Span",
+                        //                             "utility_limit": 0.98
+                        //                         }
+                        //                     },
+                        //                     {
+                        //                         "operation": "utility-check",
+                        //                         "opts": {
+                        //                             "check_name": "Material Yield",
+                        //                             "utility_limit": 0.98
+                        //                         }
+                        //                     },
+                        //                     {
+                        //                         "operation": "utility-check",
+                        //                         "opts": {
+                        //                             "check_name": "Material Strength",
+                        //                             "utility_limit": 0.98
+                        //                         }
+                        //                     }
+                        //                 ],
+                        //                 "material_rates": {
+                        //                     "wood": {
+                        //                         "cost": 0.75,
+                        //                         "co2": 0.25
+                        //                     },
+                        //                     "steel": {
+                        //                         "cost": 2,
+                        //                         "co2": 1.4
+                        //                     },
+                        //                     "concrete": {
+                        //                         "cost": 1.5,
+                        //                         "co2": 1.8
+                        //                     }
+                        //                 }
                         //             }
                         //         }
                         //     }
@@ -233,7 +400,7 @@ TINY_HOUSE.analysis = (function () {
 
                 skyciv.request(s3d_api, function (res) {
                     console.log(res)
-                    debugger
+                    
                     if (res.response.status == 0) {
                         
 

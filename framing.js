@@ -995,49 +995,62 @@ TINY_HOUSE.framing = (function () {
         })        
         
 
-        let purlins_assembly = [{
-            "cad_type": 'cad_line',
-            "type": 'vector',
-            "ref_pt": [0, "~~roof_apex_height~~", "~~-building_length/2~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
-            "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
-            "segments": 1,
-            "length":  "~~(building_width)~~",
-            "section_id": 3,
-        }]
+        let purlins_assembly = []
 
-        let purlin_incr_height = (roofApex-eaveHeight*noOfStories)/num_purlins_half
-        let purlin_incr_distance = (buildingLength/2)/num_purlins_half
+        
 
-        for (let n = 0;  n < num_purlins_half; n++) {
-            
-            let this_y = roofApex - purlin_incr_height*n
-            let this_x = -buildingLength*0.5 
+        let truss_spacing_applied = buildingWidth/number_of_trusses
 
-            let this_purlins = [
-                {
-                    "cad_type": 'cad_line',
-                    "type": 'vector',
-                    "ref_pt": [0, this_y, (-buildingLength*0.5 - purlin_incr_distance*n)], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
-                    "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
-                    "segments": 1,
-                    "length":  "~~(building_width)~~",
-                    "section_id": 3,
-                },
-                {
-                    "cad_type": 'cad_line',
-                    "type": 'vector',
-                    "ref_pt": [0, this_y, (-buildingLength*0.5 + purlin_incr_distance*n)], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
-                    "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
-                    "segments": 1,
-                    "length":  "~~(building_width)~~",
-                    "section_id": 3,
-                }
-            ]
+        for (let j = 0; j < number_of_trusses; j++) {
 
-            purlins_assembly = [...purlins_assembly, ...this_purlins]
-            
+            let this_x = j*truss_spacing_applied 
+
+            purlins_assembly.push({
+                "cad_type": 'cad_line',
+                "type": 'vector',
+                "ref_pt": [this_x, "~~roof_apex_height~~", "~~-building_length/2~~"], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
+                "segments": 1,
+                "length":  "~~(building_width/number_of_trusses)~~",
+                "section_id": 3,
+            })
+    
+            let purlin_incr_height = (roofApex-eaveHeight*noOfStories)/num_purlins_half
+            let purlin_incr_distance = (buildingLength/2)/num_purlins_half
+    
+            for (let n = 0;  n < num_purlins_half; n++) {
+                
+                let this_y = roofApex - purlin_incr_height*n
+                
+    
+                let this_purlins = [
+                    {
+                        "cad_type": 'cad_line',
+                        "type": 'vector',
+                        "ref_pt": [this_x, this_y, (-buildingLength*0.5 - purlin_incr_distance*n)], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                        "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
+                        "segments": 1,
+                        "length":  "~~(building_width/number_of_trusses)~~",
+                        "section_id": 3,
+                    },
+                    {
+                        "cad_type": 'cad_line',
+                        "type": 'vector',
+                        "ref_pt": [this_x, this_y, (-buildingLength*0.5 + purlin_incr_distance*n)], // or {x : 1, y: 1, z: 1} or {cad_id : "2_1", cad_perc: 33},
+                        "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
+                        "segments": 1,
+                        "length":  "~~(building_width/number_of_trusses)~~",
+                        "section_id": 3,
+                    }
+                ]
+    
+                purlins_assembly = [...purlins_assembly, ...this_purlins]
+                
+            }
+
         }
-
+        
+        
         final_assembly = [...final_assembly, ...purlins_assembly]
         
 

@@ -23,7 +23,10 @@ var INDEX = (function () {
             "input-live-load": jQuery('#input-live-load').val(),
             "material-dropdown" : jQuery("#material-dropdown").dropdown('get value'),
             "material-dropdown-2" : jQuery("#material-dropdown-2").dropdown('get value'),
-            "material-dropdown-3" : jQuery("#material-dropdown-3").dropdown('get value')         
+            "material-dropdown-3" : jQuery("#material-dropdown-3").dropdown('get value'),
+            "material-dropdown-b" : jQuery("#material-dropdown-b").dropdown('get value'),
+            "material-dropdown-2b" : jQuery("#material-dropdown-2b").dropdown('get value'),
+            "material-dropdown-3b" : jQuery("#material-dropdown-3b").dropdown('get value')         
         }
 
         return data

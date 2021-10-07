@@ -3,27 +3,6 @@ var INDEX = (function () {
 
     var data = {}
 
-    var default_data = {
-        "input_height": 3,
-        "input_width": 10,
-        "input_length": 6,
-        "input_thk": 0.3,
-        "input_window_width": 1.5,
-        "input_window_height": 0.9,
-        "input_door_height": 0.9,
-        "input_door_width": 0.9,
-        "input_door_truss_height": 1.5,
-        "input_truss_panel_spacing": 1,
-        "input_truss_height": 5,
-        "input_truss_offset": 0.8,
-        "input_vertical_truss_width": 0.3,
-        "input_roof_angle": 0.05,
-    }
-
-    functions.setDefaultData = function () {
-        return default_data
-    }
-
     functions.getData = function () {
 
         var data = {

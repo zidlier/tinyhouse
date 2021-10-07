@@ -31,11 +31,6 @@ var INDEX = (function () {
             "input_width": parseFloat(jQuery('#input-width').val()),
             "input_length": parseFloat(jQuery('#input-length').val()),
             "input_thk": parseFloat(jQuery('#input-thickness').val()),
-            // "input_window_width": parseFloat(jQuery('#input-window-width').val()),
-            // "input_window_height": parseFloat(jQuery('#input-window-height').val()),
-            // "input_door_height": parseFloat(jQuery('#input-door-height').val()),
-            // "input_door_width": parseFloat(jQuery('#input-door-width').val()),
-            // "input_door_truss_height": parseFloat(jQuery('#input-door-truss-height').val()),
             "input_truss_panel_spacing": parseFloat(jQuery('#input-truss-panel-spacing').val()),
             "input_truss_height": parseFloat(jQuery('#input-truss-height').val()),
             "input_truss_offset": parseFloat(jQuery('#input-truss-offset').val()),
@@ -55,10 +50,6 @@ var INDEX = (function () {
         return data
 
     }
-
-
-    // #AISI-dropdown-profile,
-    // #NDS-dropdown-profile,
 
     functions.updateRender = function () {
         $(`#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset, #input-truss-panel-spacing,
@@ -137,8 +128,6 @@ var INDEX = (function () {
         generateDropdown("Z-Sections WO Lips (I-5)",'filter-section-3','material-dropdown-3')
 
     }
-
-
 
     $(document).ready(function () {
 

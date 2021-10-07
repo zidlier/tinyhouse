@@ -127,11 +127,67 @@ var INDEX = (function () {
 		jQuery('#AISI-dropdown').dropdown({
 			values: AISI_main_arr,
 		});
+
+
+
+
 		jQuery('#NDS-dropdown').dropdown({
 			values: NDS_main_arr,
 		});
 
 
+    }
+
+    functions.dropdownData2 = function(){
+        var AISI = INDEX.general_data.getAISI()
+        var NDS = INDEX.general_data.getNDS()
+
+        var AISI_main = jQuery('#AISI-dropdown').dropdown('get value')
+        var AISI_profile = AISI[AISI_main]
+        var AISI_profile_arr = []
+        
+        for(var i = 0; i< AISI_profile.length; i++){
+            if(i == 0){
+                AISI_profile_arr.push({
+                    "name" : AISI_profile[i],
+                    "value" : AISI_profile[i],
+                    "selected" : true
+                })
+            } else {
+                AISI_profile_arr.push({
+                    "name" : AISI_profile[i],
+                    "value" : AISI_profile[i]
+                }) 
+            }
+        }
+
+        var NDS_main = jQuery('#NDS-dropdown').dropdown('get value')
+        var NDS_profile = NDS[NDS_main]
+        var NDS_profile_arr = []
+        
+        for(var i = 0; i< NDS_profile.length; i++){
+            if(i == 0){
+                NDS_profile_arr.push({
+                    "name" : NDS_profile[i],
+                    "value" : NDS_profile[i],
+                    "selected" : true
+                })
+            } else {
+                NDS_profile_arr.push({
+                    "name" : NDS_profile[i],
+                    "value" : NDS_profile[i]
+                }) 
+            }
+        }
+
+
+		jQuery('#AISI-dropdown-profile').dropdown({
+			values: AISI_profile_arr
+		});
+
+        jQuery('#NDS-dropdown-profile').dropdown({
+			values: NDS_profile_arr
+		});
     }
 
     $(document).ready(function () {
@@ -140,6 +196,7 @@ var INDEX = (function () {
 
         INDEX.updateRender();
         INDEX.dropdownData();
+        INDEX.dropdownData2();
 
         jQuery('#main-tab .item').tab();
 

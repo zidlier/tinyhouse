@@ -13,7 +13,7 @@ TINY_HOUSE.analysis = (function () {
         let address = "Minneapolis, MN, USA"
         let exposure_category = "B"
         let risk_category = "II"
-        var liveload = 0.6
+        var liveload = 0.6*20.88543423315
 
         let wind_api_object = {
             "auth": {
@@ -35,7 +35,7 @@ TINY_HOUSE.analysis = (function () {
                             "designer": "",
                             "client": "",
                             "notes": "",
-                            "units": "metric"
+                            "units": "imperial"
                         },
                         "site_data": {
                             "design_code": "asce7-16",
@@ -90,6 +90,7 @@ TINY_HOUSE.analysis = (function () {
                 var wind_load_arr  = res.response.data.wind_pressure.pressures;
                 var snow_load  = res.response.data.snow_pressure.balance_case.ps;
                 
+                debugger
                 var dump_obj = {
                     "windward_wall": {'pos': null, 'neg': null},
                     "leeward_wall": {'pos': null, 'neg': null},
@@ -101,17 +102,17 @@ TINY_HOUSE.analysis = (function () {
                     let {surface, dirn, pos_GCpi, neg_GCpi} = wind_load_arr[f]
 
                     if (surface == "roof_windward" && dirn == "along_L") {
-                        dump_obj.roof_windward.pos = pos_GCpi/1000;
-                        dump_obj.roof_windward.neg = neg_GCpi/1000;
+                        dump_obj.roof_windward.pos = pos_GCpi;
+                        dump_obj.roof_windward.neg = neg_GCpi;
                     } else if (surface == "roof_leeward" && dirn == "along_L") {
-                        dump_obj.roof_leeward.pos = pos_GCpi/1000;
-                        dump_obj.roof_leeward.neg = neg_GCpi/1000;
+                        dump_obj.roof_leeward.pos = pos_GCpi;
+                        dump_obj.roof_leeward.neg = neg_GCpi;
                     } else if (surface == "windward_wall" && dirn == "along_L") {
-                        dump_obj.windward_wall.pos = pos_GCpi/1000;
-                        dump_obj.windward_wall.neg = neg_GCpi/1000;
+                        dump_obj.windward_wall.pos = pos_GCpi;
+                        dump_obj.windward_wall.neg = neg_GCpi;
                     } else if (surface == "leeward_wall" && dirn == "along_L") {
-                        dump_obj.leeward_wall.pos = pos_GCpi/1000;
-                        dump_obj.leeward_wall.neg = neg_GCpi/1000;
+                        dump_obj.leeward_wall.pos = pos_GCpi;
+                        dump_obj.leeward_wall.neg = neg_GCpi;
                     }
                 }
 
@@ -296,14 +297,65 @@ TINY_HOUSE.analysis = (function () {
         return obj
     }
 
+    var getNodeIDsForSupport = function (data, nodes) {
+
+        let support_node_ids = []
+        
+        return obj
+    }
+
     functions.setupLoads = function (wind, snow, live) {
 
         let data = INDEX.getData()
 
         let s3d_model = TINY_HOUSE.getS3DModel()
 
-        // USE Kpa
-        s3d_model.settings.units.pressure = "kpa"
+        // USE psf
+        s3d_model.settings.units = {
+            "length": "ft",
+            "section_length": "in",
+            "material_strength": "ksi",
+            "density": "lb/ft3",
+            "force": "kip",
+            "moment": "kip-ft",
+            "pressure": "psf",
+            "mass": "kip",
+            "translation": "in",
+            "stress": "ksi"
+        }
+
+        s3d_model.sections =  {
+            "1": {
+                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
+                "material_id": 1
+            },
+            "2": {
+                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
+                "material_id": 1
+            },
+            "3": {
+                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
+                "material_id": 1
+            },
+            "4": {
+                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
+                "material_id": 1
+            },
+            "5": {
+                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
+                "material_id": 1
+            },
+            "6": {
+                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
+                "material_id": 1
+            },
+            "7": {
+                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
+                "material_id": 1
+            }
+        }
+
+
 
         let {nodes, area_loads} = s3d_model
 
@@ -419,7 +471,7 @@ TINY_HOUSE.analysis = (function () {
         load_id++
 
         // Convert snow load in psf to Kpa
-        snow = 0.047880258888889*snow
+        // snow = 0.047880258888889*snow
 
         area_loads[load_id_snow] = {
             "type": "two_way",
@@ -456,7 +508,7 @@ TINY_HOUSE.analysis = (function () {
 
         area_loads[load_id_live] = {
             "type": "two_way",
-            "nodes": roof_leeward_nodes,
+            "nodes": roof_windward_nodes,
             "members": null,
             "mag": live,
             "direction": "X",

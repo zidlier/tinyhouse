@@ -17,16 +17,16 @@ TINY_HOUSE.framing = (function () {
 
         let truss_spacing = trussSpacing
 
-        let truss_panel_spacing = 1
-        let door_height = 2.1
-        let truss_height = 0.5
-        let door_width = 0.9
-        let door_truss_height = 0.3
-        let window_width = 1.5
-        let window_height = 0.9
-        let vertical_truss_width = 0.3
-        let spacing_horizontal_stud = 1.5
-        let purlin_spacing = 0.6
+        let truss_panel_spacing = 1/0.3048
+        let door_height = 2.1/0.3048
+        let truss_height = 0.5/0.3048
+        let door_width = 0.9/0.3048
+        let door_truss_height = 0.3/0.3048
+        let window_width = 1.5/0.3048
+        let window_height = 0.9/0.3048
+        let vertical_truss_width = 0.5/0.3048
+        let spacing_horizontal_stud = 1.5/0.3048
+        let purlin_spacing = 0.6/0.3048
 
 
         let truss_hypotenuse = Math.sqrt((buildingLength*0.5)*(buildingLength*0.5) + (roofApex-eaveHeight)*(roofApex-eaveHeight))
@@ -40,13 +40,13 @@ TINY_HOUSE.framing = (function () {
         let num_panel_truss_front_vertical = Math.ceil(eaveHeight/1)
 
         let col_to_door_jamb_dist_front = (buildingWidth*0.5-door_width*0.5) - vertical_truss_width
-        let num_vertical_studs_front = Math.ceil(col_to_door_jamb_dist_front/1)
+        let num_vertical_studs_front = Math.ceil(col_to_door_jamb_dist_front/(1/0.3048))
 
         let col_to_wind_jamb_dist_back = (buildingWidth*0.5-window_width*0.5) - vertical_truss_width
-        let num_vertical_studs_back = Math.ceil(col_to_wind_jamb_dist_back/1)
+        let num_vertical_studs_back = Math.ceil(col_to_wind_jamb_dist_back/(1/0.3048))
         
         let col_to_wind_jamb_dist_side = (buildingLength*0.5-window_width*0.5) - vertical_truss_width
-        let num_vertical_studs_side = Math.ceil(col_to_wind_jamb_dist_side/1)
+        let num_vertical_studs_side = Math.ceil(col_to_wind_jamb_dist_side/(1/0.3048))
 
         let num_horizontal_studs = Math.ceil((eaveHeight - truss_height)/spacing_horizontal_stud)
         let spacing_horizontal_studs = (eaveHeight - truss_height)/num_horizontal_studs
@@ -778,7 +778,7 @@ TINY_HOUSE.framing = (function () {
                 "vector": [0, 0, 1], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~building_length~~",
-                "section_id": 1,
+                "section_id": 3,
             }
         ]
         

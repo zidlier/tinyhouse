@@ -70,6 +70,7 @@ var INDEX = (function () {
         #input-stories
         `).change(function () {
             data = INDEX.getData()
+            console.log('updating data')
             TINY_HOUSE.init(data);
             var height = data["input-stories"]
             if(height == 1){
@@ -106,7 +107,7 @@ var INDEX = (function () {
         //     // debugger 
         // }  
 
-        var checkbox_checker = jQuery('.ui.checkbox').is(':checked');
+        // var checkbox_checker = jQuery('.ui.checkbox').is(':checked');
 
         function generateDropdown(html1,html2){
             let generate_filter_dropdown = ''

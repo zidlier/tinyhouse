@@ -12,7 +12,12 @@ TINY_HOUSE.framing = (function () {
 
     var wall_assembly = []
 
-    functions.generateWallFramingS3DModel = function (buildingLength, buildingWidth, eaveHeight, roofApex, roofOverhang, trussSpacing) {
+    functions.generateWallFramingS3DModel = function (buildingLength, buildingWidth, eaveHeight, roofApex, roofOverhang, trussSpacing, noOfStories) {
+
+        if (typeof noOfStories == 'undefined') noOfStories = 1
+        noOfStories = Math.min(2, noOfStories)
+
+        noOfStories = 2
 
 
         let truss_spacing = trussSpacing
@@ -879,7 +884,10 @@ TINY_HOUSE.framing = (function () {
 
 
         let final_assembly = []
+
         final_assembly = [...final_assembly, ...front_panel, ...back_panel, ...side_panel_1]
+
+
 
         let side_panel_1_ids = []
         for (let i = 1; i <= final_assembly.length; i++) {
@@ -897,6 +905,85 @@ TINY_HOUSE.framing = (function () {
         })
         
 
+
+        if (noOfStories > 1) {
+            let ground_storey_backpanel_ids = []
+            for (let i = 1; i <= (front_panel.length+back_panel.length); i++) {
+                if (i > (front_panel.length)) ground_storey_backpanel_ids.push(String(i))
+            }
+    
+
+            let vecz = buildingLength/eaveHeight
+            let vecx = buildingWidth/eaveHeight
+    
+            final_assembly.push({
+                cad_type: 'cad_repeat',
+                type: 'vector',
+                repetitions: (noOfStories-1),
+                ref_ids: ground_storey_backpanel_ids,
+                vector: [0, 1, 0], // or {x: 1, y: 2, z: 1},
+                length: "~~building_height~~",
+            })
+
+            final_assembly.push({
+                cad_type: 'cad_repeat',
+                type: 'vector',
+                repetitions: (noOfStories-1),
+                ref_ids: ground_storey_backpanel_ids,
+                vector: [0, 1, vecz], // or {x: 1, y: 2, z: 1},
+                length: "~~building_height~~",
+            })
+    
+            
+            final_assembly.push({
+                cad_type: 'cad_repeat',
+                type: 'vector',
+                repetitions: (noOfStories-1),
+                ref_ids: side_panel_1_ids,
+                vector: [0, 1, 0], // or {x: 1, y: 2, z: 1},
+                length: "~~building_height~~",
+            })
+
+            final_assembly.push({
+                cad_type: 'cad_repeat',
+                type: 'vector',
+                repetitions: (noOfStories-1),
+                ref_ids: side_panel_1_ids,
+                vector: [vecx, 1, 0], // or {x: 1, y: 2, z: 1},
+                length: "~~building_height~~",
+            })
+
+
+            // FLOOR BEAMS
+            final_assembly.push({
+                "cad_type": 'cad_truss',
+                "type": '2D',
+                "ref_pt": ["~~building_width/number_of_trusses~~", "~~building_height - truss_height~~", "~~-building_length~~"],
+                "length": ['z', "~~building_length~~"],
+                "height": ['y', "~~truss_height~~"],
+                "offset": 0, 
+                "style": 'cross',
+                "web_section_id": 2,
+                "chord_section_id": 2,
+                "segments": "~~side_number_of_panels~~",
+            })
+            
+            final_assembly.push({
+                cad_type: 'cad_repeat',
+                type: 'vector',
+                repetitions: "~~number_of_trusses-1~~",
+                ref_ids: [String(final_assembly.length)],
+                vector: [1, 0, 0], // or {x: 1, y: 2, z: 1},
+                length: "~~building_width-(building_width/number_of_trusses)~~",
+            }) 
+
+
+        }
+        
+
+
+
+        // ROOF ASSEMBLY
         let roof_assembly = functions.generateRoofTrusses('gable')
 
         final_assembly = [...final_assembly, ...roof_assembly]
@@ -911,7 +998,6 @@ TINY_HOUSE.framing = (function () {
         })        
         
 
-
         let purlins_assembly = [{
             "cad_type": 'cad_line',
             "type": 'vector',
@@ -922,7 +1008,7 @@ TINY_HOUSE.framing = (function () {
             "section_id": 3,
         }]
 
-        let purlin_incr_height = (roofApex-eaveHeight)/num_purlins_half
+        let purlin_incr_height = (roofApex-eaveHeight*noOfStories)/num_purlins_half
         let purlin_incr_distance = (buildingLength/2)/num_purlins_half
 
         for (let n = 0;  n < num_purlins_half; n++) {
@@ -957,6 +1043,8 @@ TINY_HOUSE.framing = (function () {
 
         final_assembly = [...final_assembly, ...purlins_assembly]
         
+
+
         let assembly_obj = {
 			"id": 1,
 			"title": "Tiny House",
@@ -985,6 +1073,8 @@ TINY_HOUSE.framing = (function () {
                 "num_horizontal_studs": { "value": num_horizontal_studs, "type": "integer" },
 
                 "spacing_horizontal_stud": { "value": spacing_horizontal_stud, "type": "float", "units": "length"},
+
+                "number_of_stories": { "value": noOfStories, "type": "integer" },
 			},
 			"steps": final_assembly
             
@@ -999,7 +1089,7 @@ TINY_HOUSE.framing = (function () {
     }
     
 
-    functions.generateRoofTrusses = function (roofProfile) {
+    functions.generateRoofTrusses = function () {
 
 
         // Gable
@@ -1026,9 +1116,9 @@ TINY_HOUSE.framing = (function () {
             {
                 "cad_type": 'cad_truss',
                 "type": '2D',
-                "ref_pt": [0, "~~building_height~~", "~~-building_length - roof_overhang~~"],
+                "ref_pt": [0, "~~building_height*number_of_stories~~", "~~-building_length - roof_overhang~~"],
                 "length": ['z', "~~building_length+roof_overhang*2~~"],
-                "height": ['y', "~~roof_apex_height-building_height~~"],
+                "height": ['y', "~~roof_apex_height-(building_height*number_of_stories)~~"],
                 "offset": "~~(building_length+roof_overhang*2)/2~~", // or [30,30],
                 "style": 'warren',
                 "web_section_id": 2,
@@ -1041,6 +1131,26 @@ TINY_HOUSE.framing = (function () {
         return gable_roof
     }
 
+    functions.generateFloorTrusses = function () {
+
+        let floor_truss = [
+            {
+                "cad_type": 'cad_truss',
+                "type": '2D',
+                "ref_pt": [0, "~~building_height*number_of_stories~~", "~~-building_length - roof_overhang~~"],
+                "length": ['z', "~~building_length+roof_overhang*2~~"],
+                "height": ['y', "~~roof_apex_height-(building_height*number_of_stories)~~"],
+                "offset": "~~(building_length+roof_overhang*2)/2~~", // or [30,30],
+                "style": 'warren',
+                "web_section_id": 2,
+                "chord_section_id": 2,
+                "segments": 10,
+            }
+
+        ]
+
+        return floor_truss
+    }
 	
 	return functions;
 

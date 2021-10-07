@@ -66,8 +66,8 @@ TINY_HOUSE.framing = (function () {
                 "height": ['y', "~~truss_height~~"],
                 "offset": 0, // or [30,30],
                 "style": 'cross',
-                "chord_section_id": 3,
-                "web_section_id": 4,
+                "chord_section_id": 2,
+                "web_section_id": 2,
                 "segments": "~~front_number_of_panels~~",
             },
            
@@ -230,7 +230,7 @@ TINY_HOUSE.framing = (function () {
                 "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~building_width~~",
-                "section_id": 3,
+                "section_id": 1,
             }
         ]
 
@@ -246,8 +246,8 @@ TINY_HOUSE.framing = (function () {
                     "height": ['y', "~~door_truss_height~~"],
                     "offset": 0, // or [30,30],
                     "style": 'cross',
-                    "web_section_id": 4,
-                    "chord_section_id": 3,
+                    "web_section_id": 2,
+                    "chord_section_id": 2,
                     "segments": 3,
                 }
             )
@@ -329,8 +329,8 @@ TINY_HOUSE.framing = (function () {
                 "height": ['y', "~~truss_height~~"],
                 "offset": 0, // or [30,30],
                 "style": 'cross',
-                "web_section_id": 4,
-                "chord_section_id": 3,
+                "web_section_id": 2,
+                "chord_section_id": 2,
                 "segments": "~~front_number_of_panels~~",
             },
 
@@ -513,7 +513,7 @@ TINY_HOUSE.framing = (function () {
                 "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~building_width~~",
-                "section_id": 3,
+                "section_id": 1,
             }
         ]
        
@@ -591,8 +591,8 @@ TINY_HOUSE.framing = (function () {
                 "height": ['y', "~~truss_height~~"],
                 "offset": 0, // or [30,30],
                 "style": 'cross',
-                "web_section_id": 4,
-                "chord_section_id": 3,
+                "web_section_id": 2,
+                "chord_section_id": 2,
                 "segments": "~~side_number_of_panels~~",
             },
 
@@ -778,7 +778,7 @@ TINY_HOUSE.framing = (function () {
                 "vector": [0, 0, 1], // or {x : 0, y: 1, z: 0},
                 "segments": 1,
                 "length": "~~building_length~~",
-                "section_id": 3,
+                "section_id": 1,
             }
         ]
         
@@ -826,8 +826,8 @@ TINY_HOUSE.framing = (function () {
                     "height": ['y', "~~door_truss_height~~"],
                     "offset": 0, // or [30,30],
                     "style": 'cross',
-                    "web_section_id": 4,
-                    "chord_section_id": 3,
+                    "web_section_id": 2,
+                    "chord_section_id": 2,
                     "segments": 3,
                 }
             )
@@ -840,8 +840,8 @@ TINY_HOUSE.framing = (function () {
                 "height": ['y', "~~door_truss_height~~"],
                 "offset": 0, // or [30,30],
                 "style": 'cross',
-                "web_section_id": 4,
-                "chord_section_id": 3,
+                "web_section_id": 2,
+                "chord_section_id": 2,
                 "segments": 3,
             })
         }
@@ -919,7 +919,7 @@ TINY_HOUSE.framing = (function () {
             "vector": [1, 0, 0], // or {x : 0, y: 1, z: 0},
             "segments": 1,
             "length":  "~~(building_width)~~",
-            "section_id": 7,
+            "section_id": 3,
         }]
 
         let purlin_incr_height = (roofApex-eaveHeight)/num_purlins_half
@@ -1031,8 +1031,8 @@ TINY_HOUSE.framing = (function () {
                 "height": ['y', "~~roof_apex_height-building_height~~"],
                 "offset": "~~(building_length+roof_overhang*2)/2~~", // or [30,30],
                 "style": 'warren',
-                "web_section_id": 6,
-                "chord_section_id": 5,
+                "web_section_id": 2,
+                "chord_section_id": 2,
                 "segments": 10,
             }
 

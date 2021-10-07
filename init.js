@@ -30,23 +30,7 @@ var TINY_HOUSE = (function () {
                 "material_id": 1
             },
             "3": {
-                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
-                "material_id": 1
-            },
-            "4": {
-                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
-                "material_id": 1
-            },
-            "5": {
-                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
-                "material_id": 1
-            },
-            "6": {
-                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
-                "material_id": 1
-            },
-            "7": {
-                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
+                "load_section": ["American", "AISI", "Z-Sections W Lips (I-4)", "3.5ZS1.5x059"],
                 "material_id": 1
             }
         }

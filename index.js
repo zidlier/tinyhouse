@@ -215,14 +215,14 @@ var INDEX = (function () {
 
         jQuery('.ui.checkbox').checkbox({
             onChecked: function() {
-                 jQuery('#material-type-slider').html('Wood Material');
+                //  jQuery('#material-type-slider').html('Wood Material');
                  jQuery('#NDS-dropdown').show()
                  jQuery('#NDS-dropdown-profile').show()
                  jQuery('#AISI-dropdown').hide()
                  jQuery('#AISI-dropdown-profile').hide()
             },
             onUnchecked: function() {
-                jQuery('#material-type-slider').html('Cold-formed Steel Material');
+                // jQuery('#material-type-slider').html('Cold-formed Steel Material');
                 jQuery('#NDS-dropdown').hide()
                 jQuery('#NDS-dropdown-profile').hide()
                 jQuery('#AISI-dropdown').show()

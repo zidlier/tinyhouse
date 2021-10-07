@@ -16,11 +16,11 @@ TINY_HOUSE.analysis = (function () {
 
         // TODO - INTEGRATE TO data
         var liveload = 0.6*20.88543423315
-        let member_design_code = "AISI_S100-12_LRFD"
+        let member_design_code = "AISI_S100-12_LRFD" //NDC
         let wall_section = ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"]
         let truss_section = ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"]
         let purlin_section = ["American", "AISI", "Z-Sections W Lips (I-4)", "3.5ZS1.5x059"]
-
+        
         // input-risk-category
         let wind_api_object = {
             "auth": {

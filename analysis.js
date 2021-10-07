@@ -9,7 +9,11 @@ TINY_HOUSE.analysis = (function () {
         let { input_height, input_width, input_length, input_truss_height } = data
         let roof_mean_height = (input_truss_height+input_height)*0.5
         let roof_angle = Math.atan((input_truss_height-input_height)/(input_length/2))*(180/Math.PI)
-       
+        
+        let address = "Minneapolis, MN, USA"
+        let exposure_category = "B"
+        let risk_category = "II"
+
         let wind_api_object = {
             "auth": {
                 "username": "patrick@skyciv.com",
@@ -34,14 +38,14 @@ TINY_HOUSE.analysis = (function () {
                         },
                         "site_data": {
                             "design_code": "asce7-16",
-                            "project_address": "Minneapolis, MN, USA",
+                            "project_address": address,
                             "topography": {
                                 "wind_direction": "N",
-                                "topo_image": true,
+                                "topo_image": false,
                                 "country": "United States",
-                                "exposure": "B"
+                                "exposure": exposure_category
                             },
-                            "risk_category": "II"
+                            "risk_category": risk_category
                         },
                         "building_data": {
                             "design_code": "asce7-16",
@@ -113,7 +117,13 @@ TINY_HOUSE.analysis = (function () {
                 snow_pressure = snow_load
                 wind_result = dump_obj
 
-                return functions.setupLoads(wind_result, snow_pressure)
+                let processed_model = functions.setupLoads(wind_result, snow_pressure)
+
+
+
+                skyciv.request(wind_api_object, function (res) {
+                    
+                })
                 
             } else {
 
@@ -381,6 +391,8 @@ TINY_HOUSE.analysis = (function () {
         
 
         console.log(JSON.stringify(s3d_model))
+
+        return s3d_model
 
     }
 

@@ -15,8 +15,11 @@ TINY_HOUSE.framing = (function () {
     functions.generateWallFramingS3DModel = function (buildingLength, buildingWidth, eaveHeight, roofApex, roofOverhang, trussSpacing, noOfStories) {
 
         if (typeof noOfStories == 'undefined') noOfStories = 1
+
         noOfStories = Math.min(2, noOfStories)
 
+
+        // TODO - INTEGRATE WITH DATA
         noOfStories = 2
 
 
@@ -975,7 +978,8 @@ TINY_HOUSE.framing = (function () {
                 ref_ids: [String(final_assembly.length)],
                 vector: [1, 0, 0], // or {x: 1, y: 2, z: 1},
                 length: "~~building_width-(building_width/number_of_trusses)~~",
-            }) 
+            })
+
 
 
         }

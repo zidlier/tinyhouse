@@ -43,7 +43,7 @@ var INDEX = (function () {
             "input_roof_angle": parseFloat(jQuery('#roof-angle').val()),
             "input-risk-category": jQuery("#input-risk-category").dropdown('get value'),
             "input-exposure-category": jQuery("#input-exposure-category").dropdown('get value'),
-            "input-site-address" : jQuery('#input-site-address').val(),
+            "input-site-address": jQuery('#input-site-address').val(),
             // "AISI-dropdown" : jQuery("#AISI-dropdown").dropdown('get value'),
             // "AISI-dropdown-profile" :  jQuery("#AISI-dropdown-profile").dropdown('get value'),
             // "NDS-dropdown" : jQuery("#NDS-dropdown").dropdown('get value'),
@@ -73,30 +73,31 @@ var INDEX = (function () {
         // 
     }
 
-        // #AISI-dropdown-profile,
-        // #NDS-dropdown-profile,
+    // #AISI-dropdown-profile,
+    // #NDS-dropdown-profile,
+
     functions.updateRender = function () {
         $(`#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset, #input-truss-panel-spacing
         #input-risk-category,
         #input-exposure-category,
         #input-site-address
         `).change(function () {
-                data = INDEX.getData()
-                TINY_HOUSE.init(data);
+            data = INDEX.getData()
+            TINY_HOUSE.init(data);
         }).change();
     }
 
-    functions.dropdownData = function (){
+    functions.dropdownData = function () {
         var AISI = INDEX.general_data.getAISI()
         var NDS = INDEX.general_data.getNDS()
 
-        var AISI_main = Object.keys(AISI)    
+        var AISI_main = Object.keys(AISI)
         var NDS_main = Object.keys(NDS)
 
         var AISI_main_arr = []
         var NDS_main_arr = []
 
-        for(var i = 0; i< AISI_main.length; i++){
+        for (var i = 0; i < AISI_main.length; i++) {
             // if(i == 0){
             //     AISI_main_arr.push({
             //         "name" : AISI_main[i],
@@ -124,16 +125,16 @@ var INDEX = (function () {
         //             "value" : NDS_main[i]
         //         })
         //     }
-            
-            
+
+
 
         // }
 
         var checkbox_checker = jQuery('.ui.checkbox').is(':checked');
 
         let generate_filter_dropdown = ''
-        
-        var random = ['red','green','blue','black','purple','orange','yellow','white']
+
+        var random = ['red', 'green', 'blue', 'black', 'purple', 'orange', 'yellow', 'white']
         //initialize first
         generate_filter_dropdown += `<div class="ui floating dropdown labeled icon button" id="material-dropdown">			
             <i class="filter icon"></i>
@@ -149,93 +150,86 @@ var INDEX = (function () {
                 Tag Label
             </div>
             <div class="scrolling menu">`
-            if(checkbox_checker  == false){
-                for(var i = 0; i< AISI_main.length; i++){
-                    
-                    generate_filter_dropdown +=`<div class="item">
+
+        if (!checkbox_checker) {
+            for (var i = 0; i < AISI_main.length; i++) {
+
+                generate_filter_dropdown += `<div class="item">
                         <div class="ui ${random[i]} empty circular label"></div>
                         ${AISI_main[i]}
-                        </div>`        
+                        </div>`
             }
-            } else {
-                for(var i = 0; i< NDS_main.length; i++){
-                    
-                    generate_filter_dropdown +=`<div class="item">
+        } else {
+            for (var i = 0; i < NDS_main.length; i++) {
+
+                generate_filter_dropdown += `<div class="item">
                         <div class="ui ${random[i]} empty circular label"></div>
                         ${NDS_main[i]}
-                        </div>`                    
+                        </div>`
             }
-            }
-            generate_filter_dropdown += `</div>
+        }
+
+        generate_filter_dropdown += `</div>
             </div>
         </div>`
-            // debugger
+        // debugger
         jQuery('#filter-section').append(generate_filter_dropdown);
-		jQuery('#material-dropdown').dropdown();
-
-        // <div class="item">
-        // <div class="ui red empty circular label"></div>
-        // Important
-        // </div>
-
-
-		// jQuery('#NDS-dropdown').dropdown({
-		// 	values: NDS_main_arr,
-		// });
+        jQuery('#material-dropdown').dropdown();
 
 
     }
 
-    functions.dropdownData2 = function(){
+    functions.dropdownData2 = function () {
+        
         var AISI = INDEX.general_data.getAISI()
         var NDS = INDEX.general_data.getNDS()
 
         var AISI_main = jQuery('#AISI-dropdown').dropdown('get value')
         var AISI_profile = AISI[AISI_main]
         var AISI_profile_arr = []
-        
-        for(var i = 0; i< AISI_profile.length; i++){
-            if(i == 0){
+
+        for (var i = 0; i < AISI_profile.length; i++) {
+            if (i == 0) {
                 AISI_profile_arr.push({
-                    "name" : AISI_profile[i],
-                    "value" : AISI_profile[i],
-                    "selected" : true
+                    "name": AISI_profile[i],
+                    "value": AISI_profile[i],
+                    "selected": true
                 })
             } else {
                 AISI_profile_arr.push({
-                    "name" : AISI_profile[i],
-                    "value" : AISI_profile[i]
-                }) 
+                    "name": AISI_profile[i],
+                    "value": AISI_profile[i]
+                })
             }
         }
 
         var NDS_main = jQuery('#NDS-dropdown').dropdown('get value')
         var NDS_profile = NDS[NDS_main]
         var NDS_profile_arr = []
-        
-        for(var i = 0; i< NDS_profile.length; i++){
-            if(i == 0){
+
+        for (var i = 0; i < NDS_profile.length; i++) {
+            if (i == 0) {
                 NDS_profile_arr.push({
-                    "name" : NDS_profile[i],
-                    "value" : NDS_profile[i],
-                    "selected" : true
+                    "name": NDS_profile[i],
+                    "value": NDS_profile[i],
+                    "selected": true
                 })
             } else {
                 NDS_profile_arr.push({
-                    "name" : NDS_profile[i],
-                    "value" : NDS_profile[i]
-                }) 
+                    "name": NDS_profile[i],
+                    "value": NDS_profile[i]
+                })
             }
         }
 
 
-		jQuery('#AISI-dropdown-profile').dropdown({
-			values: AISI_profile_arr
-		});
+        jQuery('#AISI-dropdown-profile').dropdown({
+            values: AISI_profile_arr
+        });
 
         jQuery('#NDS-dropdown-profile').dropdown({
-			values: NDS_profile_arr
-		});
+            values: NDS_profile_arr
+        });
     }
 
     $(document).ready(function () {
@@ -255,7 +249,7 @@ var INDEX = (function () {
         // jQuery('#NDS-dropdown-profile').hide()
 
         jQuery('.ui.checkbox').checkbox({
-            onChecked: function() {
+            onChecked: function () {
                 // INDEX.dropdownData();
                 //  jQuery('#material-type-slider').html('Wood Material');
                 //  jQuery('#NDS-dropdown').show()
@@ -263,7 +257,7 @@ var INDEX = (function () {
                 //  jQuery('#AISI-dropdown').hide()
                 //  jQuery('#AISI-dropdown-profile').hide()
             },
-            onUnchecked: function() {
+            onUnchecked: function () {
                 // INDEX.dropdownData();
                 // jQuery('#material-type-slider').html('Cold-formed Steel Material');
                 // jQuery('#NDS-dropdown').hide()

@@ -55,7 +55,7 @@ var INDEX = (function () {
         var data_keys = Object.keys(default_data);
         var form_fields = {}
         var $form_fields = {}
-        debugger
+        // debugger
 
         for (var i = 0; i < data_keys.length; i++) {
             data_key = data_keys[i]

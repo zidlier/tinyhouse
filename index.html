@@ -113,54 +113,85 @@
 		</div>
 
 		<div id="input-window" class="six wide column" id="menu-input">
-			<br>
-			<center><img src="svg/logo.svg" /></center>
-			<br>
+			<img src="svg/logo.svg" />
 
-
-			<div class="ui styled accordion input-data" style="height:100vh; float:right; margin-right: 40px;">
-				<div class="title">
+			<div class="ui styled accordion input-data" style="height:100vh; float:right; margin-right: 10px; position: absolute">
+				
+				<div class="title active">
 					<i class="dropdown icon"></i>
 					Structure Data
 				</div>
-				<div class="content">
+				<div class="content active">
 					<div class="ui form">
+
 						<div class="field" style="padding-left: 15px;">
 							<label>Structure Height (<span> meters</span> ) </label>
-							<input id="input-height" data-key="input-height" value="3">
-							<!-- <input id="input-height" data-key="input-height"> -->
+							<div class="ui right labeled input">
+								<input id="input-height" data-key="input-height" value="3">
+								<div class="ui basic label">
+									<span >m</span>
+								</div>
+							</div>
 						</div>
+
 						<div class="field" style="padding-left: 15px;">
 							<label>Structure Width (<span> meters</span> ) </label>
-							<input id="input-width" data-key="input-width" value="10">
+							<div class="ui right labeled input">
+								<input id="input-width" data-key="input-width" value="10">
+								<div class="ui basic label">
+									<span >m</span>
+								</div>
+							</div>
 						</div>
+
 						<div class="field" style="padding-left: 15px;">
 							<label>Structure Length (<span> meters</span> ) </label>
-							<input id="input-length" data-key="input-length" value="6">
+							<div class="ui right labeled input">
+								<input id="input-length" data-key="input-length" value="6">
+								<div class="ui basic label">
+									<span >m</span>
+								</div>
+							</div>
 						</div>
 
 						<div class="field" style="padding-left: 15px;">
 							<label>Slab thickness</label>
-							<input id="input-thickness" data-key="input-thickness" value="0.3">
+							<div class="ui right labeled input">
+								<input id="input-thickness" data-key="input-thickness" value="0.3">
+								<div class="ui basic label">
+									<span >m</span>
+								</div>
+							</div>
 						</div>
 
 						<div class="field" style="padding-left: 15px;">
 							<label>Truss panel spacing</label>
-							<input id="input-truss-panel-spacing" data-key="input-truss-panel-spacing" value="1">
+							<div class="ui right labeled input">
+								<input id="input-truss-panel-spacing" data-key="input-truss-panel-spacing" value="1">
+								<div class="ui basic label">
+									<span >m</span>
+								</div>
+							</div>
 						</div>
+						
 						<div class="field" style="padding-left: 15px;">
 							<label>Truss Height (<span> meters</span> ) </label>
-							<input id="input-truss-height" data-key="input-truss-height" value="5">
+							<div class="ui right labeled input">
+								<input id="input-truss-height" data-key="input-width" value="4">
+								<div class="ui basic label">
+									<span >m</span>
+								</div>
+							</div>
 						</div>
 
 					</div>
 				</div>
 
-				<div class="title active">
+				<div class="title ">
 					<i class="dropdown icon"></i>
 					Site Data
 				</div>
-				<div class="content active">
+				<div class="content ">
 
 					<div class="field" style="padding-left: 15px;">
 						<label>Site Address</label>
@@ -204,11 +235,17 @@
 				</div>
 				<div class="content">
 
+					<div class="ui search section-search abeled input small design-input-div">
+						<label>Section</label>
+						<div class="ui icon input">
+							<input data-type="section" id="input-column-section" class="prompt design-input" type="section" placeholder="Loading Sections..."><i class="search icon"></i>
+						</div>
+						<div class="results">
+						</div>
+					</div>
+
 				</div>
 			</div>
-
-
-
 
 			<!-- <div id='main-tab' class="ui top attached tabular menu">
 				<a class="item active" data-tab="project-tab">PROJECT DETAILS</a>

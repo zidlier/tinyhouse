@@ -5,7 +5,7 @@ TINY_HOUSE.analysis = (function () {
     var snow_pressure = null
 
     functions.generateLoads = function (data) {
-
+        // debugger    
         let { input_height, input_width, input_length, input_truss_height } = data
         let roof_mean_height = (input_truss_height+input_height)*0.5
         let roof_angle = Math.atan((input_truss_height-input_height)/(input_length/2))*(180/Math.PI)

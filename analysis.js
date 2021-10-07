@@ -120,8 +120,12 @@ TINY_HOUSE.analysis = (function () {
                 snow_pressure = snow_load
                 wind_result = dump_obj
 
+                // ASSIGN LOADS
                 let processed_model = functions.setupLoads(wind_result, snow_pressure, liveload)
 
+                // ASSIGN SUPPORTS
+                let supports = assignSupports(data, processed_model.nodes)
+                processed_model.supports = supports
 
                 let member_design_code = "AISI_S100-12_LRFD"
 
@@ -298,11 +302,41 @@ TINY_HOUSE.analysis = (function () {
         return obj
     }
 
-    var getNodeIDsForSupport = function (data, nodes) {
+    var assignSupports = function (data, nodes) {
 
         let support_node_ids = []
+
+        for (let id in nodes) {
+            if (nodes[id] == null) continue
+            let {x,y,z} = nodes[id]
+            if (y == 0) support_node_ids.push(id)
+        }
+
+        let support_obj = {}
+
+        let ctr = 1
+
+        support_node_ids.map(id => {
+
+            let this_id = String(ctr)
+
+            support_obj[this_id] = {
+                "direction_code": "BBBBBB",
+                "tx": 0,
+                "ty": 0,
+                "tz": 0,
+                "rx": 0,
+                "ry": 0,
+                "rz": 0,
+                "node": 23,
+                "restraint_code": "FFFFRR"
+            }
+
+            ctr++
+        })
+
         
-        return obj
+        return support_obj
     }
 
     functions.setupLoads = function (wind, snow, live) {

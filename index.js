@@ -44,6 +44,7 @@ var INDEX = (function () {
             "input-risk-category": jQuery("#input-risk-category").dropdown('get value'),
             "input-exposure-category": jQuery("#input-exposure-category").dropdown('get value'),
             "input-site-address": jQuery('#input-site-address').val(),
+            "input-live-load": jQuery('#input-live-load').val(),
             // "AISI-dropdown" : jQuery("#AISI-dropdown").dropdown('get value'),
             // "AISI-dropdown-profile" :  jQuery("#AISI-dropdown-profile").dropdown('get value'),
             // "NDS-dropdown" : jQuery("#NDS-dropdown").dropdown('get value'),
@@ -80,7 +81,8 @@ var INDEX = (function () {
         $(`#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset, #input-truss-panel-spacing
         #input-risk-category,
         #input-exposure-category,
-        #input-site-address
+        #input-site-address,
+        #input-live-load
         `).change(function () {
             data = INDEX.getData()
             TINY_HOUSE.init(data);

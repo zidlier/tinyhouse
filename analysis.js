@@ -93,27 +93,27 @@ TINY_HOUSE.analysis = (function () {
                 }
 
                 for (var f=0; f<wind_load_arr.length; f++) {
-                    let {surface, dirn, pos_Cpi, neg_Cpi} = wind_load_arr[f]
+                    let {surface, dirn, pos_GCpi, neg_GCpi} = wind_load_arr[f]
 
                     if (surface == "roof_windward" && dirn == "along_L") {
-                        dump_obj.roof_windward.pos = pos_Cpi/1000;
-                        dump_obj.roof_windward.neg = neg_Cpi/1000;
+                        dump_obj.roof_windward.pos = pos_GCpi/1000;
+                        dump_obj.roof_windward.neg = neg_GCpi/1000;
                     } else if (surface == "roof_leeward" && dirn == "along_L") {
-                        dump_obj.roof_leeward.pos = pos_Cpi/1000;
-                        dump_obj.roof_leeward.neg = neg_Cpi/1000;
+                        dump_obj.roof_leeward.pos = pos_GCpi/1000;
+                        dump_obj.roof_leeward.neg = neg_GCpi/1000;
                     } else if (surface == "windward_wall" && dirn == "along_L") {
-                        dump_obj.windward_wall.pos = pos_Cpi/1000;
-                        dump_obj.windward_wall.neg = neg_Cpi/1000;
+                        dump_obj.windward_wall.pos = pos_GCpi/1000;
+                        dump_obj.windward_wall.neg = neg_GCpi/1000;
                     } else if (surface == "leeward_wall" && dirn == "along_L") {
-                        dump_obj.leeward_wall.pos = pos_Cpi/1000;
-                        dump_obj.leeward_wall.neg = neg_Cpi/1000;
+                        dump_obj.leeward_wall.pos = pos_GCpi/1000;
+                        dump_obj.leeward_wall.neg = neg_GCpi/1000;
                     }
                 }
 
                 snow_pressure = snow_load
                 wind_result = dump_obj
 
-                return {'wind': dump_obj, 'snow': snow_pressure}
+                return functions.setupLoads(wind_result, snow_pressure)
                 
             } else {
 
@@ -130,17 +130,19 @@ TINY_HOUSE.analysis = (function () {
     }
 
     var getNodeIDFromModel = function(xval, yval, zval, nodes) {
-		for (let i = 1; i < nodes.length; i++) {
-			let this_node_val = nodes[i]
+
+        for (let nodeid in nodes) {
+            let this_node_val = nodes[nodeid]
 			if (this_node_val == null) continue
-			if (xval == this_node_val[0] && yval == this_node_val[1] && zval == this_node_val[2]) return i
-		}
+            let {x,y,z} = this_node_val
+            if (xval == x && yval == y && zval == z) return nodeid
+        }
+
 		return null
 	}
 
-    var getNodeIDsOfSurfaces = function (data) {
+    var getNodeIDsOfSurfaces = function (data, nodes) {
         // 0 DEGREES
-
         let buildingLength =  data["input_length"]
 		let buildingWidth = data["input_width"]
 		let eaveHeight = data["input_height"]
@@ -179,7 +181,7 @@ TINY_HOUSE.analysis = (function () {
         return obj
     }
 
-    var getNodeDirections = function (data) {
+    var getNodeDirections = function (data, nodes) {
 
         let buildingLength =  data["input_length"]
 		let buildingWidth = data["input_width"]
@@ -219,15 +221,14 @@ TINY_HOUSE.analysis = (function () {
         return obj
     }
 
-    functions.runAnalysis = function (data) {
-        let this_data = INDEX.getData()
-        let load_gen = functions.generateLoads(this_data)
-        let {wind, snow} = load_gen
+    functions.setupLoads = function (wind, snow) {
+
+        let data = INDEX.getData()
 
         let s3d_model = TINY_HOUSE.getS3DModel()
 
         // USE Kpa
-        s3d_model.settings.units.pressure = "pa"
+        s3d_model.settings.units.pressure = "kpa"
 
         let {nodes, area_loads} = s3d_model
 
@@ -239,8 +240,8 @@ TINY_HOUSE.analysis = (function () {
 		let roofOverhang = data["input_truss_offset"]
 		let trussSpacing = data["input_truss_panel_spacing"]
 
-        let surface_nodes = getNodeIDsOfSurfaces(data)
-        let node_directions = getNodeDirections(data)
+        let surface_nodes = getNodeIDsOfSurfaces(data, nodes)
+        let node_directions = getNodeDirections(data, nodes)
 
         let load_id = 1
         for (let surface in wind) {
@@ -331,8 +332,6 @@ TINY_HOUSE.analysis = (function () {
 
         }
         
-
-        
         // APPLY SNOW LOAD
 
         let roof_windward_nodes = surface_nodes['roof_windward']
@@ -343,6 +342,9 @@ TINY_HOUSE.analysis = (function () {
 
         let load_id_snow = String(load_id)
         load_id++
+
+        // Convert snow load in psf to Kpa
+        snow = 0.047880258888889*snow
 
         area_loads[load_id_snow] = {
             "type": "two_way",
@@ -378,6 +380,7 @@ TINY_HOUSE.analysis = (function () {
         s3d_model['area_loads'] = area_loads
         
 
+        console.log(JSON.stringify(s3d_model))
 
     }
 

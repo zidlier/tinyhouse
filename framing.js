@@ -12,13 +12,11 @@ TINY_HOUSE.framing = (function () {
 
     var wall_assembly = []
 
-    functions.generateWallFramingS3DModel = function (buildingLength, buildingWidth, eaveHeight, roofApex, roofOverhang, trussSpacing, noOfStories) {
+    functions.generateWallFramingS3DModel = function (buildingLength, buildingWidth, eaveHeight, roofApex, roofOverhang, trussSpacing) {
 
         var data = INDEX.getData()
 
         noOfStories = data["input-stories"]
-
-
         let truss_spacing = trussSpacing
 
         let truss_panel_spacing = 1/0.3048

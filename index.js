@@ -43,7 +43,11 @@ var INDEX = (function () {
             "input_roof_angle": parseFloat(jQuery('#roof-angle').val()),
             "input-risk-category": jQuery("#input-risk-category").dropdown('get value'),
             "input-exposure-category": jQuery("#input-exposure-category").dropdown('get value'),
-            "input-site-address" : jQuery('#input-site-address').val()
+            "input-site-address" : jQuery('#input-site-address').val(),
+            "AISI-dropdown" : jQuery("#AISI-dropdown").dropdown('get value'),
+            "AISI-dropdown-profile" :  jQuery("#AISI-dropdown-profile").dropdown('get value'),
+            "NDS-dropdown" : jQuery("#NDS-dropdown").dropdown('get value'),
+            "NDS-dropdown-profile" :  jQuery("#NDS-dropdown-profile").dropdown('get value'),             
         }
 
         return data

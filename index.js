@@ -102,7 +102,7 @@ var INDEX = (function () {
             let generate_filter_dropdown = ''
             generate_filter_dropdown += `
        
-            <div class="ui fluid search selection dropdown" id="${html2}">
+            <div class="ui fluid search selection dropdown" id="${html2}" style="padding-left: 15px;">
               <input type="hidden" name="country">
                 <i class="dropdown icon"></i>
                 <div class="default text">Select Selection</div>

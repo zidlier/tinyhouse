@@ -55,9 +55,9 @@ var INDEX = (function () {
         var AISI = INDEX.general_data.getAISI()
         var NDS = INDEX.general_data.getNDS()
 
-        function generateDropdown(section,html1,html2){
+        function generateDropdown(type,section,html1,html2){
             // var AISI = INDEX.general_data.getAISI()
-            var AISI_data = AISI[section]
+            var AISI_data = type[section]
             var AISI_length = AISI_data.length;
             var AISI_main_arr = []
             for (var i = 0; i < AISI_length; i++) {
@@ -89,10 +89,12 @@ var INDEX = (function () {
             jQuery(`#${html2}`).dropdown('set selected', AISI_main_arr[0]);
         }
         
-        generateDropdown("C-Sections W Lips (I-1)",'filter-section','material-dropdown')
-        generateDropdown("C-Sections W Lips (I-1)",'filter-section-2','material-dropdown-2')
-        generateDropdown("Z-Sections WO Lips (I-5)",'filter-section-3','material-dropdown-3')
-
+        generateDropdown(AISI,"C-Sections W Lips (I-1)",'filter-section','material-dropdown')
+        generateDropdown(AISI,"C-Sections W Lips (I-1)",'filter-section-2','material-dropdown-2')
+        generateDropdown(AISI,"Z-Sections WO Lips (I-5)",'filter-section-3','material-dropdown-3')
+        generateDropdown(NDS,"Western Species Structural Glued Laminated Timber",'filter-section-b','material-dropdown-b')
+        generateDropdown(NDS,"Western Species Structural Glued Laminated Timber",'filter-section-2b','material-dropdown-2b')
+        generateDropdown(NDS,"Sawn Lumber",'filter-section-3b','material-dropdown-3b')
     }
 
     $(document).ready(function () {
@@ -110,27 +112,37 @@ var INDEX = (function () {
             jQuery('#modal-results').modal('show');
 
         });
+        
+        jQuery('#material-dropdown-b').hide()
+        jQuery('#material-dropdown-2b').hide()       
+        jQuery('#material-dropdown-3b').hide()
 
-        // jQuery('.ui.checkbox').checkbox({
-        //     onChecked: function () {
-        //         // INDEX.dropdownData();
-        //         //  jQuery('#material-type-slider').html('Wood Material');
-        //         //  jQuery('#NDS-dropdown').show()
-        //         //  jQuery('#NDS-dropdown-profile').show()
-        //         //  jQuery('#AISI-dropdown').hide()
-        //         //  jQuery('#AISI-dropdown-profile').hide()
-        //     },
-        //     onUnchecked: function () {
-        //         // INDEX.dropdownData();
-        //         // jQuery('#material-type-slider').html('Cold-formed Steel Material');
-        //         // jQuery('#NDS-dropdown').hide()
-        //         // jQuery('#NDS-dropdown-profile').hide()
-        //         // jQuery('#AISI-dropdown').show()
-        //         // jQuery('#AISI-dropdown-profile').show()
-        //     }
+        jQuery('.ui.checkbox').checkbox({
+            onChecked: function () {
+
+                jQuery('#material-dropdown').hide()
+                jQuery('#material-dropdown-2').hide()       
+                jQuery('#material-dropdown-3').hide()
+
+                jQuery('#material-dropdown-b').show()
+                jQuery('#material-dropdown-2b').show()       
+                jQuery('#material-dropdown-3b').show()
+
+            },
+            onUnchecked: function () {
+
+                jQuery('#material-dropdown').show()
+                jQuery('#material-dropdown-2').show()       
+                jQuery('#material-dropdown-3').show()
+
+                jQuery('#material-dropdown-b').hide()
+                jQuery('#material-dropdown-2b').hide()       
+                jQuery('#material-dropdown-3b').hide()
+
+            }
 
 
-        // });
+        });
 
 
         setTimeout(function () {

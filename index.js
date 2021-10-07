@@ -31,11 +31,11 @@ var INDEX = (function () {
             "input_width": parseFloat(jQuery('#input-width').val()),
             "input_length": parseFloat(jQuery('#input-length').val()),
             "input_thk": parseFloat(jQuery('#input-thickness').val()),
-            "input_window_width": parseFloat(jQuery('#input-window-width').val()),
-            "input_window_height": parseFloat(jQuery('#input-window-height').val()),
-            "input_door_height": parseFloat(jQuery('#input-door-height').val()),
-            "input_door_width": parseFloat(jQuery('#input-door-width').val()),
-            "input_door_truss_height": parseFloat(jQuery('#input-door-truss-height').val()),
+            // "input_window_width": parseFloat(jQuery('#input-window-width').val()),
+            // "input_window_height": parseFloat(jQuery('#input-window-height').val()),
+            // "input_door_height": parseFloat(jQuery('#input-door-height').val()),
+            // "input_door_width": parseFloat(jQuery('#input-door-width').val()),
+            // "input_door_truss_height": parseFloat(jQuery('#input-door-truss-height').val()),
             "input_truss_panel_spacing": parseFloat(jQuery('#input-truss-panel-spacing').val()),
             "input_truss_height": parseFloat(jQuery('#input-truss-height').val()),
             "input_truss_offset": parseFloat(jQuery('#input-truss-offset').val()),
@@ -43,8 +43,11 @@ var INDEX = (function () {
             "input_roof_angle": parseFloat(jQuery('#roof-angle').val()),
             "input-risk-category": jQuery("#input-risk-category").dropdown('get value'),
             "input-exposure-category": jQuery("#input-exposure-category").dropdown('get value'),
-
-
+            "input-site-address" : jQuery('#input-site-address').val(),
+            "AISI-dropdown" : jQuery("#AISI-dropdown").dropdown('get value'),
+            "AISI-dropdown-profile" :  jQuery("#AISI-dropdown-profile").dropdown('get value'),
+            "NDS-dropdown" : jQuery("#NDS-dropdown").dropdown('get value'),
+            "NDS-dropdown-profile" :  jQuery("#NDS-dropdown-profile").dropdown('get value'),             
         }
 
         return data
@@ -72,7 +75,13 @@ var INDEX = (function () {
 
 
     functions.updateRender = function () {
-        $("#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset, #input-truss-panel-spacing")
+        $(`#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset, #input-truss-panel-spacing
+        #input-risk-category,
+        #input-exposure-category,
+        #AISI-dropdown-profile,
+        #NDS-dropdown-profile,
+        #input-site-address
+        `)
             .change(function () {
                 data = INDEX.getData()
                 TINY_HOUSE.init(data);

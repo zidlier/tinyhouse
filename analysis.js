@@ -10,11 +10,11 @@ TINY_HOUSE.analysis = (function () {
         let roof_mean_height = (input_truss_height+input_height)*0.5
         let roof_angle = Math.atan((input_truss_height-input_height)/(input_length/2))*(180/Math.PI)
         
-        let address = "Minneapolis, MN, USA"
-        let exposure_category = "B"
-        let risk_category = "II"
-        var liveload = 0.6*20.88543423315
-
+        let address = data["input-site-address"]
+        let exposure_category = data["input-exposure-category"]
+        let risk_category = data["input-risk-category"]
+        
+        // input-risk-category
         let wind_api_object = {
             "auth": {
                 "username": "patrick@skyciv.com",

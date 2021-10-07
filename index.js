@@ -203,14 +203,23 @@ var INDEX = (function () {
         jQuery("#input-risk-category").dropdown('set selected', "I");
         jQuery("#input-exposure-category").dropdown('set selected', "B");
 
-        // jQuery("#AISI-dropdown").dropdown('set selected', "C-Sections W Lips (I-1)");
+        jQuery('#NDS-dropdown').hide()
+        jQuery('#NDS-dropdown-profile').hide()
 
         jQuery('.ui.checkbox').checkbox({
             onChecked: function() {
                  jQuery('#material-type-slider').html('Wood Material');
+                 jQuery('#NDS-dropdown').show()
+                 jQuery('#NDS-dropdown-profile').show()
+                 jQuery('#AISI-dropdown').hide()
+                 jQuery('#AISI-dropdown-profile').hide()
             },
             onUnchecked: function() {
                 jQuery('#material-type-slider').html('Cold-formed Steel Material');
+                jQuery('#NDS-dropdown').hide()
+                jQuery('#NDS-dropdown-profile').hide()
+                jQuery('#AISI-dropdown').show()
+                jQuery('#AISI-dropdown-profile').show()
             }
 
             // jQuery(".renderer-update").change(function () {

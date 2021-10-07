@@ -128,7 +128,7 @@ var INDEX = (function () {
         jQuery('#material-dropdown-2b').hide()       
         jQuery('#material-dropdown-3b').hide()
 
-        jQuery('.ui.checkbox').checkbox({
+        jQuery('#material-slider').checkbox({
             onChecked: function () {
                 
                 jQuery('#material-dropdown').hide()

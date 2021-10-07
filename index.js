@@ -57,30 +57,12 @@ var INDEX = (function () {
 
     }
 
-    functions.updateData = function () {
-        var data_keys = Object.keys(default_data);
-        var form_fields = {}
-        var $form_fields = {}
-        // 
-
-        for (var i = 0; i < data_keys.length; i++) {
-            data_key = data_keys[i]
-            $form_fields[data_key] = jQuery('#menu-input [data-key="' + data_key + '"]');
-            // 
-            form_fields[data_keys] = parseFloat($form_fields[data_key].val())
-        }
-
-
-        data = form_fields
-        // if()
-        // 
-    }
 
     // #AISI-dropdown-profile,
     // #NDS-dropdown-profile,
 
     functions.updateRender = function () {
-        $(`#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset, #input-truss-panel-spacing
+        $(`#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset, #input-truss-panel-spacing,
         #input-risk-category,
         #input-exposure-category,
         #input-site-address,

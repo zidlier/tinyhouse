@@ -78,7 +78,7 @@ var INDEX = (function () {
                 jQuery(`#label-height`).html(`Storey Height`)
             }
 
-        });
+        }).change();
     }
 
     functions.dropdownData = function () {

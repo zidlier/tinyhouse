@@ -14,7 +14,6 @@ TINY_HOUSE.analysis = (function () {
         let exposure_category = data["input-exposure-category"]
         let risk_category = data["input-risk-category"]
 
-        // TODO - INTEGRATE TO data
         var liveload = 1.9*data["input-live-load"]
         var sdeadload = 2.5*data["input-dead-load"]
         let member_design_code = "AISI_S100-12_LRFD" //NDC
@@ -403,9 +402,8 @@ TINY_HOUSE.analysis = (function () {
 		let roofOverhang = data["input_truss_offset"]
 		let trussSpacing = data["input_truss_panel_spacing"]
 
-        // TODO
-        let number_of_stories = 2
-
+        let number_of_stories = data["input-stories"]
+        debugger
 
         let surface_nodes = getNodeIDsOfSurfaces(data, nodes)
         let node_directions = getNodeDirections(data, nodes)

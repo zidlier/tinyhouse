@@ -43,6 +43,7 @@ var INDEX = (function () {
             "input_roof_angle": parseFloat(jQuery('#roof-angle').val()),
             "input-risk-category": jQuery("#input-risk-category").dropdown('get value'),
             "input-exposure-category": jQuery("#input-exposure-category").dropdown('get value'),
+            "input-stories": parseFloat( jQuery("#input-stories").dropdown('get value') ),
             "input-site-address": jQuery('#input-site-address').val(),
             "input-dead-load": jQuery('#input-dead-load').val(),
             "input-live-load": jQuery('#input-live-load').val(),
@@ -83,7 +84,8 @@ var INDEX = (function () {
         #input-risk-category,
         #input-exposure-category,
         #input-site-address,
-        #input-live-load
+        #input-live-load,
+        #input-stories
         `).change(function () {
             data = INDEX.getData()
             TINY_HOUSE.init(data);
@@ -247,7 +249,7 @@ var INDEX = (function () {
 
         jQuery("#input-risk-category").dropdown('set selected', "I");
         jQuery("#input-exposure-category").dropdown('set selected', "B");
-
+        jQuery("#input-stories").dropdown('set selected', "1");
         // jQuery('#NDS-dropdown').hide()
         // jQuery('#NDS-dropdown-profile').hide()
 

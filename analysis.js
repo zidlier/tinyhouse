@@ -13,7 +13,7 @@ TINY_HOUSE.analysis = (function () {
         let address = data["input-site-address"]
         let exposure_category = data["input-exposure-category"]
         let risk_category = data["input-risk-category"]
-        
+
         // input-risk-category
         let wind_api_object = {
             "auth": {
@@ -323,39 +323,6 @@ TINY_HOUSE.analysis = (function () {
             "translation": "in",
             "stress": "ksi"
         }
-
-        s3d_model.sections =  {
-            "1": {
-                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
-                "material_id": 1
-            },
-            "2": {
-                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
-                "material_id": 1
-            },
-            "3": {
-                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
-                "material_id": 1
-            },
-            "4": {
-                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
-                "material_id": 1
-            },
-            "5": {
-                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
-                "material_id": 1
-            },
-            "6": {
-                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
-                "material_id": 1
-            },
-            "7": {
-                "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
-                "material_id": 1
-            }
-        }
-
-
 
         let {nodes, area_loads} = s3d_model
 

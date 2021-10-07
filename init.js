@@ -29,7 +29,7 @@ var TINY_HOUSE = (function () {
                 "load_section": ["American", "AISI", "C-Sections W Lips (I-1)", "4CS2.5x059"],
                 "material_id": 1
             },
-            "7": {
+            "3": {
                 "load_section": ["American", "AISI", "Z-Sections W Lips (I-4)", "3.5ZS1.5x059"],
                 "material_id": 1
             }

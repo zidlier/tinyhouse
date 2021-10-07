@@ -202,6 +202,7 @@ TINY_HOUSE.analysis = (function () {
                                 "design_code": member_design_code
                             }
                         },
+                        
                         {
                             "function": "S3D.member_design.optimize",
                             "arguments": {
@@ -245,18 +246,18 @@ TINY_HOUSE.analysis = (function () {
                         //                 "variables": [
                         //                     null,
                         //                     {
-                        //                         "name": "Sec1: W21x48",
+                        //                         "name": `Sec1: ${data["material-dropdown"]}`,
                         //                         "operation": "change-section",
                         //                         "opts": {
-                        //                             "library": ["American", "AISC", "W shapes"],
+                        //                             "library": ["American", "AISI", "C-Sections W Lips (I-1)"],
                         //                             "section_number": 1,
                         //                             "exclusion_string": [],
                         //                             "inclusion_string": [],
                         //                             "change_shape": [],
                         //                             "change_lib": [],
                         //                             "dim_limits": {
-                        //                                 "depth_lower_limit": 15,
-                        //                                 "depth_upper_limit": 22,
+                        //                                 "depth_lower_limit": 3,
+                        //                                 "depth_upper_limit": 8,
                         //                                 "width_lower_limit": null,
                         //                                 "width_upper_limit": null
                         //                             },
@@ -264,18 +265,18 @@ TINY_HOUSE.analysis = (function () {
                         //                         }
                         //                     },
                         //                     {
-                        //                         "name": "Sec2: W24x84",
+                        //                         "name": `Sec2: ${data["material-dropdown2"]}`,
                         //                         "operation": "change-section",
                         //                         "opts": {
-                        //                             "library": ["American", "AISC", "W shapes"],
+                        //                             "library": ["American", "AISI", "C-Sections W Lips (I-1)"],
                         //                             "section_number": 2,
                         //                             "exclusion_string": [],
                         //                             "inclusion_string": [],
                         //                             "change_shape": [],
                         //                             "change_lib": [],
                         //                             "dim_limits": {
-                        //                                 "depth_lower_limit": null,
-                        //                                 "depth_upper_limit": null,
+                        //                                 "depth_lower_limit": 3,
+                        //                                 "depth_upper_limit": 8,
                         //                                 "width_lower_limit": null,
                         //                                 "width_upper_limit": null
                         //                             },
@@ -283,57 +284,18 @@ TINY_HOUSE.analysis = (function () {
                         //                         }
                         //                     },
                         //                     {
-                        //                         "name": "Sec3: HSS2-1/2x1-1/2x1/8",
+                        //                         "name": `Sec3: ${data["material-dropdown3"]}`,
                         //                         "operation": "change-section",
                         //                         "opts": {
-                        //                             "library": ["American", "AISC", "Rectangular HSS"],
+                        //                             "library": ["American", "AISI", "Z-Sections WO Lips (I-5)"],
                         //                             "section_number": 3,
                         //                             "exclusion_string": [],
                         //                             "inclusion_string": [],
                         //                             "change_shape": [],
                         //                             "change_lib": [],
                         //                             "dim_limits": {
-                        //                                 "depth_lower_limit": null,
-                        //                                 "depth_upper_limit": null,
-                        //                                 "width_lower_limit": null,
-                        //                                 "width_upper_limit": null
-                        //                             },
-                        //                             "disabled": false
-                        //                         }
-                        //                     },
-                        //                     {
-                        //                         "name": "Sec4: L2.5x2.5x3/8",
-                        //                         "operation": "change-section",
-                        //                         "opts": {
-                        //                             "library": ["American", "AISC", "Equal angles"],
-                        //                             "section_number": 4,
-                        //                             "exclusion_string": [],
-                        //                             "inclusion_string": [],
-                        //                             "change_shape": [],
-                        //                             "change_lib": [],
-                        //                             "dim_limits": {
-                        //                                 "depth_lower_limit": null,
-                        //                                 "depth_upper_limit": null,
-                        //                                 "width_lower_limit": null,
-                        //                                 "width_upper_limit": null
-                        //                             },
-                        //                             "disabled": false
-                        //                         }
-                        //                     },
-                        //                     null,
-                        //                     {
-                        //                         "name": "Sec6: ST12x40",
-                        //                         "operation": "change-section",
-                        //                         "opts": {
-                        //                             "library": ["American", "AISC", "ST shapes"],
-                        //                             "section_number": 6,
-                        //                             "exclusion_string": [],
-                        //                             "inclusion_string": [],
-                        //                             "change_shape": [],
-                        //                             "change_lib": [],
-                        //                             "dim_limits": {
-                        //                                 "depth_lower_limit": null,
-                        //                                 "depth_upper_limit": null,
+                        //                                 "depth_lower_limit": 3,
+                        //                                 "depth_upper_limit": 8,
                         //                                 "width_lower_limit": null,
                         //                                 "width_upper_limit": null
                         //                             },

@@ -316,11 +316,11 @@ TINY_HOUSE.analysis = (function () {
 
         let ctr = 1
 
-        support_node_ids.map(id => {
+        support_node_ids.map(nodeid => {
 
-            let this_id = String(ctr)
+            let this_support_id = String(ctr)
 
-            support_obj[this_id] = {
+            support_obj[this_support_id] = {
                 "direction_code": "BBBBBB",
                 "tx": 0,
                 "ty": 0,
@@ -328,7 +328,7 @@ TINY_HOUSE.analysis = (function () {
                 "rx": 0,
                 "ry": 0,
                 "rz": 0,
-                "node": 23,
+                "node": nodeid,
                 "restraint_code": "FFFFRR"
             }
 

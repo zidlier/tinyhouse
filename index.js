@@ -79,7 +79,7 @@ var INDEX = (function () {
                 jQuery(`#label-height`).html(`Storey Height`)
             }
 
-        }).change();
+        })
     }
 
     functions.dropdownData = function () {
@@ -93,21 +93,10 @@ var INDEX = (function () {
         var AISI_main_arr = []
         var NDS_main_arr = []
 
-        // debugger
         for (var i = 0; i < AISI_length; i++) {
             var  data_arr = AISI_data[i] 
-            // debugger
             AISI_main_arr.push(data_arr)
         }
-
-        debugger
-        // for(var i = 0; i < AISI_data; i++){
-        //     var index = AISI["C-Sections W Lips (I-1)"][i]
-        //     // AISI_main_arr.push(index)
-        //     // debugger 
-        // }  
-
-        // var checkbox_checker = jQuery('.ui.checkbox').is(':checked');
 
         function generateDropdown(html1,html2){
             let generate_filter_dropdown = ''

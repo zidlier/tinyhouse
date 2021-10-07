@@ -44,10 +44,10 @@ var INDEX = (function () {
             "input-risk-category": jQuery("#input-risk-category").dropdown('get value'),
             "input-exposure-category": jQuery("#input-exposure-category").dropdown('get value'),
             "input-site-address" : jQuery('#input-site-address').val(),
-            "AISI-dropdown" : jQuery("#AISI-dropdown").dropdown('get value'),
-            "AISI-dropdown-profile" :  jQuery("#AISI-dropdown-profile").dropdown('get value'),
-            "NDS-dropdown" : jQuery("#NDS-dropdown").dropdown('get value'),
-            "NDS-dropdown-profile" :  jQuery("#NDS-dropdown-profile").dropdown('get value'),             
+            // "AISI-dropdown" : jQuery("#AISI-dropdown").dropdown('get value'),
+            // "AISI-dropdown-profile" :  jQuery("#AISI-dropdown-profile").dropdown('get value'),
+            // "NDS-dropdown" : jQuery("#NDS-dropdown").dropdown('get value'),
+            // "NDS-dropdown-profile" :  jQuery("#NDS-dropdown-profile").dropdown('get value'),             
         }
 
         return data
@@ -73,19 +73,17 @@ var INDEX = (function () {
         // 
     }
 
-
+        // #AISI-dropdown-profile,
+        // #NDS-dropdown-profile,
     functions.updateRender = function () {
         $(`#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset, #input-truss-panel-spacing
         #input-risk-category,
         #input-exposure-category,
-        #AISI-dropdown-profile,
-        #NDS-dropdown-profile,
         #input-site-address
-        `)
-            .change(function () {
+        `).change(function () {
                 data = INDEX.getData()
                 TINY_HOUSE.init(data);
-            }).change();
+        }).change();
     }
 
     functions.dropdownData = function (){
@@ -99,50 +97,82 @@ var INDEX = (function () {
         var NDS_main_arr = []
 
         for(var i = 0; i< AISI_main.length; i++){
-            if(i == 0){
-                AISI_main_arr.push({
-                    "name" : AISI_main[i],
-                    "value" : AISI_main[i],
-                    "selected" : true
-                })
-            } else {
-                AISI_main_arr.push({
-                    "name" : AISI_main[i],
-                    "value" : AISI_main[i]
-                }) 
-            }
+            // if(i == 0){
+            //     AISI_main_arr.push({
+            //         "name" : AISI_main[i],
+            //         "value" : AISI_main[i],
+            //         "selected" : true
+            //     })
+            // } else {
+            //     AISI_main_arr.push({
+            //         "name" : AISI_main[i],
+            //         "value" : AISI_main[i]
+            //     }) 
+            // }
         }
 
-        for(var i = 0; i< NDS_main.length; i++){
-            if(i == 0){
-                NDS_main_arr.push({
-                    "name" : NDS_main[i],
-                    "value" : NDS_main[i],
-                    "selected" : true
-                })
-            } else {
-                NDS_main_arr.push({
-                    "name" : NDS_main[i],
-                    "value" : NDS_main[i]
-                })
-            }
+        // for(var i = 0; i< NDS_main.length; i++){
+        //     if(i == 0){
+        //         NDS_main_arr.push({
+        //             "name" : NDS_main[i],
+        //             "value" : NDS_main[i],
+        //             "selected" : true
+        //         })
+        //     } else {
+        //         NDS_main_arr.push({
+        //             "name" : NDS_main[i],
+        //             "value" : NDS_main[i]
+        //         })
+        //     }
             
             
 
-        }
+        // }
 
         // AISI_main_arr[0].selected = true;
 
-		jQuery('#AISI-dropdown').dropdown({
-			values: AISI_main_arr,
-		});
+        let generate_filter_dropdown = ''
+        
+        var random = ['red','green','blue','black','purple','orange','yellow','white']
+
+        generate_filter_dropdown += `<div class="ui floating dropdown labeled icon button" id="material-dropdown">			
+            <i class="filter icon"></i>
+            <span class="text">Filter Section</span>
+            <div class="menu">
+            <div class="ui icon search input">
+                <i class="search icon"></i>
+                <input type="text" placeholder="Search tags...">
+            </div>
+            <div class="divider"></div>
+            <div class="header">
+                <i class="tags icon"></i>
+                Tag Label
+            </div>
+            <div class="scrolling menu">`
+                
+             for(var i = 0; i< AISI_main.length; i++){
+                
+                generate_filter_dropdown +=`<div class="item">
+                    <div class="ui ${random[i]} empty circular label"></div>
+                    ${AISI_main[i]}
+                    </div>`        
+            }
+            generate_filter_dropdown += `</div>
+            </div>
+        </div>`
+            // debugger
+        jQuery('#filter-section').append(generate_filter_dropdown);
+		jQuery('#material-dropdown').dropdown();
+
+        // <div class="item">
+        // <div class="ui red empty circular label"></div>
+        // Important
+        // </div>
 
 
-
-
-		jQuery('#NDS-dropdown').dropdown({
-			values: NDS_main_arr,
-		});
+		// jQuery('#NDS-dropdown').dropdown({
+		// 	values: NDS_main_arr,
+		// });
 
 
     }
@@ -205,7 +235,7 @@ var INDEX = (function () {
 
         INDEX.updateRender();
         INDEX.dropdownData();
-        INDEX.dropdownData2();
+        // INDEX.dropdownData2();
 
         jQuery('#main-tab .item').tab();
 
@@ -217,18 +247,18 @@ var INDEX = (function () {
 
         jQuery('.ui.checkbox').checkbox({
             onChecked: function() {
-                 jQuery('#material-type-slider').html('Wood Material');
-                 jQuery('#NDS-dropdown').show()
-                 jQuery('#NDS-dropdown-profile').show()
-                 jQuery('#AISI-dropdown').hide()
-                 jQuery('#AISI-dropdown-profile').hide()
+                //  jQuery('#material-type-slider').html('Wood Material');
+                //  jQuery('#NDS-dropdown').show()
+                //  jQuery('#NDS-dropdown-profile').show()
+                //  jQuery('#AISI-dropdown').hide()
+                //  jQuery('#AISI-dropdown-profile').hide()
             },
             onUnchecked: function() {
-                jQuery('#material-type-slider').html('Cold-formed Steel Material');
-                jQuery('#NDS-dropdown').hide()
-                jQuery('#NDS-dropdown-profile').hide()
-                jQuery('#AISI-dropdown').show()
-                jQuery('#AISI-dropdown-profile').show()
+                // jQuery('#material-type-slider').html('Cold-formed Steel Material');
+                // jQuery('#NDS-dropdown').hide()
+                // jQuery('#NDS-dropdown-profile').hide()
+                // jQuery('#AISI-dropdown').show()
+                // jQuery('#AISI-dropdown-profile').show()
             }
 
 

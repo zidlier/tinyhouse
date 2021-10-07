@@ -81,7 +81,6 @@ var INDEX = (function () {
 
     $(document).ready(function () {
 
-        // INIT ACCORDION DATA INPUT
         jQuery('.input-data.accordion').accordion()
 
         INDEX.updateRender();
@@ -91,15 +90,12 @@ var INDEX = (function () {
         jQuery("#input-risk-category").dropdown('set selected', "I");
         jQuery("#input-exposure-category").dropdown('set selected', "B");
 
-        // jQuery('#results_button').click(function () {
 
         jQuery('.ui.checkbox').checkbox({
             onChecked: function() {
-                alert('working')
                  jQuery('#material-type-slider').html('Cold-formed Steel Material');
             },
             onUnchecked: function() {
-                alert('working')
                 jQuery('#material-type-slider').html('Wood Material');
             }
 

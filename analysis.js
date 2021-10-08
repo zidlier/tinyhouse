@@ -18,7 +18,7 @@ TINY_HOUSE.analysis = (function () {
         return wind_report
     }
 
-    functions.getSnowReport = function () {
+    functions.getWindReport = function () {
         return snow_report
     }
 
@@ -399,21 +399,22 @@ TINY_HOUSE.analysis = (function () {
         jQuery('#modal-process').modal('hide');
         jQuery('#modal-results').modal('show');
 
-        jQuery('.actions').show()
-        
     }
 
     functions.runAnalysis = function () {
-        let this_data = INDEX.getData()
-        addLoading()
-
-        jQuery('#process-definition').html('Starting design of Tiny House...')
+        
 
         if (TINY_HOUSE.analysis.getOptimizerResults()) {
             jQuery('#process-definition').html('Design succesful')
-            TINY_HOUSE.reporting.generateReport()
             finishLoading()
+            TINY_HOUSE.reporting.generateReport()
         } else {
+
+            let this_data = INDEX.getData()
+            addLoading()
+
+            jQuery('#process-definition').html('Starting design of Tiny House...')
+            
             setTimeout(function () {
                 functions.generateLoads(this_data)
             },1000)

@@ -367,6 +367,8 @@ TINY_HOUSE.analysis = (function () {
                     console.log(res)
                     // functions.setResults(res.functions[3].data)
 
+                    finishLoading()
+
                     s3d_results = res.functions[3].data
                     
                     if (res.response.status == 0) {
@@ -388,9 +390,20 @@ TINY_HOUSE.analysis = (function () {
     
     }
 
+    
 
-    functions.testRun = function () {
+    var addLoading = function () {
+        jQuery('#optimize-button').addClass('loading')
+    }
+
+    var finishLoading = function () {
+        jQuery('#optimize-button').removeClass('loading')
+        jQuery('#modal-results').modal('show');
+    }
+
+    functions.runAnalysis = function () {
         let this_data = INDEX.getData()
+        addLoading()
         functions.generateLoads(this_data)
     }
 

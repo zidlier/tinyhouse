@@ -133,8 +133,8 @@ var INDEX = (function () {
         jQuery("#input-stories").dropdown('set selected', "1");
 
         jQuery('#optimize-button').click(function () {
-            jQuery('#modal-results').modal('show');
-
+            // jQuery('#modal-results').modal('show');
+            TINY_HOUSE.analysis.runAnalysis()
         });
 
         //--> initially hide the wood materials

@@ -46,7 +46,6 @@ var INDEX = (function () {
         #input-stories
         `).change(function () {
             data = INDEX.getData()
-            // console.log('updating data')
             TINY_HOUSE.init(data);
             var height = data["input-stories"]
             if(height == 1){

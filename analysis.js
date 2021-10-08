@@ -9,6 +9,7 @@ TINY_HOUSE.analysis = (function () {
     var load_gen_results = null
     var analysis_report = null
 
+    var current_section = null
 
     functions.generateLoads = function (data) {
 
@@ -234,6 +235,8 @@ TINY_HOUSE.analysis = (function () {
                     }
                 }
 
+                current_section = [wall_section, truss_section, purlin_section]
+
                 // UPDATE MATERIAL - if WOOD or COLDFORMED
                 processed_model.materials = final_material
 
@@ -310,35 +313,35 @@ TINY_HOUSE.analysis = (function () {
                                 }
                             }
                         },
-                        {
-                            "function": "S3D.results.getAnalysisReport",
-                            "arguments": {
-                                "job_name": "Tiny House",
-                                "file_type": "pdf",
-                                "load_combinations": [9, 10, 11],
-                                "sections": {
-                                    "title_page": true,
-                                    "job_setup": true,
-                                    "bom": true, // Bill of Materials
-                                    "nodal_reactions": true,
-                                    "nodal_forces": false,
-                                    "nodal_displacements": true,
-                                    "member_forces": false,
-                                    "member_displacements": true,
-                                    "member_stresses": true,
-                                    "buckling": false,
-                                    "plate_nodal_forces": false,
-                                    "plate_element_forces": false,
-                                    "plate_nodal_moments": false,
-                                    "plate_element_moments": false,
-                                    "plate_displacements": false,
-                                    "plate_nodal_stresses": false,
-                                    "plate_element_stresses": false,
-                                    "plate_nodal_equiv_stresses": false,
-                                    "plate_element_equiv_stresses": false
-                                }
-                            }
-                        }
+                        // {
+                        //     "function": "S3D.results.getAnalysisReport",
+                        //     "arguments": {
+                        //         "job_name": "Tiny House",
+                        //         "file_type": "pdf",
+                        //         "load_combinations": [9, 10, 11],
+                        //         "sections": {
+                        //             "title_page": true,
+                        //             "job_setup": true,
+                        //             "bom": true, // Bill of Materials
+                        //             "nodal_reactions": true,
+                        //             "nodal_forces": false,
+                        //             "nodal_displacements": true,
+                        //             "member_forces": false,
+                        //             "member_displacements": true,
+                        //             "member_stresses": true,
+                        //             "buckling": false,
+                        //             "plate_nodal_forces": false,
+                        //             "plate_element_forces": false,
+                        //             "plate_nodal_moments": false,
+                        //             "plate_element_moments": false,
+                        //             "plate_displacements": false,
+                        //             "plate_nodal_stresses": false,
+                        //             "plate_element_stresses": false,
+                        //             "plate_nodal_equiv_stresses": false,
+                        //             "plate_element_equiv_stresses": false
+                        //         }
+                        //     }
+                        // }
                     ]
                 }
 
@@ -350,15 +353,7 @@ TINY_HOUSE.analysis = (function () {
 
                 skyciv.request(s3d_api, function (res) {
                     console.log(res)
-
-                    jQuery('#process-definition').html('Design succesful')
                     
-                    
-
-                    finishLoading()
-
-                    // functions.setResults(res.functions[3].data)
-
                     // S3D LINEAR ANALYSIS
                     s3d_results = res.functions[3].data
                     console.log(JSON.stringify(s3d_results))
@@ -371,12 +366,13 @@ TINY_HOUSE.analysis = (function () {
 
                     optimizer_results = res.functions[5].data
 
-                    analysis_report = res.functions[6].data
+                    // analysis_report = res.functions[6].data
 
                     if (res.response.status == 0) {
 
-
-
+                        jQuery('#process-definition').html('Design succesful')
+                        TINY_HOUSE.reporting.generateReport()
+                        finishLoading()
 
                     } else {
 
@@ -1034,6 +1030,7 @@ TINY_HOUSE.analysis = (function () {
         TINY_HOUSE.getViewer().render();
     }
 
+<<<<<<< HEAD
     functions.processMemberDesignResults = function (result) {
         let table_content = ``
 
@@ -1068,6 +1065,9 @@ TINY_HOUSE.analysis = (function () {
 
     }
 
+=======
+    
+>>>>>>> 3125fa07a58cb9e3c833af87583bd374a15c4745
     functions.getOptimizerResults = function () {
         return optimizer_results
     }
@@ -1077,6 +1077,11 @@ TINY_HOUSE.analysis = (function () {
         return analysis_report
     }
 
+
+    functions.getCurrentSections =function () {
+        return current_section
+    }
+    
     return functions;
 
 })();

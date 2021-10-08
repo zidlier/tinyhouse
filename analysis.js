@@ -172,7 +172,6 @@ TINY_HOUSE.analysis = (function () {
                 })
 
                 load_gen_results = res.response.data
-                console.log(JSON.stringify(load_gen_results))
                 snow_report = load_gen_results["snow_pressure"]["report_link"]
                 wind_report = load_gen_results["wind_pressure"]["report_link"]
 
@@ -254,11 +253,7 @@ TINY_HOUSE.analysis = (function () {
 
                 jQuery('#process-definition').html('Setting up model and API functions...')
 
-                console.log(JSON.stringify(processed_model))
-
                 var result = skyciv.validator.model(processed_model);
-
-                console.log(result)
 
                 let s3d_api = {
                     "auth": {
@@ -338,15 +333,12 @@ TINY_HOUSE.analysis = (function () {
                 })
 
                 skyciv.request(s3d_api, function (res) {
-                    console.log(res)
                     
                     // S3D LINEAR ANALYSIS
                     s3d_results = res.functions[3].data
-                    console.log(JSON.stringify(s3d_results))
 
                     // MEMBER DESIGN RESULTS
                     member_design_results = res.functions[4].data
-                    console.log(JSON.stringify(member_design_results))
 
                     TINY_HOUSE.reporting.processMemberDesignResults(member_design_results)
 

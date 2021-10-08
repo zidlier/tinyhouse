@@ -83,20 +83,24 @@ TINY_HOUSE.reporting = (function () {
 		</div>
 		`
 
-		jQuery('#snow-report-btn').click(function(){
-			window.open(TINY_HOUSE.analysis.getSnowReport(), 'window name', 'window settings');
-			return false;
-		});
-
-
-		jQuery('#wind-report-btn').click(function(){
-			window.open(TINY_HOUSE.analysis.getWindReport(), 'window name', 'window settings');
-			return false;
-		});
-
-
-
+		
 		jQuery('#results-content').html(input_parameters)
+
+		setTimeout(function () {
+			jQuery('#snow-report-btn').click(function(){
+				window.open(TINY_HOUSE.analysis.getSnowReport(), 'window name', 'window settings');
+				return false;
+			});
+	
+	
+			jQuery('#wind-report-btn').click(function(){
+				window.open(TINY_HOUSE.analysis.getWindReport(), 'window name', 'window settings');
+				return false;
+			});
+	
+		}, 200)
+		
+
 
 	}
 

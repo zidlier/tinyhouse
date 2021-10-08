@@ -1011,6 +1011,10 @@ TINY_HOUSE.analysis = (function () {
         return analysis_report
     }
 
+    functions.getLoadGeneratorResults = function () {
+        return load_gen_results
+    }
+
 
     functions.getCurrentSections =function () {
         return current_section

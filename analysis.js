@@ -3,6 +3,7 @@ TINY_HOUSE.analysis = (function () {
     var functions = {}
 	var wind_pressure = null
     var snow_pressure = null
+    var s3d_results = null
 
     functions.generateLoads = function (data) {
         
@@ -193,7 +194,7 @@ TINY_HOUSE.analysis = (function () {
                             "function": "S3D.model.solve",
                             "arguments": {
                                 "analysis_type": "linear",
-                                "return_results": false
+                                "return_results": true
                             }
                         },
                         {
@@ -362,10 +363,14 @@ TINY_HOUSE.analysis = (function () {
 
                 skyciv.request(s3d_api, function (res) {
                     console.log(res)
+                    // functions.setResults(res.functions[3].data)
+
+                    s3d_results = res.functions[3].data
                     
                     if (res.response.status == 0) {
                         
-
+                        
+                        
                        
                     } else {
 
@@ -883,6 +888,40 @@ TINY_HOUSE.analysis = (function () {
     
     }
 
+
+    functions.getS3DResults = function () {
+        return s3d_results
+    }
+
+    functions.viewResults = function (analysis_results) {
+
+        analysis_results["15"].
+        TINY_HOUSE.getViewer().results.set(analysis_results[1][0]); // set first LC only
+        TINY_HOUSE.getViewer().setMode('results');
+
+        // Turn on deformed shape
+        TINY_HOUSE.getViewer().results.setDeformationScale(3); // 0-5
+        TINY_HOUSE.getViewer().results.deformedStructure();
+
+        // Turn on member color results
+        TINY_HOUSE.getViewer().results.setSettings({
+            "deformation_scale": 0, // 0-5
+            "members": false,
+            "plates": false,
+            "plate_elements": false, // elemental results
+            "current_result_key": "displacement",
+        })
+
+        TINY_HOUSE.getViewer().results.runDeformationAnimation({
+            "deformation_scale": 0, // 0-5
+            "current_result_key": "displacement",
+        })
+
+
+        TINY_HOUSE.getViewer().render();
+    }
+
+    
 
 	return functions;
 

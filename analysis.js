@@ -1030,7 +1030,6 @@ TINY_HOUSE.analysis = (function () {
         TINY_HOUSE.getViewer().render();
     }
 
-<<<<<<< HEAD
     functions.processMemberDesignResults = function (result) {
         let table_content = ``
 
@@ -1065,9 +1064,6 @@ TINY_HOUSE.analysis = (function () {
 
     }
 
-=======
-    
->>>>>>> 3125fa07a58cb9e3c833af87583bd374a15c4745
     functions.getOptimizerResults = function () {
         return optimizer_results
     }

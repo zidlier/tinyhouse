@@ -21,8 +21,8 @@ var INDEX = (function () {
             "input-site-address": jQuery('#input-site-address').val(),
             "input-dead-load": jQuery('#input-dead-load').val(),
             "input-live-load": jQuery('#input-live-load').val(),
-            "input-dead-load-roof": jQuery('#input-dead-load').val(),
-            "input-live-load-roof": jQuery('#input-live-load').val(),
+            "input-dead-load-roof": jQuery('#input-dead-load-roof').val(),
+            "input-live-load-roof": jQuery('#input-live-load-roof').val(),
             "material-dropdown" : jQuery("#material-dropdown").dropdown('get value'),
             "material-dropdown-2" : jQuery("#material-dropdown-2").dropdown('get value'),
             "material-dropdown-3" : jQuery("#material-dropdown-3").dropdown('get value'),
@@ -194,10 +194,19 @@ var INDEX = (function () {
                     let truss_height = h*2 + 3.28
                     jQuery('#input-truss-height').val(truss_height)
                     jQuery('.2nd-floor').show()
+
+                    data = INDEX.getData()
+                    // console.log('updating data')
+                    TINY_HOUSE.init(data);
+                    
                 } else {
                     let truss_height = h + 3.28
                     jQuery('#input-truss-height').val(truss_height)
                     jQuery('.2nd-floor').hide()
+
+                    data = INDEX.getData()
+                    // console.log('updating data')
+                    TINY_HOUSE.init(data);
                 }
             }
         }) 

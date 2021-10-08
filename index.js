@@ -43,7 +43,7 @@ var INDEX = (function () {
         #input-stories
         `).change(function () {
             data = INDEX.getData()
-            console.log('updating data')
+            // console.log('updating data')
             TINY_HOUSE.init(data);
             var height = data["input-stories"]
             if(height == 1){
@@ -101,6 +101,14 @@ var INDEX = (function () {
         generateDropdown(NDS,"Sawn Lumber",'filter-section-3b','material-dropdown-3b')
     }
 
+    functions.updateData2 = function (type){
+        var data = {
+            "material" : type
+        }
+
+        return data
+    }
+
     functions.woodMat = function (){
         return 'wood'
     }
@@ -109,6 +117,10 @@ var INDEX = (function () {
         return 'cf'
     }
 
+
+    // functions.Mat = function(type){
+    //     return t
+    // }
     $(document).ready(function () {
 
         jQuery('.input-data.accordion').accordion()
@@ -124,7 +136,8 @@ var INDEX = (function () {
             jQuery('#modal-results').modal('show');
 
         });
-        
+
+        //--> initially hide the wood materials
         jQuery('#material-dropdown-b').hide()
         jQuery('#material-dropdown-2b').hide()       
         jQuery('#material-dropdown-3b').hide()
@@ -140,7 +153,7 @@ var INDEX = (function () {
                 jQuery('#material-dropdown-2b').show()       
                 jQuery('#material-dropdown-3b').show()
 
-                // return INDEX.woodMat
+                // updateData2()
             },
             onUnchecked: function () {
 
@@ -152,16 +165,13 @@ var INDEX = (function () {
                 jQuery('#material-dropdown-2b').hide()       
                 jQuery('#material-dropdown-3b').hide()
 
-                
-
             },
-            onChange: function() {
-                var material_type = jQuery('#material-slider').is(':checked')
+            onChange: function () {
+                var material_type = jQuery('#material-slider').checkbox("is checked"); //false : cf //true : wood
+                // INDEX.getData()
             }
 
-
         });
-
 
         setTimeout(function () {
             INDEX.updateRender();

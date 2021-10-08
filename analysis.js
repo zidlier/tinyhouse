@@ -958,6 +958,7 @@ TINY_HOUSE.analysis = (function () {
             table_content += `Failed members are: `
 
             for (let i = 0; i < failed_members.length; i++) {
+                let id = failed_members[i]
                 table_content += (i < failed_members.length-1) ? `${id}, ` : `and ${id}. `
             }
             

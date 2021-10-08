@@ -1030,7 +1030,40 @@ TINY_HOUSE.analysis = (function () {
         TINY_HOUSE.getViewer().render();
     }
 
-    
+    functions.processMemberDesignResults = function (result) {
+        let table_content = ``
+
+        let {
+            critical,
+            failed_members,
+            passed_members
+        } = result.summary
+
+        let total_passed_members = Object.keys(passed_members).length
+        let total_failed_members = Object.keys(failed_members).length
+
+        table_content += `<center><p>`
+
+        table_content += `<i class="check icon" style="color:green"></i> ${total_passed_members} passed the design check while <i class="x icon" style="color:red"></i> ${total_failed_members} members failed. `
+
+        if (total_failed_members > 0) {
+            table_content += `Failed members are: `
+
+            for (let i = 0; i < failed_members.length; i++) {
+                let id = failed_members[i]
+                table_content += (i < failed_members.length - 1) ? `${id}, ` : `and ${id}. `
+            }
+
+            // table_content += `<br><br>Critical `
+
+        }
+
+        table_content += `</p></center>`
+
+        jQuery('#results-content').html(table_content)
+
+    }
+
     functions.getOptimizerResults = function () {
         return optimizer_results
     }

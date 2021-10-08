@@ -87,7 +87,21 @@ TINY_HOUSE.reporting = (function () {
 		let optimizer_res = TINY_HOUSE.analysis.getOptimizerResults()
 		let current_section = TINY_HOUSE.analysis.getCurrentSections()
 		let location = ['Wall', 'Truss', 'Purlin' ]
+		
 
+		function resultTable(val){
+			let pass = `<i class="large check circle green middle aligned icon"></i>`
+			let failed =  `<i class="large remove red middle aligned icon"></i>`
+			let result
+			if(val >= 1){
+				result = failed
+			} else {
+				result  = pass
+			}
+
+			return result
+
+		}
 		let table_content = ``
 
 		for (let i = 0; i < optimizer_res.length; i++) {
@@ -96,7 +110,7 @@ TINY_HOUSE.reporting = (function () {
 			let {section_height, max_UR_ratio} = this_res
 			let this_section = current_section[i]
 			let this_section_name = this_section[3]
-			table_content += `<tr>	<td>${location[i]}</td>	<td>${this_section_name}</td> <td>${section_height}</td> <td>${prettyPrint(max_UR_ratio)}</td> </tr>`
+			table_content += `<tr>	<td>${location[i]}</td>	<td>${this_section_name}</td> <td>${section_height}</td> <td>${prettyPrint(max_UR_ratio)}</td> <td>${resultTable(max_UR_ratio)}</td> </tr>`
 
 		}
 
@@ -104,7 +118,7 @@ TINY_HOUSE.reporting = (function () {
 		<h3 class="ui header">Section Optimization</h3>
 		<table class="ui celled table center aligned">
 			<thead>
-				<tr><th>Location</th>	<th>Original Section</th> 	<th>Optimized Section</th>	<th>Utitlity Ratio (UR)</th>		 </tr>
+				<tr><th>Location</th>	<th>Original Section</th> 	<th>Optimized Section</th>	<th>Utitlity Ratio (UR)</th> <th>Remarks</th> </tr>
 			</thead>
 			<tbody>
 				${table_content}

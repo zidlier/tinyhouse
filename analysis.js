@@ -1,20 +1,26 @@
 TINY_HOUSE.analysis = (function () {
 
     var functions = {}
-	var wind_pressure = null
+    var wind_pressure = null
     var snow_pressure = null
     var s3d_results = null
     var member_design_results = null
     var optimizer_results = null
     var load_gen_results = null
+    var analysis_report = null
 
 
     functions.generateLoads = function (data) {
-        
-        let { input_height, input_width, input_length, input_truss_height } = data
-        let roof_mean_height = (input_truss_height+input_height)*0.5
-        let roof_angle = Math.atan((input_truss_height-input_height)/(input_length/2))*(180/Math.PI)
-        
+
+        let {
+            input_height,
+            input_width,
+            input_length,
+            input_truss_height
+        } = data
+        let roof_mean_height = (input_truss_height + input_height) * 0.5
+        let roof_angle = Math.atan((input_truss_height - input_height) / (input_length / 2)) * (180 / Math.PI)
+
         let address = data["input-site-address"]
         let exposure_category = data["input-exposure-category"]
         let risk_category = data["input-risk-category"]
@@ -29,9 +35,9 @@ TINY_HOUSE.analysis = (function () {
         let slider_checked = data["material-slider"]
 
         // TODO
-        
 
-        
+
+
         let coldform_material = {
             "1": {
                 "name": "AISI - Chromium Steel (Alloy 50XX) - Alloy 5150 - Normalized",
@@ -39,10 +45,10 @@ TINY_HOUSE.analysis = (function () {
                 "elasticity_modulus": 29700,
                 "yield_strength": 81.9,
                 "ultimate_strength": 131,
-                "poissons_ratio": 	0.29,
+                "poissons_ratio": 0.29,
                 "class": "steel"
             }
-        }                
+        }
 
 
         let wood_material = {
@@ -70,18 +76,19 @@ TINY_HOUSE.analysis = (function () {
             var purlin_section = ["American", "AISI", "Z-Sections WO Lips (I-5)", data["material-dropdown-3"]]
             var final_material = coldform_material
         }
-        
-        
+
+
         // input-risk-category
         let wind_api_object = {
             "auth": {
                 "username": "patrick@skyciv.com",
                 "key": "LVBZgXsQgMcqykLB8EfYaIeHqdyaitYKqkXNZuGKH0RLAYIrvtCTdP8rzmLtCq2H"
             },
-            "functions": [
-                {
+            "functions": [{
                     "function": "standalone.loads.start",
-                    "arguments": { "keep_open": true }
+                    "arguments": {
+                        "keep_open": true
+                    }
                 },
                 {
                     "function": "standalone.loads.getLoads",
@@ -110,12 +117,10 @@ TINY_HOUSE.analysis = (function () {
                             "design_code": "asce7-16",
                             "structure": "building",
                             "wind_parameters": {
-                                "structure_level": [
-                                    {
-                                        "floor_level": "Roof Mean Height",
-                                        "floor_elevation": roof_mean_height
-                                    }
-                                ],
+                                "structure_level": [{
+                                    "floor_level": "Roof Mean Height",
+                                    "floor_elevation": roof_mean_height
+                                }],
                                 "wall_cladding_area": "",
                                 "roof_cladding_area": "",
                                 "enclosure": "enclosed",
@@ -140,7 +145,7 @@ TINY_HOUSE.analysis = (function () {
                 }
             ]
         }
-    
+
         skyciv.request(wind_api_object, function (res) {
 
             if (res.response.status == 0) {
@@ -148,18 +153,35 @@ TINY_HOUSE.analysis = (function () {
                 load_gen_results = res.response.data
                 console.log(JSON.stringify(load_gen_results))
 
-                var wind_load_arr  = res.response.data.wind_pressure.pressures;
-                var snow_load  = res.response.data.snow_pressure.balance_case.ps;
-                
+                var wind_load_arr = res.response.data.wind_pressure.pressures;
+                var snow_load = res.response.data.snow_pressure.balance_case.ps;
+
                 var dump_obj = {
-                    "windward_wall": {'pos': null, 'neg': null},
-                    "leeward_wall": {'pos': null, 'neg': null},
-                    "roof_windward": {'pos': null, 'neg': null},
-                    "roof_leeward": {'pos': null, 'neg': null},
+                    "windward_wall": {
+                        'pos': null,
+                        'neg': null
+                    },
+                    "leeward_wall": {
+                        'pos': null,
+                        'neg': null
+                    },
+                    "roof_windward": {
+                        'pos': null,
+                        'neg': null
+                    },
+                    "roof_leeward": {
+                        'pos': null,
+                        'neg': null
+                    },
                 }
 
-                for (var f=0; f<wind_load_arr.length; f++) {
-                    let {surface, dirn, pos_GCpi, neg_GCpi} = wind_load_arr[f]
+                for (var f = 0; f < wind_load_arr.length; f++) {
+                    let {
+                        surface,
+                        dirn,
+                        pos_GCpi,
+                        neg_GCpi
+                    } = wind_load_arr[f]
 
                     if (surface == "roof_windward" && dirn == "along_L") {
                         dump_obj.roof_windward.pos = pos_GCpi;
@@ -186,7 +208,7 @@ TINY_HOUSE.analysis = (function () {
                 let supports = assignSupports(data, processed_model.nodes)
                 processed_model.supports = supports
 
-                processed_model.sections =  {
+                processed_model.sections = {
                     "1": {
                         "load_section": wall_section,
                         "material_id": 1
@@ -215,8 +237,7 @@ TINY_HOUSE.analysis = (function () {
                         "username": "patrick@skyciv.com",
                         "key": "LVBZgXsQgMcqykLB8EfYaIeHqdyaitYKqkXNZuGKH0RLAYIrvtCTdP8rzmLtCq2H"
                     },
-                    "functions": [
-                        {
+                    "functions": [{
                             "function": "S3D.session.start",
                             "arguments": {
                                 "keep_open": false
@@ -263,7 +284,7 @@ TINY_HOUSE.analysis = (function () {
                                     "max_ur": 0.8,
                                     "optimize_by": {
                                         "item": "sections",
-                                        "ids": [ 1, 2, 3 ]
+                                        "ids": [1, 2, 3]
                                     },
                                     "section_height": {
                                         "min": 2,
@@ -275,8 +296,36 @@ TINY_HOUSE.analysis = (function () {
                                     }
                                 }
                             }
+                        },
+                        {
+                            "function": "S3D.results.getAnalysisReport",
+                            "arguments": {
+                                "job_name": "Tiny House",
+                                "file_type": "pdf",
+                                "load_combinations": [9, 10, 11],
+                                "sections": {
+                                    "title_page": true,
+                                    "job_setup": true,
+                                    "bom": true, // Bill of Materials
+                                    "nodal_reactions": true,
+                                    "nodal_forces": false,
+                                    "nodal_displacements": true,
+                                    "member_forces": false,
+                                    "member_displacements": true,
+                                    "member_stresses": true,
+                                    "buckling": false,
+                                    "plate_nodal_forces": false,
+                                    "plate_element_forces": false,
+                                    "plate_nodal_moments": false,
+                                    "plate_element_moments": false,
+                                    "plate_displacements": false,
+                                    "plate_nodal_stresses": false,
+                                    "plate_element_stresses": false,
+                                    "plate_nodal_equiv_stresses": false,
+                                    "plate_element_equiv_stresses": false
+                                }
+                            }
                         }
-
                     ]
                 }
 
@@ -298,32 +347,33 @@ TINY_HOUSE.analysis = (function () {
                     functions.processMemberDesignResults(member_design_results)
 
                     optimizer_results = res.functions[5].data
-                    
+
+                    analysis_report = res.functions[6].data
 
                     if (res.response.status == 0) {
-                        
-                        
-                        
-                       
+
+
+
+
                     } else {
 
                     }
 
                 })
-                
+
             } else {
 
             }
-            
+
         })
-    
+
     }
 
 
     functions.runAPI = function (data) {
 
     }
-    
+
 
     var addLoading = function () {
         jQuery('#optimize-button').addClass('loading')
@@ -340,50 +390,54 @@ TINY_HOUSE.analysis = (function () {
         functions.generateLoads(this_data)
     }
 
-    var getNodeIDFromModel = function(xval, yval, zval, nodes) {
+    var getNodeIDFromModel = function (xval, yval, zval, nodes) {
 
         for (let nodeid in nodes) {
             let this_node_val = nodes[nodeid]
-			if (this_node_val == null) continue
-            let {x,y,z} = this_node_val
+            if (this_node_val == null) continue
+            let {
+                x,
+                y,
+                z
+            } = this_node_val
             if (xval == x && yval == y && zval == z) return nodeid
         }
 
-		return null
-	}
+        return null
+    }
 
     var getNodeIDsOfSurfaces = function (data, nodes, noOfStories) {
         // 0 DEGREES
-        let buildingLength =  data["input_length"]
-		let buildingWidth = data["input_width"]
-		let eaveHeight = data["input_height"]
-		let roofApex = data["input_truss_height"]
-		let roofOverhang = data["input_truss_offset"]
-		let trussSpacing = data["input_truss_panel_spacing"]
+        let buildingLength = data["input_length"]
+        let buildingWidth = data["input_width"]
+        let eaveHeight = data["input_height"]
+        let roofApex = data["input_truss_height"]
+        let roofOverhang = data["input_truss_offset"]
+        let trussSpacing = data["input_truss_panel_spacing"]
 
 
-        let final_eave_height = noOfStories*eaveHeight
+        let final_eave_height = noOfStories * eaveHeight
 
-        let node1_windward_wall = getNodeIDFromModel(0,0,0,nodes)
-        let node2_windward_wall = getNodeIDFromModel(0,final_eave_height,0,nodes)
-        let node3_windward_wall = getNodeIDFromModel(buildingWidth,final_eave_height,0,nodes)
-        let node4_windward_wall = getNodeIDFromModel(buildingWidth,0,0,nodes)
+        let node1_windward_wall = getNodeIDFromModel(0, 0, 0, nodes)
+        let node2_windward_wall = getNodeIDFromModel(0, final_eave_height, 0, nodes)
+        let node3_windward_wall = getNodeIDFromModel(buildingWidth, final_eave_height, 0, nodes)
+        let node4_windward_wall = getNodeIDFromModel(buildingWidth, 0, 0, nodes)
 
-        let node1_leeward_wall = getNodeIDFromModel(buildingWidth,0,-buildingLength,nodes)
-        let node2_leeward_wall = getNodeIDFromModel(buildingWidth,final_eave_height,-buildingLength,nodes)
-        let node3_leeward_wall = getNodeIDFromModel(0,final_eave_height,-buildingLength,nodes)
-        let node4_leeward_wall = getNodeIDFromModel(0,0,-buildingLength,nodes)
+        let node1_leeward_wall = getNodeIDFromModel(buildingWidth, 0, -buildingLength, nodes)
+        let node2_leeward_wall = getNodeIDFromModel(buildingWidth, final_eave_height, -buildingLength, nodes)
+        let node3_leeward_wall = getNodeIDFromModel(0, final_eave_height, -buildingLength, nodes)
+        let node4_leeward_wall = getNodeIDFromModel(0, 0, -buildingLength, nodes)
 
 
-        let node1_roof_windward = getNodeIDFromModel(0,final_eave_height,0,nodes)
-        let node2_roof_windward = getNodeIDFromModel(0,roofApex,-buildingLength*0.5,nodes)
-        let node3_roof_windward = getNodeIDFromModel(buildingWidth,roofApex,-buildingLength*0.5,nodes)
-        let node4_roof_windward = getNodeIDFromModel(buildingWidth,final_eave_height,0,nodes)
+        let node1_roof_windward = getNodeIDFromModel(0, final_eave_height, 0, nodes)
+        let node2_roof_windward = getNodeIDFromModel(0, roofApex, -buildingLength * 0.5, nodes)
+        let node3_roof_windward = getNodeIDFromModel(buildingWidth, roofApex, -buildingLength * 0.5, nodes)
+        let node4_roof_windward = getNodeIDFromModel(buildingWidth, final_eave_height, 0, nodes)
 
-        let node1_roof_leeward = getNodeIDFromModel(buildingWidth,final_eave_height,-buildingLength,nodes)
-        let node2_roof_leeward = getNodeIDFromModel(buildingWidth,roofApex,-buildingLength*0.5,nodes)
-        let node3_roof_leeward = getNodeIDFromModel(0,roofApex,-buildingLength*0.5,nodes)
-        let node4_roof_leeward = getNodeIDFromModel(0,final_eave_height,-buildingLength,nodes)
+        let node1_roof_leeward = getNodeIDFromModel(buildingWidth, final_eave_height, -buildingLength, nodes)
+        let node2_roof_leeward = getNodeIDFromModel(buildingWidth, roofApex, -buildingLength * 0.5, nodes)
+        let node3_roof_leeward = getNodeIDFromModel(0, roofApex, -buildingLength * 0.5, nodes)
+        let node4_roof_leeward = getNodeIDFromModel(0, final_eave_height, -buildingLength, nodes)
 
         let obj = {
             'windward_wall': `${node1_windward_wall},${node2_windward_wall},${node3_windward_wall},${node4_windward_wall}`,
@@ -391,59 +445,59 @@ TINY_HOUSE.analysis = (function () {
             'roof_windward': `${node1_roof_windward},${node2_roof_windward},${node3_roof_windward},${node4_roof_windward}`,
             'roof_leeward': `${node1_roof_leeward},${node2_roof_leeward},${node3_roof_leeward},${node4_roof_leeward}`
         }
-        
+
         return obj
     }
 
     var getNodeIDsOfFloor = function (data, nodes, numberOfTrusess) {
         // 0 DEGREES
-        let buildingLength =  data["input_length"]
-		let buildingWidth = data["input_width"]
-		let eaveHeight = data["input_height"]
+        let buildingLength = data["input_length"]
+        let buildingWidth = data["input_width"]
+        let eaveHeight = data["input_height"]
 
-        let spacing = buildingWidth/numberOfTrusess
+        let spacing = buildingWidth / numberOfTrusess
 
         let result = []
 
-        let node1 = getNodeIDFromModel(0,eaveHeight,0,nodes)
-        let node2 = getNodeIDFromModel(0,eaveHeight,-buildingLength,nodes)
-        let node3 = getNodeIDFromModel(buildingWidth,eaveHeight,-buildingLength,nodes)
-        let node4 = getNodeIDFromModel(buildingWidth,eaveHeight,0,nodes)
+        let node1 = getNodeIDFromModel(0, eaveHeight, 0, nodes)
+        let node2 = getNodeIDFromModel(0, eaveHeight, -buildingLength, nodes)
+        let node3 = getNodeIDFromModel(buildingWidth, eaveHeight, -buildingLength, nodes)
+        let node4 = getNodeIDFromModel(buildingWidth, eaveHeight, 0, nodes)
 
         result = [node1, node2, node3, node4]
-        
+
         return result
     }
 
     var getNodeDirections = function (data, nodes) {
 
-        let buildingLength =  data["input_length"]
-		let buildingWidth = data["input_width"]
-		let eaveHeight = data["input_height"]
-		let roofApex = data["input_truss_height"]
-		let roofOverhang = data["input_truss_offset"]
-		let trussSpacing = data["input_truss_panel_spacing"]
+        let buildingLength = data["input_length"]
+        let buildingWidth = data["input_width"]
+        let eaveHeight = data["input_height"]
+        let roofApex = data["input_truss_height"]
+        let roofOverhang = data["input_truss_offset"]
+        let trussSpacing = data["input_truss_panel_spacing"]
 
-        let node1_windward_wall = getNodeIDFromModel(0,0,0,nodes)
-        let node2_windward_wall = getNodeIDFromModel(0,eaveHeight,0,nodes)
-        let node3_windward_wall = getNodeIDFromModel(buildingWidth,eaveHeight,0,nodes)
-        let node4_windward_wall = getNodeIDFromModel(buildingWidth,0,0,nodes)
+        let node1_windward_wall = getNodeIDFromModel(0, 0, 0, nodes)
+        let node2_windward_wall = getNodeIDFromModel(0, eaveHeight, 0, nodes)
+        let node3_windward_wall = getNodeIDFromModel(buildingWidth, eaveHeight, 0, nodes)
+        let node4_windward_wall = getNodeIDFromModel(buildingWidth, 0, 0, nodes)
 
-        let node1_leeward_wall = getNodeIDFromModel(buildingWidth,0,-buildingLength,nodes)
-        let node2_leeward_wall = getNodeIDFromModel(buildingWidth,eaveHeight,-buildingLength,nodes)
-        let node3_leeward_wall = getNodeIDFromModel(0,eaveHeight,-buildingLength,nodes)
-        let node4_leeward_wall = getNodeIDFromModel(0,0,-buildingLength,nodes)
+        let node1_leeward_wall = getNodeIDFromModel(buildingWidth, 0, -buildingLength, nodes)
+        let node2_leeward_wall = getNodeIDFromModel(buildingWidth, eaveHeight, -buildingLength, nodes)
+        let node3_leeward_wall = getNodeIDFromModel(0, eaveHeight, -buildingLength, nodes)
+        let node4_leeward_wall = getNodeIDFromModel(0, 0, -buildingLength, nodes)
 
 
-        let node1_roof_windward = getNodeIDFromModel(0,eaveHeight,0,nodes)
-        let node2_roof_windward = getNodeIDFromModel(0,roofApex,-buildingLength*0.5,nodes)
-        let node3_roof_windward = getNodeIDFromModel(buildingWidth,roofApex,-buildingLength*0.5,nodes)
-        let node4_roof_windward = getNodeIDFromModel(buildingWidth,eaveHeight,0,nodes)
+        let node1_roof_windward = getNodeIDFromModel(0, eaveHeight, 0, nodes)
+        let node2_roof_windward = getNodeIDFromModel(0, roofApex, -buildingLength * 0.5, nodes)
+        let node3_roof_windward = getNodeIDFromModel(buildingWidth, roofApex, -buildingLength * 0.5, nodes)
+        let node4_roof_windward = getNodeIDFromModel(buildingWidth, eaveHeight, 0, nodes)
 
-        let node1_roof_leeward = getNodeIDFromModel(buildingWidth,eaveHeight,-buildingLength,nodes)
-        let node2_roof_leeward = getNodeIDFromModel(buildingWidth,roofApex,-buildingLength*0.5,nodes)
-        let node3_roof_leeward = getNodeIDFromModel(0,roofApex,-buildingLength*0.5,nodes)
-        let node4_roof_leeward = getNodeIDFromModel(0,eaveHeight,-buildingLength,nodes)
+        let node1_roof_leeward = getNodeIDFromModel(buildingWidth, eaveHeight, -buildingLength, nodes)
+        let node2_roof_leeward = getNodeIDFromModel(buildingWidth, roofApex, -buildingLength * 0.5, nodes)
+        let node3_roof_leeward = getNodeIDFromModel(0, roofApex, -buildingLength * 0.5, nodes)
+        let node4_roof_leeward = getNodeIDFromModel(0, eaveHeight, -buildingLength, nodes)
 
         let obj = {
             'windward_wall': `${node1_windward_wall},${node2_windward_wall}`,
@@ -451,7 +505,7 @@ TINY_HOUSE.analysis = (function () {
             'roof_windward': `${node1_roof_windward},${node2_roof_windward}`,
             'roof_leeward': `${node1_roof_leeward},${node2_roof_leeward}`
         }
-        
+
         return obj
     }
 
@@ -461,7 +515,11 @@ TINY_HOUSE.analysis = (function () {
 
         for (let id in nodes) {
             if (nodes[id] == null) continue
-            let {x,y,z} = nodes[id]
+            let {
+                x,
+                y,
+                z
+            } = nodes[id]
             if (y == 0) support_node_ids.push(id)
         }
 
@@ -489,7 +547,7 @@ TINY_HOUSE.analysis = (function () {
             ctr++
         })
 
-        
+
         return support_obj
     }
 
@@ -513,19 +571,22 @@ TINY_HOUSE.analysis = (function () {
             "stress": "ksi"
         }
 
-        let {nodes, area_loads} = s3d_model
+        let {
+            nodes,
+            area_loads
+        } = s3d_model
 
 
-        let buildingLength =  data["input_length"]
-		let buildingWidth = data["input_width"]
-		let eaveHeight = data["input_height"]
-		let roofApex = data["input_truss_height"]
-		let roofOverhang = data["input_truss_offset"]
-		let trussSpacing = data["input_truss_panel_spacing"]
-        let number_of_trusses = Math.ceil(buildingWidth/trussSpacing)
+        let buildingLength = data["input_length"]
+        let buildingWidth = data["input_width"]
+        let eaveHeight = data["input_height"]
+        let roofApex = data["input_truss_height"]
+        let roofOverhang = data["input_truss_offset"]
+        let trussSpacing = data["input_truss_panel_spacing"]
+        let number_of_trusses = Math.ceil(buildingWidth / trussSpacing)
 
         let number_of_stories = data["input-stories"]
-        
+
 
         let surface_nodes = getNodeIDsOfSurfaces(data, nodes, number_of_stories)
         let node_directions = getNodeDirections(data, nodes)
@@ -533,7 +594,10 @@ TINY_HOUSE.analysis = (function () {
         let load_id = 1
         for (let surface in wind) {
 
-            let {pos,neg} = wind[surface]
+            let {
+                pos,
+                neg
+            } = wind[surface]
             let load_id_pos = String(load_id)
             load_id++
 
@@ -541,7 +605,7 @@ TINY_HOUSE.analysis = (function () {
             load_id++
 
             let elevation = null
-            
+
 
             let surface_180 = surface
             if (surface == 'windward_wall') {
@@ -618,7 +682,7 @@ TINY_HOUSE.analysis = (function () {
             }
 
         }
-        
+
         // APPLY SNOW LOAD
 
         let roof_windward_nodes = surface_nodes['roof_windward']
@@ -648,7 +712,7 @@ TINY_HOUSE.analysis = (function () {
             "loaded_members_axis": null,
             "LG": "Snow"
         }
-        
+
         load_id_snow = String(load_id)
         load_id++
 
@@ -771,7 +835,7 @@ TINY_HOUSE.analysis = (function () {
             }
 
             load_id++
-            
+
         }
 
 
@@ -787,27 +851,27 @@ TINY_HOUSE.analysis = (function () {
 
         s3d_model.load_combinations = {
             "1": {
-              "name": "1.4D",
-              "SW1": 1.4,
-              "SDead": 1.4,
-              "Live": 0,
-              "Wind_Case1": 0,
-              "Wind_Case2": 0,
-              "Wind_Case3": 0,
-              "Wind_Case4": 0,
-              "Snow": 0
+                "name": "1.4D",
+                "SW1": 1.4,
+                "SDead": 1.4,
+                "Live": 0,
+                "Wind_Case1": 0,
+                "Wind_Case2": 0,
+                "Wind_Case3": 0,
+                "Wind_Case4": 0,
+                "Snow": 0
             },
             "2": {
-              "name": "1.2D + 0.5Lr",
-              "SW1": 1.2,
-              "SDead": 1.2,
-              "Live": 1.6,
-              "Live_roof": 0,
-              "Wind_Case1": 0,
-              "Wind_Case2": 0,
-              "Wind_Case3": 0,
-              "Wind_Case4": 0,
-              "Snow": 0
+                "name": "1.2D + 0.5Lr",
+                "SW1": 1.2,
+                "SDead": 1.2,
+                "Live": 1.6,
+                "Live_roof": 0,
+                "Wind_Case1": 0,
+                "Wind_Case2": 0,
+                "Wind_Case3": 0,
+                "Wind_Case4": 0,
+                "Snow": 0
             },
             "3": {
                 "name": "1.2D + 0.5S",
@@ -886,7 +950,7 @@ TINY_HOUSE.analysis = (function () {
 
         return s3d_model
 
-    
+
     }
 
 
@@ -909,7 +973,7 @@ TINY_HOUSE.analysis = (function () {
             "current_result_key": "displacement",
         })
 
-        
+
         TINY_HOUSE.getViewer().results.set(analysis_results["1"]); // set first LC only
         TINY_HOUSE.getViewer().setMode('results');
 
@@ -928,7 +992,11 @@ TINY_HOUSE.analysis = (function () {
     functions.processMemberDesignResults = function (result) {
         let table_content = ``
 
-        let {critical, failed_members, passed_members} = result.summary
+        let {
+            critical,
+            failed_members,
+            passed_members
+        } = result.summary
 
         let total_passed_members = Object.keys(passed_members).length
         let total_failed_members = Object.keys(failed_members).length
@@ -942,9 +1010,9 @@ TINY_HOUSE.analysis = (function () {
 
             for (let i = 0; i < failed_members.length; i++) {
                 let id = failed_members[i]
-                table_content += (i < failed_members.length-1) ? `${id}, ` : `and ${id}. `
+                table_content += (i < failed_members.length - 1) ? `${id}, ` : `and ${id}. `
             }
-            
+
             // table_content += `<br><br>Critical `
 
         }
@@ -959,6 +1027,11 @@ TINY_HOUSE.analysis = (function () {
         return optimizer_results
     }
 
-	return functions;
+
+    functions.getAnalysisReport = function () {
+        return analysis_report
+    }
+
+    return functions;
 
 })();

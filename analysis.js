@@ -154,6 +154,19 @@ TINY_HOUSE.analysis = (function () {
                     }
                 }
 
+                // UPDATE MATERIAL
+                processed_model.materials = {
+                    "1": {
+                        "name": "AISI - Chromium Steel (Alloy 50XX) - Alloy 5150 - Normalized",
+                        "density": 490.752,
+                        "elasticity_modulus": 29700,
+                        "yield_strength": 81.9,
+                        "ultimate_strength": 131,
+                        "poissons_ratio": 	0.29,
+                        "class": "steel"
+                    }
+                }                
+
                 console.log(JSON.stringify(processed_model))
 
                 var result = skyciv.validator.model(processed_model);

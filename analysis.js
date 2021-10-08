@@ -362,7 +362,7 @@ TINY_HOUSE.analysis = (function () {
                     member_design_results = res.functions[4].data
                     console.log(JSON.stringify(member_design_results))
 
-                    functions.processMemberDesignResults(member_design_results)
+                    TINY_HOUSE.reporting.processMemberDesignResults(member_design_results)
 
                     optimizer_results = res.functions[5].data
 

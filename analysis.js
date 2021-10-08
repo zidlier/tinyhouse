@@ -6,6 +6,7 @@ TINY_HOUSE.analysis = (function () {
     var s3d_results = null
     var member_design_results = null
     var optimizer_results = null
+    var load_gen_results = null
 
 
     functions.generateLoads = function (data) {
@@ -70,9 +71,6 @@ TINY_HOUSE.analysis = (function () {
             var final_material = coldform_material
         }
         
-
-        
-
         
         // input-risk-category
         let wind_api_object = {
@@ -146,6 +144,9 @@ TINY_HOUSE.analysis = (function () {
         skyciv.request(wind_api_object, function (res) {
 
             if (res.response.status == 0) {
+
+                load_gen_results = res.response.data
+                console.log(JSON.stringify(load_gen_results))
 
                 var wind_load_arr  = res.response.data.wind_pressure.pressures;
                 var snow_load  = res.response.data.snow_pressure.balance_case.ps;
@@ -262,14 +263,10 @@ TINY_HOUSE.analysis = (function () {
                                     "max_ur": 0.8,
                                     "optimize_by": {
                                         "item": "sections",
-                                        "ids": [
-                                            1,
-                                            2,
-                                            3
-                                        ]
+                                        "ids": [ 1, 2, 3 ]
                                     },
                                     "section_height": {
-                                        "min": 4,
+                                        "min": 2,
                                         "max": 8
                                     },
                                     "section_width": {
@@ -280,139 +277,8 @@ TINY_HOUSE.analysis = (function () {
                             }
                         }
 
-                        // {
-                        //     "function": "S3D.s3d_optimizer.run",
-                        //     "arguments": {
-                        //         "opt_obj": {
-                        //             "general": {
-                        //                 "autocommit": true
-                        //             },
-                        //             "analysis": {
-                        //                 "animate": true,
-                        //                 "step_params": {
-                        //                     "alpha": null,
-                        //                     "beta": null
-                        //                 },
-                        //                 "collect_data": true,
-                        //                 "alt_models": 5,
-                        //                 "method": "hill_climbing",
-                        //                 "hc_steps": 40,
-                        //                 "variables": [
-                        //                     null,
-                        //                     {
-                        //                         "name": `Sec1: ${data["material-dropdown"]}`,
-                        //                         "operation": "change-section",
-                        //                         "opts": {
-                        //                             "library": ["American", "AISI", "C-Sections W Lips (I-1)"],
-                        //                             "section_number": 1,
-                        //                             "exclusion_string": [],
-                        //                             "inclusion_string": [],
-                        //                             "change_shape": [],
-                        //                             "change_lib": [],
-                        //                             "dim_limits": {
-                        //                                 "depth_lower_limit": 3,
-                        //                                 "depth_upper_limit": 8,
-                        //                                 "width_lower_limit": null,
-                        //                                 "width_upper_limit": null
-                        //                             },
-                        //                             "disabled": false
-                        //                         }
-                        //                     },
-                        //                     {
-                        //                         "name": `Sec2: ${data["material-dropdown2"]}`,
-                        //                         "operation": "change-section",
-                        //                         "opts": {
-                        //                             "library": ["American", "AISI", "C-Sections W Lips (I-1)"],
-                        //                             "section_number": 2,
-                        //                             "exclusion_string": [],
-                        //                             "inclusion_string": [],
-                        //                             "change_shape": [],
-                        //                             "change_lib": [],
-                        //                             "dim_limits": {
-                        //                                 "depth_lower_limit": 3,
-                        //                                 "depth_upper_limit": 8,
-                        //                                 "width_lower_limit": null,
-                        //                                 "width_upper_limit": null
-                        //                             },
-                        //                             "disabled": false
-                        //                         }
-                        //                     },
-                        //                     {
-                        //                         "name": `Sec3: ${data["material-dropdown3"]}`,
-                        //                         "operation": "change-section",
-                        //                         "opts": {
-                        //                             "library": ["American", "AISI", "Z-Sections WO Lips (I-5)"],
-                        //                             "section_number": 3,
-                        //                             "exclusion_string": [],
-                        //                             "inclusion_string": [],
-                        //                             "change_shape": [],
-                        //                             "change_lib": [],
-                        //                             "dim_limits": {
-                        //                                 "depth_lower_limit": 3,
-                        //                                 "depth_upper_limit": 8,
-                        //                                 "width_lower_limit": null,
-                        //                                 "width_upper_limit": null
-                        //                             },
-                        //                             "disabled": false
-                        //                         }
-                        //                     }
-                        //                 ],
-                        //                 "criteria": [
-                        //                     {
-                        //                         "operation": "value-limits",
-                        //                         "opts": {
-                        //                             "displacement_y": {
-                        //                                 "min": null,
-                        //                                 "max": null,
-                        //                                 "abs": null
-                        //                             }
-                        //                         }
-                        //                     },
-                        //                     {
-                        //                         "operation": "utility-check",
-                        //                         "opts": {
-                        //                             "check_name": "Deflection/Span",
-                        //                             "utility_limit": 0.98
-                        //                         }
-                        //                     },
-                        //                     {
-                        //                         "operation": "utility-check",
-                        //                         "opts": {
-                        //                             "check_name": "Material Yield",
-                        //                             "utility_limit": 0.98
-                        //                         }
-                        //                     },
-                        //                     {
-                        //                         "operation": "utility-check",
-                        //                         "opts": {
-                        //                             "check_name": "Material Strength",
-                        //                             "utility_limit": 0.98
-                        //                         }
-                        //                     }
-                        //                 ],
-                        //                 "material_rates": {
-                        //                     "wood": {
-                        //                         "cost": 0.75,
-                        //                         "co2": 0.25
-                        //                     },
-                        //                     "steel": {
-                        //                         "cost": 2,
-                        //                         "co2": 1.4
-                        //                     },
-                        //                     "concrete": {
-                        //                         "cost": 1.5,
-                        //                         "co2": 1.8
-                        //                     }
-                        //                 }
-                        //             }
-                        //         }
-                        //     }
-                        // }
                     ]
                 }
-
-
-                console.log(JSON.stringify(s3d_api))
 
                 skyciv.request(s3d_api, function (res) {
                     console.log(res)
@@ -427,6 +293,8 @@ TINY_HOUSE.analysis = (function () {
 
                     // MEMBER DESIGN RESULTS
                     member_design_results = res.functions[4].data
+                    console.log(JSON.stringify(member_design_results))
+
                     functions.processMemberDesignResults(member_design_results)
 
                     optimizer_results = res.functions[5].data
@@ -451,6 +319,10 @@ TINY_HOUSE.analysis = (function () {
     
     }
 
+
+    functions.runAPI = function (data) {
+
+    }
     
 
     var addLoading = function () {

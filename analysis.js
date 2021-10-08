@@ -704,8 +704,8 @@ TINY_HOUSE.analysis = (function () {
             "type": "two_way",
             "nodes": roof_windward_nodes,
             "members": null,
-            "mag": snow,
-            "direction": "X",
+            "mag": -snow,
+            "direction": "Y",
             "elevations": null,
             "mags": null,
             "column_direction": null,
@@ -720,8 +720,8 @@ TINY_HOUSE.analysis = (function () {
             "type": "two_way",
             "nodes": roof_leeward_nodes,
             "members": null,
-            "mag": snow,
-            "direction": "X",
+            "mag": -snow,
+            "direction": "Y",
             "elevations": null,
             "mags": null,
             "column_direction": null,
@@ -734,7 +734,7 @@ TINY_HOUSE.analysis = (function () {
         load_id++
 
         area_loads[roof_live_load_id] = {
-            "type": "two_way",
+            "type": "open_structure",
             "nodes": roof_windward_nodes,
             "members": null,
             "mag": -liveRoof,
@@ -742,15 +742,17 @@ TINY_HOUSE.analysis = (function () {
             "elevations": null,
             "mags": null,
             "column_direction": null,
-            "loaded_members_axis": null,
+            "loaded_members_axis": "all",
             "LG": "Live_roof"
         }
+
+
 
         roof_live_load_id = String(load_id)
         load_id++
 
         area_loads[roof_live_load_id] = {
-            "type": "two_way",
+            "type": "open_structure",
             "nodes": roof_leeward_nodes,
             "members": null,
             "mag": -liveRoof,
@@ -758,9 +760,11 @@ TINY_HOUSE.analysis = (function () {
             "elevations": null,
             "mags": null,
             "column_direction": null,
-            "loaded_members_axis": null,
+            "loaded_members_axis": "all",
             "LG": "Live_roof"
         }
+
+
 
 
         // ROOF SDEAD
@@ -769,7 +773,7 @@ TINY_HOUSE.analysis = (function () {
         load_id++
 
         area_loads[roof_sdead_load_id] = {
-            "type": "two_way",
+            "type": "open_structure",
             "nodes": roof_windward_nodes,
             "members": null,
             "mag": -sdeadRoof,
@@ -777,15 +781,15 @@ TINY_HOUSE.analysis = (function () {
             "elevations": null,
             "mags": null,
             "column_direction": null,
-            "loaded_members_axis": null,
+            "loaded_members_axis": "all",
             "LG": "SDead"
         }
 
         roof_sdead_load_id = String(load_id)
         load_id++
 
-        area_loads[roof_sdead_load_id] = {
-            "type": "two_way",
+        area_loads[roof_sdead_load_id] =  {
+            "type": "open_structure",
             "nodes": roof_leeward_nodes,
             "members": null,
             "mag": -sdeadRoof,
@@ -793,7 +797,7 @@ TINY_HOUSE.analysis = (function () {
             "elevations": null,
             "mags": null,
             "column_direction": null,
-            "loaded_members_axis": null,
+            "loaded_members_axis": "all",
             "LG": "SDead"
         }
 

@@ -76,6 +76,26 @@ TINY_HOUSE.reporting = (function () {
 
 		input_parameters = functions.processOptimizerResult()
 
+		input_parameters +=`
+		<div>
+		<button id="snow-report-btn" class="ui blue compact button">Snow Report</button>
+		<button id="wind-report-btn" class="ui blue compact button">Wind Report</button>
+		</div>
+		`
+
+		jQuery('#snow-report-btn').click(function(){
+			window.open(TINY_HOUSE.analysis.getSnowReport(), 'window name', 'window settings');
+			return false;
+		});
+
+
+		jQuery('#wind-report-btn').click(function(){
+			window.open(TINY_HOUSE.analysis.getWindReport(), 'window name', 'window settings');
+			return false;
+		});
+
+
+
 		jQuery('#results-content').html(input_parameters)
 
 	}
@@ -124,6 +144,7 @@ TINY_HOUSE.reporting = (function () {
 				${table_content}
 			</tbody>
 		</table>
+
 		`
 
 		return result_table

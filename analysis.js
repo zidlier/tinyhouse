@@ -11,6 +11,17 @@ TINY_HOUSE.analysis = (function () {
 
     var current_section = null
 
+    var snow_report = null
+    var wind_report = null
+
+    functions.getWindReport = function () {
+        return wind_report
+    }
+
+    functions.getSnowReport = function () {
+        return snow_report
+    }
+
     functions.generateLoads = function (data) {
 
         jQuery('#process-definition').html('Generating wind and snow loads...')
@@ -317,16 +328,7 @@ TINY_HOUSE.analysis = (function () {
                     ]
                 }
 
-                jQuery('#snow-report-btn').click(function(){
-                    window.open(snow_report, 'window name', 'window settings');
-                    return false;
-                });
-
-
-                jQuery('#wind-report-btn').click(function(){
-                    window.open(wind_report, 'window name', 'window settings');
-                    return false;
-                });
+                
 
                 jQuery('#process-definition').html(`Running S3D API functions...<br> you can download the report`)
 
@@ -396,6 +398,9 @@ TINY_HOUSE.analysis = (function () {
 
         jQuery('#modal-process').modal('hide');
         jQuery('#modal-results').modal('show');
+
+        jQuery('.actions').show()
+        
     }
 
     functions.runAnalysis = function () {
@@ -404,11 +409,15 @@ TINY_HOUSE.analysis = (function () {
 
         jQuery('#process-definition').html('Starting design of Tiny House...')
 
-        setTimeout(function () {
-            functions.generateLoads(this_data)
-        },1000)
-
-        
+        if (TINY_HOUSE.analysis.getOptimizerResults()) {
+            jQuery('#process-definition').html('Design succesful')
+            TINY_HOUSE.reporting.generateReport()
+            finishLoading()
+        } else {
+            setTimeout(function () {
+                functions.generateLoads(this_data)
+            },1000)
+        }
     }
 
     var getNodeIDFromModel = function (xval, yval, zval, nodes) {

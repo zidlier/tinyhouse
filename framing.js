@@ -19,16 +19,20 @@ TINY_HOUSE.framing = (function () {
         noOfStories = data["input-stories"]
         let truss_spacing = trussSpacing
 
-        let truss_panel_spacing = 1/0.3048
-        let door_height = 2.1/0.3048
-        let truss_height = 0.5/0.3048
-        let door_width = 0.9/0.3048
-        let door_truss_height = 0.3/0.3048
-        let window_width = 1.5/0.3048
-        let window_height = 0.9/0.3048
-        let vertical_truss_width = 0.5/0.3048
-        let spacing_horizontal_stud = 1.5/0.3048
-        let purlin_spacing = 0.6/0.3048
+        let frame_constants = TINY_HOUSE.getFrameParameters()
+        let {
+			truss_panel_spacing,
+			door_height,
+			truss_height, 
+			door_width, 
+			door_truss_height, 
+			window_width, 
+			window_height, 
+			vertical_truss_width, 
+			spacing_horizontal_stud, 
+			purlin_spacing,
+            spacing_vertical_stud
+		} = frame_constants
 
 
         let truss_hypotenuse = Math.sqrt((buildingLength*0.5)*(buildingLength*0.5) + (roofApex-eaveHeight)*(roofApex-eaveHeight))
@@ -39,16 +43,16 @@ TINY_HOUSE.framing = (function () {
         let number_of_trusses = Math.ceil(buildingWidth/truss_spacing)
 
         let vertical_web_length = Math.sqrt(vertical_truss_width*vertical_truss_width + ((eaveHeight-truss_height)/3)*((eaveHeight-truss_height)/3))
-        let num_panel_truss_front_vertical = Math.ceil(eaveHeight/1)
+
 
         let col_to_door_jamb_dist_front = (buildingWidth*0.5-door_width*0.5) - vertical_truss_width
-        let num_vertical_studs_front = Math.ceil(col_to_door_jamb_dist_front/(1/0.3048))
+        let num_vertical_studs_front = Math.ceil(col_to_door_jamb_dist_front/spacing_vertical_stud)
 
         let col_to_wind_jamb_dist_back = (buildingWidth*0.5-window_width*0.5) - vertical_truss_width
-        let num_vertical_studs_back = Math.ceil(col_to_wind_jamb_dist_back/(1/0.3048))
+        let num_vertical_studs_back = Math.ceil(col_to_wind_jamb_dist_back/spacing_vertical_stud)
         
         let col_to_wind_jamb_dist_side = (buildingLength*0.5-window_width*0.5) - vertical_truss_width
-        let num_vertical_studs_side = Math.ceil(col_to_wind_jamb_dist_side/(1/0.3048))
+        let num_vertical_studs_side = Math.ceil(col_to_wind_jamb_dist_side/spacing_vertical_stud)
 
         let num_horizontal_studs = Math.ceil((eaveHeight - truss_height)/spacing_horizontal_stud)
         let spacing_horizontal_studs = (eaveHeight - truss_height)/num_horizontal_studs
@@ -992,7 +996,21 @@ TINY_HOUSE.framing = (function () {
             ref_ids: [String(final_assembly.length)],
             vector: [1, 0, 0], // or {x: 1, y: 2, z: 1},
             length: "~~building_width~~",
-        })        
+        })  
+        
+        final_assembly.push({
+            "cad_type": 'cad_truss',
+            "type": '2D',
+            "ref_pt": [0, "~~roof_apex_height - truss_height~~", "~~-building_length/2~~"],
+            "length": ['x', "~~building_width~~"],
+            "height": ['y', "~~truss_height~~"],
+            "offset": 0, // or [30,30],
+            "style": 'cross',
+            "chord_section_id": 2,
+            "web_section_id": 2,
+            "segments": "~~front_number_of_panels~~",
+        })
+        
         
 
         let purlins_assembly = []
@@ -1130,10 +1148,10 @@ TINY_HOUSE.framing = (function () {
                 "length": ['z', "~~building_length+roof_overhang*2~~"],
                 "height": ['y', "~~roof_apex_height-(building_height*number_of_stories)~~"],
                 "offset": "~~(building_length+roof_overhang*2)/2~~", // or [30,30],
-                "style": 'warren',
+                "style": 'gambrel',
                 "web_section_id": 2,
                 "chord_section_id": 2,
-                "segments": 10,
+                "segments": 6,
             }
 
         ]

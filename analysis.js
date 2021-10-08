@@ -12,6 +12,12 @@ TINY_HOUSE.analysis = (function () {
 
     functions.generateLoads = function (data) {
 
+        jQuery('#process-definition').html('Generating wind and snow loads...')
+
+        jQuery('#progress-bar').progress({
+            'percent': 5
+        })
+
         let {
             input_height,
             input_width,
@@ -150,6 +156,11 @@ TINY_HOUSE.analysis = (function () {
 
             if (res.response.status == 0) {
 
+                jQuery('#process-definition').html('Wind and snow loads generated...')
+                jQuery('#progress-bar').progress({
+                    'percent': 15
+                })
+
                 load_gen_results = res.response.data
                 console.log(JSON.stringify(load_gen_results))
 
@@ -225,6 +236,8 @@ TINY_HOUSE.analysis = (function () {
 
                 // UPDATE MATERIAL - if WOOD or COLDFORMED
                 processed_model.materials = final_material
+
+                jQuery('#process-definition').html('Setting up model and API functions...')
 
                 console.log(JSON.stringify(processed_model))
 
@@ -329,8 +342,18 @@ TINY_HOUSE.analysis = (function () {
                     ]
                 }
 
+                jQuery('#process-definition').html('Running S3D API functions...')
+
+                jQuery('#progress-bar').progress({
+                    'percent': 25
+                })
+
                 skyciv.request(s3d_api, function (res) {
                     console.log(res)
+
+                    jQuery('#process-definition').html('Design succesful')
+                    
+                    
 
                     finishLoading()
 
@@ -377,17 +400,35 @@ TINY_HOUSE.analysis = (function () {
 
     var addLoading = function () {
         jQuery('#optimize-button').addClass('loading')
+        jQuery('#modal-process').modal('show');
+
+        jQuery('#progress-bar').progress({
+            'percent': 0
+        })
     }
 
     var finishLoading = function () {
         jQuery('#optimize-button').removeClass('loading')
+
+        jQuery('#progress-bar').progress({
+            'percent': 100
+        })
+
+        jQuery('#modal-process').modal('hide');
         jQuery('#modal-results').modal('show');
     }
 
     functions.runAnalysis = function () {
         let this_data = INDEX.getData()
         addLoading()
-        functions.generateLoads(this_data)
+
+        jQuery('#process-definition').html('Starting design of Tiny House...')
+
+        setTimeout(function () {
+            functions.generateLoads(this_data)
+        },1000)
+
+        
     }
 
     var getNodeIDFromModel = function (xval, yval, zval, nodes) {

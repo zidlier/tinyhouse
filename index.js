@@ -21,13 +21,15 @@ var INDEX = (function () {
             "input-site-address": jQuery('#input-site-address').val(),
             "input-dead-load": jQuery('#input-dead-load').val(),
             "input-live-load": jQuery('#input-live-load').val(),
+            "input-dead-load-roof": jQuery('#input-dead-load-roof').val(),
+            "input-live-load-roof": jQuery('#input-live-load-roof').val(),
             "material-dropdown" : jQuery("#material-dropdown").dropdown('get value'),
             "material-dropdown-2" : jQuery("#material-dropdown-2").dropdown('get value'),
             "material-dropdown-3" : jQuery("#material-dropdown-3").dropdown('get value'),
             "material-dropdown-b" : jQuery("#material-dropdown-b").dropdown('get value'),
             "material-dropdown-2b" : jQuery("#material-dropdown-2b").dropdown('get value'),
             "material-dropdown-3b" : jQuery("#material-dropdown-3b").dropdown('get value'),    
-            "material-slider" : jQuery('#material-slider').is(':checked')  
+            "material-slider": jQuery('#material-slider').checkbox('is checked')
         }
 
         return data
@@ -35,6 +37,7 @@ var INDEX = (function () {
     }
 
     functions.updateRender = function () {
+        
         $(`#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset, #input-truss-panel-spacing,
         #input-risk-category,
         #input-exposure-category,
@@ -99,6 +102,7 @@ var INDEX = (function () {
         generateDropdown(NDS,"Western Species Structural Glued Laminated Timber",'filter-section-b','material-dropdown-b')
         generateDropdown(NDS,"Western Species Structural Glued Laminated Timber",'filter-section-2b','material-dropdown-2b')
         generateDropdown(NDS,"Sawn Lumber",'filter-section-3b','material-dropdown-3b')
+
     }
 
     functions.updateData2 = function (type){
@@ -117,13 +121,12 @@ var INDEX = (function () {
         return 'cf'
     }
 
-
-    // functions.Mat = function(type){
-    //     return t
-    // }
     $(document).ready(function () {
 
         jQuery('.input-data.accordion').accordion()
+
+        // HIDE 2ND FLOOR PARAMS FIRST
+        jQuery('.2nd-floor').hide()
 
         INDEX.dropdownData();
         jQuery('#main-tab .item').tab();
@@ -136,7 +139,7 @@ var INDEX = (function () {
             TINY_HOUSE.analysis.runAnalysis()
         });
 
-        //--> initially hide the wood materials
+        //initially hide the wood materials
         jQuery('#material-dropdown-b').hide()
         jQuery('#material-dropdown-2b').hide()       
         jQuery('#material-dropdown-3b').hide()
@@ -151,8 +154,6 @@ var INDEX = (function () {
                 jQuery('#material-dropdown-b').show()
                 jQuery('#material-dropdown-2b').show()       
                 jQuery('#material-dropdown-3b').show()
-
-                // updateData2()
             },
             onUnchecked: function () {
 
@@ -167,7 +168,6 @@ var INDEX = (function () {
             },
             onChange: function () {
                 var material_type = jQuery('#material-slider').checkbox("is checked"); //false : cf //true : wood
-                // TINY_HOUSE.analysis.generateLoads()
             }
 
         });
@@ -175,6 +175,29 @@ var INDEX = (function () {
         setTimeout(function () {
             INDEX.updateRender();
         }, 1000)
+
+        jQuery("#input-stories").dropdown({
+            'onChange': function (val) {
+
+                debugger
+                let h = jQuery('#input-height').val()
+                h = parseFloat(h)
+
+                if (val == 2) {
+                    let truss_height = h*2 + 3.28
+                    jQuery('#input-truss-height').val(truss_height)
+                    jQuery('.2nd-floor').show()
+                    data = INDEX.getData()
+                    TINY_HOUSE.init(data);
+                } else {
+                    let truss_height = h + 3.28
+                    jQuery('#input-truss-height').val(truss_height)
+                    jQuery('.2nd-floor').hide()
+                    data = INDEX.getData()
+                    TINY_HOUSE.init(data);
+                }
+            }
+        }) 
 
     });
 

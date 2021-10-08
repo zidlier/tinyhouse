@@ -328,7 +328,7 @@ TINY_HOUSE.analysis = (function () {
                     return false;
                 });
 
-                jQuery('#process-definition').html('Running S3D API functions...')
+                jQuery('#process-definition').html(`Running S3D API functions...<br> you can download the report`)
 
 
                 jQuery('#progress-bar').progress({

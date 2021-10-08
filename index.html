@@ -8,14 +8,12 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"> -->
 
-
-	<!-- Resources -->
+	<!-- JQuery -->
 	<script src="./resources/jquery-3.6.0.min.js"></script>
 
 	<!-- Semantic UI -->
 	<script src="https://dev.skyciv.com/assets/res/semantic/semantic.min.js"></script>
 	<link href="https://dev.skyciv.com/assets/res/semantic/semantic.min.css" rel="stylesheet" type="text/css">
-
 
 	<!-- Include renderer and parametric script when live  -->
 	<script src="./resources/skyciv-renderer-dist.js"></script>
@@ -34,49 +32,6 @@
 	<script src="framing.js"></script>
 	<script src="analysis.js"></script>
 	<script src="general_data.js"></script>
-
-	<!-- <script>
-		$(document).ready(function () {
-
-
-
-
-			// if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-
-			// 	jQuery(".file-control-buttons").hide();
-			// 	jQuery(".ui.button").css({
-			// 		"font- size": "10px !important"
-			// 	})
-			// }
-
-			// jQuery("#results-table-optimitizer tbody").on('click', 'td', function() {
-			// 	var content = jQuery(this).html();
-			// 	content = content.split('-');
-			// 	var id = parseFloat(content[1])-1;
-			// 	console.log(id);
-			// 	testDesignCheck(model_cases_repaired[id], id);
-			// });
-
-			// jQuery("#download-model-cases-btn").click(function () {
-			// 	for (var i = 0; i < model_cases.length; i++) {
-			// 		var file_name = 'model_case_' + parseFloat(i + 1);
-			// 		jQuery("<a />", {
-			// 				"download": file_name + ".json",
-			// 				"href": "data:application/json," + encodeURIComponent(JSON.stringify(
-			// 					model_cases[i]))
-			// 			}).appendTo("body")
-			// 			.click(function () {
-			// 				jQuery(this).remove()
-			// 			})[0].click()
-			// 	}
-			// })
-
-
-
-
-
-		});
-	</script> -->
 
 </head>
 
@@ -285,30 +240,19 @@
 								</div>
 							</div>
 						</div>
-
-
-
-
-
-
-
 					</div>
 				</div>
-
-
 			</div>
-
 		</div>
-
-
 	</div>
-	<div class="ui modal" id="modal-results">
 
+	<div class="ui modal" id="modal-results">
 		<div class="header">Results Summary</div>
 		<div class="content" id="results-content">
 			OPTIMIZER RESULTS
 		</div>
 	</div>
+
 
 	<div class="ui modal" id="modal-process">
 		<div class="header">

@@ -5,6 +5,7 @@ TINY_HOUSE.analysis = (function () {
     var snow_pressure = null
     var s3d_results = null
     var member_design_results = null
+    var optimizer_results = null
 
 
     functions.generateLoads = function (data) {
@@ -21,11 +22,53 @@ TINY_HOUSE.analysis = (function () {
         var liveload = data["input-live-load"]
         var sdeadload = data["input-dead-load"]
 
+        let slider_checked = data["material-slider"]
+
         // TODO
-        let member_design_code = "AISI_S100-12_LRFD" //NDC
-        let wall_section = ["American", "AISI", "C-Sections W Lips (I-1)", data["material-dropdown"]]
-        let truss_section = ["American", "AISI", "C-Sections W Lips (I-1)", data["material-dropdown-2"]]
-        let purlin_section = ["American", "AISI", "Z-Sections WO Lips (I-5)", data["material-dropdown-3"]]
+        
+
+        
+        let coldform_material = {
+            "1": {
+                "name": "AISI - Chromium Steel (Alloy 50XX) - Alloy 5150 - Normalized",
+                "density": 490.752,
+                "elasticity_modulus": 29700,
+                "yield_strength": 81.9,
+                "ultimate_strength": 131,
+                "poissons_ratio": 	0.29,
+                "class": "steel"
+            }
+        }                
+
+
+        let wood_material = {
+            "1": {
+                "name": "General Oakwood",
+                "density": 56,
+                "elasticity_modulus": 1600,
+                "poissons_ratio": 0.3,
+                "class": "wood"
+            }
+        }
+
+
+
+        if (slider_checked) {
+            var member_design_code = "NDS_2018_LRFD"
+            var wall_section = ["American", "NDS", "Western Species Structural Glued Laminated Timber", data["material-dropdown-b"]]
+            var truss_section = ["American", "NDS", "Western Species Structural Glued Laminated Timber", data["material-dropdown-2b"]]
+            var purlin_section = ["American", "NDS", "Sawn Lumber", data["material-dropdown-3b"]]
+            var final_material = wood_material
+        } else {
+            var member_design_code = "AISI_S100-12_LRFD"
+            var wall_section = ["American", "AISI", "C-Sections W Lips (I-1)", data["material-dropdown"]]
+            var truss_section = ["American", "AISI", "C-Sections W Lips (I-1)", data["material-dropdown-2"]]
+            var purlin_section = ["American", "AISI", "Z-Sections WO Lips (I-5)", data["material-dropdown-3"]]
+            var final_material = coldform_material
+        }
+        
+
+        
 
         
         // input-risk-category
@@ -154,18 +197,8 @@ TINY_HOUSE.analysis = (function () {
                     }
                 }
 
-                // UPDATE MATERIAL
-                processed_model.materials = {
-                    "1": {
-                        "name": "AISI - Chromium Steel (Alloy 50XX) - Alloy 5150 - Normalized",
-                        "density": 490.752,
-                        "elasticity_modulus": 29700,
-                        "yield_strength": 81.9,
-                        "ultimate_strength": 131,
-                        "poissons_ratio": 	0.29,
-                        "class": "steel"
-                    }
-                }                
+                // UPDATE MATERIAL - if WOOD or COLDFORMED
+                processed_model.materials = final_material
 
                 console.log(JSON.stringify(processed_model))
 
@@ -382,10 +415,16 @@ TINY_HOUSE.analysis = (function () {
                     console.log(res)
                     // functions.setResults(res.functions[3].data)
 
+                    // S3D LINEAR ANALYSIS
                     s3d_results = res.functions[3].data
+                    console.log(JSON.stringify(s3d_results))
+
+                    // MEMBER DESIGN RESULTS
                     member_design_results = res.functions[4].data
                     functions.processMemberDesignResults(member_design_results)
 
+                    optimizer_results = res.functions[5].data
+                    
 
                     finishLoading()
 
@@ -985,6 +1024,10 @@ TINY_HOUSE.analysis = (function () {
 
         jQuery('#results-content').html(table_content)
 
+    }
+
+    functions.getOptimizerResults = function () {
+        return optimizer_results
     }
 
 	return functions;

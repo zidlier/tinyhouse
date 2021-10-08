@@ -162,8 +162,10 @@ TINY_HOUSE.analysis = (function () {
 
                 load_gen_results = res.response.data
                 console.log(JSON.stringify(load_gen_results))
-                site_report = load_gen_results["wind_pressure"]["report_link"]
-                // debugger
+                snow_report = load_gen_results["snow_pressure"]["report_link"]
+                wind_report = load_gen_results["wind_pressure"]["report_link"]
+
+                debugger
                 var wind_load_arr = res.response.data.wind_pressure.pressures;
                 var snow_load = res.response.data.snow_pressure.balance_case.ps;
 
@@ -314,8 +316,15 @@ TINY_HOUSE.analysis = (function () {
                         }
                     ]
                 }
-                jQuery('#pdf-dl-modal-btn').click(function(){
-                    window.open(site_report, 'window name', 'window settings');
+
+                jQuery('#snow-report-btn').click(function(){
+                    window.open(snow_report, 'window name', 'window settings');
+                    return false;
+                });
+
+
+                jQuery('#wind-report-btn').click(function(){
+                    window.open(wind_report, 'window name', 'window settings');
                     return false;
                 });
 

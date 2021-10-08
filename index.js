@@ -37,6 +37,7 @@ var INDEX = (function () {
     }
 
     functions.updateRender = function () {
+        
         $(`#input-height, #input-width, #input-length, #input-truss-height, #input-truss-offset, #input-truss-panel-spacing,
         #input-risk-category,
         #input-exposure-category,
@@ -120,10 +121,6 @@ var INDEX = (function () {
         return 'cf'
     }
 
-
-    // functions.Mat = function(type){
-    //     return t
-    // }
     $(document).ready(function () {
 
         jQuery('.input-data.accordion').accordion()
@@ -139,11 +136,10 @@ var INDEX = (function () {
         jQuery("#input-stories").dropdown('set selected', "1");
 
         jQuery('#optimize-button').click(function () {
-            // jQuery('#modal-results').modal('show');
             TINY_HOUSE.analysis.runAnalysis()
         });
 
-        //--> initially hide the wood materials
+        //initially hide the wood materials
         jQuery('#material-dropdown-b').hide()
         jQuery('#material-dropdown-2b').hide()       
         jQuery('#material-dropdown-3b').hide()
@@ -158,8 +154,6 @@ var INDEX = (function () {
                 jQuery('#material-dropdown-b').show()
                 jQuery('#material-dropdown-2b').show()       
                 jQuery('#material-dropdown-3b').show()
-
-                // updateData2()
             },
             onUnchecked: function () {
 
@@ -174,7 +168,6 @@ var INDEX = (function () {
             },
             onChange: function () {
                 var material_type = jQuery('#material-slider').checkbox("is checked"); //false : cf //true : wood
-                // INDEX.getData()
             }
 
         });
@@ -194,18 +187,13 @@ var INDEX = (function () {
                     let truss_height = h*2 + 3.28
                     jQuery('#input-truss-height').val(truss_height)
                     jQuery('.2nd-floor').show()
-
                     data = INDEX.getData()
-                    // console.log('updating data')
                     TINY_HOUSE.init(data);
-                    
                 } else {
                     let truss_height = h + 3.28
                     jQuery('#input-truss-height').val(truss_height)
                     jQuery('.2nd-floor').hide()
-
                     data = INDEX.getData()
-                    // console.log('updating data')
                     TINY_HOUSE.init(data);
                 }
             }

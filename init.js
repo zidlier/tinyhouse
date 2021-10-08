@@ -44,6 +44,34 @@ var TINY_HOUSE = (function () {
 	}
 
 
+	functions.getFrameParameters = function () {
+		let truss_panel_spacing = 1/0.3048
+        let door_height = 2.1/0.3048
+        let truss_height = 0.5/0.3048
+        let door_width = 0.9/0.3048
+        let door_truss_height = 0.3/0.3048
+        let window_width = 1.5/0.3048
+        let window_height = 0.9/0.3048
+        let vertical_truss_width = 0.5/0.3048
+        let spacing_horizontal_stud = 1.5/0.3048
+        let purlin_spacing = 0.6/0.3048
+		let spacing_vertical_stud = 1/0.3048
+
+		return {
+			truss_panel_spacing,
+			door_height,
+			truss_height, 
+			door_width, 
+			door_truss_height, 
+			window_width, 
+			window_height, 
+			vertical_truss_width, 
+			spacing_horizontal_stud, 
+			purlin_spacing,
+			spacing_vertical_stud
+		}
+	}
+
 	return functions;
 
 })();

@@ -26,7 +26,8 @@ var INDEX = (function () {
             "material-dropdown-3" : jQuery("#material-dropdown-3").dropdown('get value'),
             "material-dropdown-b" : jQuery("#material-dropdown-b").dropdown('get value'),
             "material-dropdown-2b" : jQuery("#material-dropdown-2b").dropdown('get value'),
-            "material-dropdown-3b" : jQuery("#material-dropdown-3b").dropdown('get value')         
+            "material-dropdown-3b" : jQuery("#material-dropdown-3b").dropdown('get value'),    
+            "material-slider" : jQuery('#material-slider').is(':checked')  
         }
 
         return data
@@ -139,6 +140,7 @@ var INDEX = (function () {
                 jQuery('#material-dropdown-2b').show()       
                 jQuery('#material-dropdown-3b').show()
 
+                // return INDEX.woodMat
             },
             onUnchecked: function () {
 
@@ -150,6 +152,11 @@ var INDEX = (function () {
                 jQuery('#material-dropdown-2b').hide()       
                 jQuery('#material-dropdown-3b').hide()
 
+                
+
+            },
+            onChange: function() {
+                var material_type = jQuery('#material-slider').is(':checked')
             }
 
 

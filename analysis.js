@@ -22,6 +22,9 @@ TINY_HOUSE.analysis = (function () {
         var liveload = data["input-live-load"]
         var sdeadload = data["input-dead-load"]
 
+        var liveload_roof = data["input-live-load-roof"]
+        var sdeadload_roof = data["input-dead-load-roof"]
+
         let slider_checked = data["material-slider"]
 
         // TODO
@@ -176,7 +179,7 @@ TINY_HOUSE.analysis = (function () {
                 wind_result = dump_obj
 
                 // ASSIGN LOADS
-                let processed_model = functions.setupLoads(sdeadload, liveload, wind_result, snow_pressure)
+                let processed_model = functions.setupLoads(sdeadload, liveload, wind_result, snow_pressure, liveload_roof, sdeadload_roof)
 
                 // ASSIGN SUPPORTS
                 let supports = assignSupports(data, processed_model.nodes)
@@ -618,7 +621,7 @@ TINY_HOUSE.analysis = (function () {
         return support_obj
     }
 
-    functions.setupLoads = function (sdead, live, wind, snow) {
+    functions.setupLoads = function (sdead, live, wind, snow, sdeadRoof, liveRoof) {
 
         let data = INDEX.getData()
 
@@ -790,38 +793,73 @@ TINY_HOUSE.analysis = (function () {
             "LG": "Snow"
         }
 
-        // LIVE LOAD
-        // let load_id_live = String(load_id)
-        // load_id++
+        // LIVE LOAD ROOF
+        let roof_live_load_id = String(load_id)
+        load_id++
 
-        // area_loads[load_id_live] = {
-        //     "type": "two_way",
-        //     "nodes": roof_windward_nodes,
-        //     "members": null,
-        //     "mag": live,
-        //     "direction": "Y",
-        //     "elevations": null,
-        //     "mags": null,
-        //     "column_direction": null,
-        //     "loaded_members_axis": null,
-        //     "LG": "Live"
-        // }
+        area_loads[roof_live_load_id] = {
+            "type": "two_way",
+            "nodes": roof_windward_nodes,
+            "members": null,
+            "mag": -liveRoof,
+            "direction": "Y",
+            "elevations": null,
+            "mags": null,
+            "column_direction": null,
+            "loaded_members_axis": null,
+            "LG": "Live_roof"
+        }
 
-        // load_id_live = String(load_id)
-        // load_id++
+        roof_live_load_id = String(load_id)
+        load_id++
 
-        // area_loads[load_id_live] = {
-        //     "type": "two_way",
-        //     "nodes": roof_leeward_nodes,
-        //     "members": null,
-        //     "mag": live,
-        //     "direction": "Y",
-        //     "elevations": null,
-        //     "mags": null,
-        //     "column_direction": null,
-        //     "loaded_members_axis": null,
-        //     "LG": "Live"
-        // }
+        area_loads[roof_live_load_id] = {
+            "type": "two_way",
+            "nodes": roof_leeward_nodes,
+            "members": null,
+            "mag": -liveRoof,
+            "direction": "Y",
+            "elevations": null,
+            "mags": null,
+            "column_direction": null,
+            "loaded_members_axis": null,
+            "LG": "Live_roof"
+        }
+
+
+        // ROOF SDEAD
+        // LIVE LOAD ROOF
+        let roof_sdead_load_id = String(load_id)
+        load_id++
+
+        area_loads[roof_sdead_load_id] = {
+            "type": "two_way",
+            "nodes": roof_windward_nodes,
+            "members": null,
+            "mag": -sdeadRoof,
+            "direction": "Y",
+            "elevations": null,
+            "mags": null,
+            "column_direction": null,
+            "loaded_members_axis": null,
+            "LG": "SDead"
+        }
+
+        roof_sdead_load_id = String(load_id)
+        load_id++
+
+        area_loads[roof_sdead_load_id] = {
+            "type": "two_way",
+            "nodes": roof_leeward_nodes,
+            "members": null,
+            "mag": -sdeadRoof,
+            "direction": "Y",
+            "elevations": null,
+            "mags": null,
+            "column_direction": null,
+            "loaded_members_axis": null,
+            "LG": "SDead"
+        }
 
 
 
@@ -892,6 +930,7 @@ TINY_HOUSE.analysis = (function () {
               "SW1": 1.2,
               "SDead": 1.2,
               "Live": 1.6,
+              "Live_roof": 0,
               "Wind_Case1": 0,
               "Wind_Case2": 0,
               "Wind_Case3": 0,
@@ -903,6 +942,7 @@ TINY_HOUSE.analysis = (function () {
                 "SW1": 1.2,
                 "SDead": 1.2,
                 "Live": 0,
+                "Live_roof": 0,
                 "Wind_Case1": 0,
                 "Wind_Case2": 0,
                 "Wind_Case3": 0,
@@ -914,6 +954,7 @@ TINY_HOUSE.analysis = (function () {
                 "SW1": 1.2,
                 "SDead": 1.2,
                 "Live": 0,
+                "Live_roof": 0,
                 "Wind_Case1": 1.6,
                 "Wind_Case2": 0,
                 "Wind_Case3": 0,
@@ -925,6 +966,7 @@ TINY_HOUSE.analysis = (function () {
                 "SW1": 1.2,
                 "SDead": 1.2,
                 "Live": 0,
+                "Live_roof": 0,
                 "Wind_Case1": 0,
                 "Wind_Case2": 1.6,
                 "Wind_Case3": 0,
@@ -936,6 +978,7 @@ TINY_HOUSE.analysis = (function () {
                 "SW1": 1.2,
                 "SDead": 1.2,
                 "Live": 0,
+                "Live_roof": 0,
                 "Wind_Case1": 0,
                 "Wind_Case2": 0,
                 "Wind_Case3": 1.6,
@@ -947,12 +990,25 @@ TINY_HOUSE.analysis = (function () {
                 "SW1": 1.2,
                 "SDead": 1.2,
                 "Live": 0,
+                "Live_roof": 0,
                 "Wind_Case1": 0,
                 "Wind_Case2": 0,
                 "Wind_Case3": 0,
                 "Wind_Case4": 1.6,
                 "Snow": 0
-            }
+            },
+            "8": {
+                "name": "1.2D + 0.5LLr",
+                "SW1": 1.2,
+                "SDead": 1.2,
+                "Live": 0,
+                "Live_roof": 0.5,
+                "Wind_Case1": 0,
+                "Wind_Case2": 0,
+                "Wind_Case3": 0,
+                "Wind_Case4": 0,
+                "Snow": 0
+            },
         }
 
 

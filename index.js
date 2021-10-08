@@ -3,27 +3,6 @@ var INDEX = (function () {
 
     var data = {}
 
-    var default_data = {
-        "input_height": 3,
-        "input_width": 10,
-        "input_length": 6,
-        "input_thk": 0.3,
-        "input_window_width": 1.5,
-        "input_window_height": 0.9,
-        "input_door_height": 0.9,
-        "input_door_width": 0.9,
-        "input_door_truss_height": 1.5,
-        "input_truss_panel_spacing": 1,
-        "input_truss_height": 5,
-        "input_truss_offset": 0.8,
-        "input_vertical_truss_width": 0.3,
-        "input_roof_angle": 0.05,
-    }
-
-    functions.setDefaultData = function () {
-        return default_data
-    }
-
     functions.getData = function () {
 
         var data = {
@@ -44,7 +23,11 @@ var INDEX = (function () {
             "input-live-load": jQuery('#input-live-load').val(),
             "material-dropdown" : jQuery("#material-dropdown").dropdown('get value'),
             "material-dropdown-2" : jQuery("#material-dropdown-2").dropdown('get value'),
-            "material-dropdown-3" : jQuery("#material-dropdown-3").dropdown('get value')         
+            "material-dropdown-3" : jQuery("#material-dropdown-3").dropdown('get value'),
+            "material-dropdown-b" : jQuery("#material-dropdown-b").dropdown('get value'),
+            "material-dropdown-2b" : jQuery("#material-dropdown-2b").dropdown('get value'),
+            "material-dropdown-3b" : jQuery("#material-dropdown-3b").dropdown('get value'),    
+            "material-slider" : jQuery('#material-slider').is(':checked')  
         }
 
         return data
@@ -76,22 +59,9 @@ var INDEX = (function () {
         var AISI = INDEX.general_data.getAISI()
         var NDS = INDEX.general_data.getNDS()
 
-        var AISI_main = Object.keys(AISI)
-        var NDS_main = Object.keys(NDS)
-        var AISI_data = AISI["C-Sections W Lips (I-1)"]
-        var AISI_Zdata = AISI["Z-Sections WO Lips (I-5)"]
-        var AISI_length = AISI_Zdata.length;
-        var AISI_main_arr = []
-        var NDS_main_arr = []
-
-        for (var i = 0; i < AISI_length; i++) {
-            var  data_arr = AISI_Zdata[i] 
-            AISI_main_arr.push(data_arr)
-        }
-
-        function generateDropdown(section,html1,html2){
+        function generateDropdown(type,section,html1,html2){
             // var AISI = INDEX.general_data.getAISI()
-            var AISI_data = AISI[section]
+            var AISI_data = type[section]
             var AISI_length = AISI_data.length;
             var AISI_main_arr = []
             for (var i = 0; i < AISI_length; i++) {
@@ -123,10 +93,20 @@ var INDEX = (function () {
             jQuery(`#${html2}`).dropdown('set selected', AISI_main_arr[0]);
         }
         
-        generateDropdown("C-Sections W Lips (I-1)",'filter-section','material-dropdown')
-        generateDropdown("C-Sections W Lips (I-1)",'filter-section-2','material-dropdown-2')
-        generateDropdown("Z-Sections WO Lips (I-5)",'filter-section-3','material-dropdown-3')
+        generateDropdown(AISI,"C-Sections W Lips (I-1)",'filter-section','material-dropdown')
+        generateDropdown(AISI,"C-Sections W Lips (I-1)",'filter-section-2','material-dropdown-2')
+        generateDropdown(AISI,"Z-Sections WO Lips (I-5)",'filter-section-3','material-dropdown-3')
+        generateDropdown(NDS,"Western Species Structural Glued Laminated Timber",'filter-section-b','material-dropdown-b')
+        generateDropdown(NDS,"Western Species Structural Glued Laminated Timber",'filter-section-2b','material-dropdown-2b')
+        generateDropdown(NDS,"Sawn Lumber",'filter-section-3b','material-dropdown-3b')
+    }
 
+    functions.woodMat = function (){
+        return 'wood'
+    }
+
+    functions.cfMat = function(){
+        return 'cf'
     }
 
     $(document).ready(function () {
@@ -140,22 +120,43 @@ var INDEX = (function () {
         jQuery("#input-exposure-category").dropdown('set selected', "B");
         jQuery("#input-stories").dropdown('set selected', "1");
 
-        jQuery('.ui.checkbox').checkbox({
+        jQuery('#optimize-button').click(function () {
+            jQuery('#modal-results').modal('show');
+
+        });
+        
+        jQuery('#material-dropdown-b').hide()
+        jQuery('#material-dropdown-2b').hide()       
+        jQuery('#material-dropdown-3b').hide()
+
+        jQuery('#material-slider').checkbox({
             onChecked: function () {
-                // INDEX.dropdownData();
-                //  jQuery('#material-type-slider').html('Wood Material');
-                //  jQuery('#NDS-dropdown').show()
-                //  jQuery('#NDS-dropdown-profile').show()
-                //  jQuery('#AISI-dropdown').hide()
-                //  jQuery('#AISI-dropdown-profile').hide()
+                
+                jQuery('#material-dropdown').hide()
+                jQuery('#material-dropdown-2').hide()       
+                jQuery('#material-dropdown-3').hide()
+
+                jQuery('#material-dropdown-b').show()
+                jQuery('#material-dropdown-2b').show()       
+                jQuery('#material-dropdown-3b').show()
+
+                // return INDEX.woodMat
             },
             onUnchecked: function () {
-                // INDEX.dropdownData();
-                // jQuery('#material-type-slider').html('Cold-formed Steel Material');
-                // jQuery('#NDS-dropdown').hide()
-                // jQuery('#NDS-dropdown-profile').hide()
-                // jQuery('#AISI-dropdown').show()
-                // jQuery('#AISI-dropdown-profile').show()
+
+                jQuery('#material-dropdown').show()
+                jQuery('#material-dropdown-2').show()       
+                jQuery('#material-dropdown-3').show()
+
+                jQuery('#material-dropdown-b').hide()
+                jQuery('#material-dropdown-2b').hide()       
+                jQuery('#material-dropdown-3b').hide()
+
+                
+
+            },
+            onChange: function() {
+                var material_type = jQuery('#material-slider').is(':checked')
             }
 
 

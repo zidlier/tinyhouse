@@ -194,7 +194,9 @@ TINY_HOUSE.analysis = (function () {
                             "function": "S3D.model.solve",
                             "arguments": {
                                 "analysis_type": "linear",
-                                "return_results": true
+                                "return_results": true,
+                                "lc_filter": ["envelope", "envelope_abs_max"],
+                                "result_filter": ["member_displacements", "member_stresses"]
                             }
                         },
                         {
@@ -895,8 +897,8 @@ TINY_HOUSE.analysis = (function () {
 
     functions.viewResults = function (analysis_results) {
 
-        analysis_results["15"].
-        TINY_HOUSE.getViewer().results.set(analysis_results[1][0]); // set first LC only
+        debugger
+        TINY_HOUSE.getViewer().results.set(analysis_results); // set first LC only
         TINY_HOUSE.getViewer().setMode('results');
 
         // Turn on deformed shape

@@ -6,8 +6,8 @@ TINY_HOUSE.analysis = (function () {
     var s3d_results = null
     var member_design_results = null
 
+
     functions.generateLoads = function (data) {
-        
         
         let { input_height, input_width, input_length, input_truss_height } = data
         let roof_mean_height = (input_truss_height+input_height)*0.5
@@ -156,7 +156,6 @@ TINY_HOUSE.analysis = (function () {
 
                 console.log(JSON.stringify(processed_model))
 
-                
                 var result = skyciv.validator.model(processed_model);
 
                 console.log(result)
@@ -205,7 +204,6 @@ TINY_HOUSE.analysis = (function () {
                                 "design_code": member_design_code
                             }
                         },
-                        
                         {
                             "function": "S3D.member_design.optimize",
                             "arguments": {
@@ -215,11 +213,15 @@ TINY_HOUSE.analysis = (function () {
                                     "max_ur": 0.8,
                                     "optimize_by": {
                                         "item": "sections",
-                                        "ids": [1,2,3]
+                                        "ids": [
+                                            1,
+                                            2,
+                                            3
+                                        ]
                                     },
                                     "section_height": {
-                                        "min": 3,
-                                        "max": 12
+                                        "min": 4,
+                                        "max": 8
                                     },
                                     "section_width": {
                                         "min": null,
@@ -227,7 +229,7 @@ TINY_HOUSE.analysis = (function () {
                                     }
                                 }
                             }
-                        },
+                        }
 
                         // {
                         //     "function": "S3D.s3d_optimizer.run",
@@ -369,7 +371,7 @@ TINY_HOUSE.analysis = (function () {
 
                     s3d_results = res.functions[3].data
                     member_design_results = res.functions[4].data
-                    processMemberDesignResults(member_design_results)
+                    functions.processMemberDesignResults(member_design_results)
 
 
                     finishLoading()
@@ -942,7 +944,7 @@ TINY_HOUSE.analysis = (function () {
         TINY_HOUSE.getViewer().render();
     }
 
-    var processMemberDesignResults = function (result) {
+    functions.processMemberDesignResults = function (result) {
         let table_content = ``
 
         let {critical, failed_members, passed_members} = result.summary

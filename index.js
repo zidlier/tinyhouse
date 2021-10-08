@@ -99,7 +99,7 @@ var INDEX = (function () {
         generateDropdown(NDS,"Western Species Structural Glued Laminated Timber",'filter-section-b','material-dropdown-b')
         generateDropdown(NDS,"Western Species Structural Glued Laminated Timber",'filter-section-2b','material-dropdown-2b')
         generateDropdown(NDS,"Sawn Lumber",'filter-section-3b','material-dropdown-3b')
-        
+
     }
 
     functions.updateData2 = function (type){
@@ -177,6 +177,23 @@ var INDEX = (function () {
         setTimeout(function () {
             INDEX.updateRender();
         }, 1000)
+
+        jQuery("#input-stories").dropdown({
+            'onChange': function (val) {
+
+                debugger
+                let h = jQuery('#input-height').val()
+                h = parseFloat(h)
+
+                if (val == 2) {
+                    let truss_height = h*2 + 3.28
+                    jQuery('#input-truss-height').val(truss_height)
+                } else {
+                    let truss_height = h + 3.28
+                    jQuery('#input-truss-height').val(truss_height)
+                }
+            }
+        }) 
 
     });
 

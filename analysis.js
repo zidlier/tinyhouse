@@ -413,6 +413,9 @@ TINY_HOUSE.analysis = (function () {
 
                 skyciv.request(s3d_api, function (res) {
                     console.log(res)
+
+                    finishLoading()
+
                     // functions.setResults(res.functions[3].data)
 
                     // S3D LINEAR ANALYSIS
@@ -425,8 +428,6 @@ TINY_HOUSE.analysis = (function () {
 
                     optimizer_results = res.functions[5].data
                     
-
-                    finishLoading()
 
                     if (res.response.status == 0) {
                         

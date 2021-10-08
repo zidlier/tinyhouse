@@ -68,8 +68,6 @@ TINY_HOUSE.analysis = (function () {
             }
         }
 
-
-
         if (slider_checked) {
             var member_design_code = "NDS_2018_LRFD"
             var wall_section = ["American", "NDS", "Western Species Structural Glued Laminated Timber", data["material-dropdown-b"]]

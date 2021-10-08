@@ -179,7 +179,6 @@ var INDEX = (function () {
         jQuery("#input-stories").dropdown({
             'onChange': function (val) {
 
-                debugger
                 let h = jQuery('#input-height').val()
                 h = parseFloat(h)
 

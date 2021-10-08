@@ -27,7 +27,7 @@ var INDEX = (function () {
             "material-dropdown-b" : jQuery("#material-dropdown-b").dropdown('get value'),
             "material-dropdown-2b" : jQuery("#material-dropdown-2b").dropdown('get value'),
             "material-dropdown-3b" : jQuery("#material-dropdown-3b").dropdown('get value'),    
-            "material-slider" : jQuery('#material-slider').is(':checked')  
+            "material-slider": jQuery('#material-slider').checkbox('is checked')
         }
 
         return data
@@ -99,6 +99,7 @@ var INDEX = (function () {
         generateDropdown(NDS,"Western Species Structural Glued Laminated Timber",'filter-section-b','material-dropdown-b')
         generateDropdown(NDS,"Western Species Structural Glued Laminated Timber",'filter-section-2b','material-dropdown-2b')
         generateDropdown(NDS,"Sawn Lumber",'filter-section-3b','material-dropdown-3b')
+        
     }
 
     functions.updateData2 = function (type){

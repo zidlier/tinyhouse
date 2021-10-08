@@ -78,8 +78,8 @@ TINY_HOUSE.reporting = (function () {
 
 		input_parameters +=`
 		<div>
-		<button id="snow-report-btn" class="ui blue compact button">Snow Report</button>
 		<button id="wind-report-btn" class="ui blue compact button">Wind Report</button>
+		<button id="snow-report-btn" class="ui blue compact button">Snow Report</button>
 		</div>
 		`
 

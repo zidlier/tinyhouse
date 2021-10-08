@@ -46,7 +46,7 @@ TINY_HOUSE.reporting = (function () {
 
 		// let input_parameters = `
 		// <h3 class="ui header">Structure Data</h3>
-		// <table class="ui celled table">
+		// <table class="ui celled table center aligned">
 		// 	<thead>
 		// 		<tr><th>Parameter</th>	<th>Value</th> </tr>
 		// 	</thead>
@@ -60,7 +60,7 @@ TINY_HOUSE.reporting = (function () {
 		// </table>
 
 		// <h3 class="ui header">Site Data</h3>
-		// <table class="ui celled table">
+		// <table class="ui celled table center aligned">
 		// 	<thead>
 		// 		<tr><th>Parameter</th>	<th>Value</th> </tr>
 		// 	</thead>
@@ -102,7 +102,7 @@ TINY_HOUSE.reporting = (function () {
 
 		let result_table = `
 		<h3 class="ui header">Section Optimization</h3>
-		<table class="ui celled table">
+		<table class="ui celled table center aligned">
 			<thead>
 				<tr><th>Location</th>	<th>Original Section</th> 	<th>Optimized Section</th>	<th>Utitlity Ratio (UR)</th>		 </tr>
 			</thead>

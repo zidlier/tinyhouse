@@ -4,6 +4,7 @@ TINY_HOUSE.analysis = (function () {
 	var wind_pressure = null
     var snow_pressure = null
     var s3d_results = null
+    var member_design_results = null
 
     functions.generateLoads = function (data) {
         
@@ -195,8 +196,7 @@ TINY_HOUSE.analysis = (function () {
                             "arguments": {
                                 "analysis_type": "linear",
                                 "return_results": true,
-                                "lc_filter": ["envelope", "envelope_abs_max"],
-                                "result_filter": ["member_displacements", "member_stresses"]
+                                "lc_filter": ["envelope", "envelope_abs_max"]
                             }
                         },
                         {
@@ -367,10 +367,13 @@ TINY_HOUSE.analysis = (function () {
                     console.log(res)
                     // functions.setResults(res.functions[3].data)
 
+                    s3d_results = res.functions[3].data
+                    member_design_results = res.functions[4].data
+                    processMemberDesignResults(member_design_results)
+
+
                     finishLoading()
 
-                    s3d_results = res.functions[3].data
-                    
                     if (res.response.status == 0) {
                         
                         
@@ -908,15 +911,11 @@ TINY_HOUSE.analysis = (function () {
         return s3d_results
     }
 
+    functions.getMemberDesignResults = function () {
+        return member_design_results
+    }
+
     functions.viewResults = function (analysis_results) {
-
-        debugger
-        TINY_HOUSE.getViewer().results.set(analysis_results); // set first LC only
-        TINY_HOUSE.getViewer().setMode('results');
-
-        // Turn on deformed shape
-        TINY_HOUSE.getViewer().results.setDeformationScale(3); // 0-5
-        TINY_HOUSE.getViewer().results.deformedStructure();
 
         // Turn on member color results
         TINY_HOUSE.getViewer().results.setSettings({
@@ -927,16 +926,50 @@ TINY_HOUSE.analysis = (function () {
             "current_result_key": "displacement",
         })
 
+        
+        TINY_HOUSE.getViewer().results.set(analysis_results["1"]); // set first LC only
+        TINY_HOUSE.getViewer().setMode('results');
+
+        // Turn on deformed shape
+        TINY_HOUSE.getViewer().results.setDeformationScale(3); // 0-5
+        TINY_HOUSE.getViewer().results.deformedStructure();
+
         TINY_HOUSE.getViewer().results.runDeformationAnimation({
             "deformation_scale": 0, // 0-5
             "current_result_key": "displacement",
         })
 
-
         TINY_HOUSE.getViewer().render();
     }
 
-    
+    var processMemberDesignResults = function (result) {
+        let table_content = ``
+
+        let {critical, failed_members, passed_members} = result.summary
+
+        let total_passed_members = Object.keys(passed_members).length
+        let total_failed_members = Object.keys(failed_members).length
+
+        table_content += `<p>`
+
+        table_content += `${total_passed_members} passed the design check while ${total_failed_members} members failed. `
+
+        if (total_failed_members > 0) {
+            table_content += `Failed members are: `
+
+            for (let i = 0; i < failed_members.length; i++) {
+                table_content += (i < failed_members.length-1) ? `${id}, ` : `and ${id}. `
+            }
+            
+            // table_content += `<br><br>Critical `
+
+        }
+
+        table_content += `</p>`
+
+        jQuery('#results-content').html(table_content)
+
+    }
 
 	return functions;
 

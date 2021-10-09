@@ -1,4 +1,4 @@
-# Hackathon Project | Tiny House
+# SkyCiv 2021 Hackathon Project | Tiny House
 
 ## What Does it do?
 TINY HOUSE DESIGNER offers a complete set of dynamic solutions for design and optimization of tiny houses built using cold-formed steel and wood materials. This software generates the calculation report needed in order to build an adequate tiny house structure.

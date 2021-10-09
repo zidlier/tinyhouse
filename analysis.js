@@ -175,7 +175,7 @@ TINY_HOUSE.analysis = (function () {
                 snow_report = load_gen_results["snow_pressure"]["report_link"]
                 wind_report = load_gen_results["wind_pressure"]["report_link"]
 
-                debugger
+                
                 var wind_load_arr = res.response.data.wind_pressure.pressures;
                 var snow_load = res.response.data.snow_pressure.balance_case.ps;
 

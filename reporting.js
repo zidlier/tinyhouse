@@ -142,7 +142,7 @@ TINY_HOUSE.reporting = (function () {
 		<h3 class="ui header">Section Optimization</h3>
 		<table class="ui celled table center aligned">
 			<thead>
-				<tr><th>Location</th>	<th>Original Section</th> 	<th>Optimized Section</th>	<th>Utitlity Ratio (UR)</th> <th>Remarks</th> </tr>
+				<tr><th>Location</th>	<th>Original Section</th> 	<th>Optimized Section</th>	<th>Utitlity Ratio (UR)</th> <th>Pass/Fail</th> </tr>
 			</thead>
 			<tbody>
 				${table_content}

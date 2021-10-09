@@ -46,4 +46,14 @@ The loads generated from standalone.loads API are then applied to the model gene
 ### Member Optimization
 Then S3D.member_design.optimize is then used to get the optimized section for the wall and truss panels, and purlins.
 
+## Demo Video
+https://drive.google.com/file/d/1e5WYhAf89zCHHOtnKSwbJfdR4qi4doUf/view?usp=sharing
 
+## Future Developments
+- Localized material sections and properties (automatic database depending on site address)
+- Add settings for fixed parameters
+- Add AS/NZS (metric)
+- Optimization of purlins
+- Improvement of design report
+- Add plans and scheduling for printing
+- Add foundation/slab-on-grade

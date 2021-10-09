@@ -18,7 +18,7 @@ TINY_HOUSE.analysis = (function () {
         return wind_report
     }
 
-    functions.getWindReport = function () {
+    functions.getSnowReport = function () {
         return snow_report
     }
 

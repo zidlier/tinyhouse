@@ -59,3 +59,9 @@ https://drive.google.com/file/d/1e5WYhAf89zCHHOtnKSwbJfdR4qi4doUf/view?usp=shari
 - Add foundation/slab-on-grade
 - Integration of fabrication order to manufacturer
 - Add drawing/importing from plan functionality
+
+
+## The Team
+Patrick Aylsworth C. Garcia, MSCE - aylsworthgarcia@gmail.com
+Albert C. Pamonag, MEng - albertpamonag@gmail.com
+

@@ -62,6 +62,6 @@ https://drive.google.com/file/d/1e5WYhAf89zCHHOtnKSwbJfdR4qi4doUf/view?usp=shari
 
 
 ## The Team
-Patrick Aylsworth C. Garcia, MSCE - aylsworthgarcia@gmail.com
-Albert C. Pamonag, MEng - albertpamonag@gmail.com
+- Patrick Aylsworth C. Garcia, MSCE - aylsworthgarcia@gmail.com
+- Albert C. Pamonag, MEng - albertpamonag@gmail.com
 

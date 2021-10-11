@@ -251,112 +251,113 @@ TINY_HOUSE.analysis = (function () {
                 // UPDATE MATERIAL - if WOOD or COLDFORMED
                 processed_model.materials = final_material
 
+                console.log(JSON.stringify(processed_model))
+
                 jQuery('#process-definition').html('Setting up model and API functions...')
 
                 var result = skyciv.validator.model(processed_model);
 
-                let s3d_api = {
-                    "auth": {
-                        "username": "patrick@skyciv.com",
-                        "key": "LVBZgXsQgMcqykLB8EfYaIeHqdyaitYKqkXNZuGKH0RLAYIrvtCTdP8rzmLtCq2H"
-                    },
-                    "functions": [{
-                            "function": "S3D.session.start",
-                            "arguments": {
-                                "keep_open": false
-                            }
+                console.log(JSON.stringify(result)) 
+
+                if (result.status) {
+                    let s3d_api = {
+                        "auth": {
+                            "username": "patrick@skyciv.com",
+                            "key": "LVBZgXsQgMcqykLB8EfYaIeHqdyaitYKqkXNZuGKH0RLAYIrvtCTdP8rzmLtCq2H"
                         },
-                        {
-                            "function": "S3D.model.set",
-                            "arguments": {
-                                "s3d_model": processed_model
-                            }
-                        },
-                        {
-                            "function": "S3D.model.repair",
-                            "arguments": {
-                                "checks": [
-                                    "unused_nodes",
-                                    "large_structure",
-                                    "merge_nodes",
-                                    "zero_members",
-                                    "default_section",
-                                ]
-                            }
-                        },
-                        {
-                            "function": "S3D.model.solve",
-                            "arguments": {
-                                "analysis_type": "linear",
-                                "return_results": true,
-                                "lc_filter": ["envelope", "envelope_abs_max"]
-                            }
-                        },
-                        {
-                            "function": "S3D.member_design.check",
-                            "arguments": {
-                                "design_code": member_design_code
-                            }
-                        },
-                        {
-                            "function": "S3D.member_design.optimize",
-                            "arguments": {
-                                "design_code": member_design_code,
-                                "simplified": true,
-                                "settings": {
-                                    "max_ur": 0.8,
-                                    "optimize_by": {
-                                        "item": "sections",
-                                        "ids": [1, 2, 3]
-                                    },
-                                    "section_height": {
-                                        "min": 2,
-                                        "max": 8
-                                    },
-                                    "section_width": {
-                                        "min": null,
-                                        "max": null
+                        "functions": [{
+                                "function": "S3D.session.start",
+                                "arguments": {
+                                    "keep_open": false
+                                }
+                            },
+                            {
+                                "function": "S3D.model.set",
+                                "arguments": {
+                                    "s3d_model": processed_model
+                                }
+                            },
+                            {
+                                "function": "S3D.model.repair",
+                                "arguments": {
+                                    "checks": [
+                                        "unused_nodes",
+                                        "large_structure",
+                                        "merge_nodes",
+                                        "zero_members",
+                                        "default_section",
+                                    ]
+                                }
+                            },
+                            {
+                                "function": "S3D.model.solve",
+                                "arguments": {
+                                    "analysis_type": "linear",
+                                    "return_results": true,
+                                    "lc_filter": ["envelope", "envelope_abs_max"]
+                                }
+                            },
+                            {
+                                "function": "S3D.member_design.check",
+                                "arguments": {
+                                    "design_code": member_design_code
+                                }
+                            },
+                            {
+                                "function": "S3D.member_design.optimize",
+                                "arguments": {
+                                    "design_code": member_design_code,
+                                    "simplified": true,
+                                    "settings": {
+                                        "max_ur": 0.8,
+                                        "optimize_by": {
+                                            "item": "sections",
+                                            "ids": [1, 2, 3]
+                                        },
+                                        "section_height": {
+                                            "min": 2,
+                                            "max": 8
+                                        },
+                                        "section_width": {
+                                            "min": null,
+                                            "max": null
+                                        }
                                     }
                                 }
                             }
-                        }
-                    ]
-                }
-
-                
-
-                jQuery('#process-definition').html(`Running S3D API functions...<br> you can download the report`)
-
-
-                jQuery('#progress-bar').progress({
-                    'percent': 25
-                })
-
-                skyciv.request(s3d_api, function (res) {
-                    
-                    // S3D LINEAR ANALYSIS
-                    s3d_results = res.functions[3].data
-
-                    // MEMBER DESIGN RESULTS
-                    member_design_results = res.functions[4].data
-
-                    TINY_HOUSE.reporting.processMemberDesignResults(member_design_results)
-
-                    optimizer_results = res.functions[5].data
-
-                    // analysis_report = res.functions[6].data
-
-                    if (res.response.status == 0) {
-
-                        jQuery('#process-definition').html('Design succesful')
-                        TINY_HOUSE.reporting.generateReport()
-                        finishLoading()
-
-                    } else {
-
+                        ]
                     }
-
-                })
+    
+                    jQuery('#process-definition').html(`Running S3D API functions...<br> you can download the report`)
+    
+                    jQuery('#progress-bar').progress({ 'percent': 25 })
+    
+                    skyciv.request(s3d_api, function (res) {
+                        
+                        // S3D LINEAR ANALYSIS
+                        s3d_results = res.functions[3].data
+    
+                        // MEMBER DESIGN RESULTS
+                        member_design_results = res.functions[4].data
+    
+                        TINY_HOUSE.reporting.processMemberDesignResults(member_design_results)
+    
+                        optimizer_results = res.functions[5].data
+    
+                        // analysis_report = res.functions[6].data
+    
+                        if (res.response.status == 0) {
+    
+                            jQuery('#process-definition').html('Design succesful')
+                            TINY_HOUSE.reporting.generateReport()
+                            finishLoading()
+    
+                        } else {
+    
+                        }
+    
+                    })
+                }
 
             } else {
 
@@ -724,7 +725,7 @@ TINY_HOUSE.analysis = (function () {
         roof_leeward_nodes = roof_leeward_nodes.map(v => parseInt(v))
 
         area_loads[load_id_snow] = {
-            "type": "two_way",
+            "type": "open_structure",
             "nodes": roof_windward_nodes,
             "members": null,
             "mag": -snow,
@@ -732,7 +733,7 @@ TINY_HOUSE.analysis = (function () {
             "elevations": null,
             "mags": null,
             "column_direction": null,
-            "loaded_members_axis": null,
+            "loaded_members_axis": "all",
             "LG": "Snow"
         }
 
@@ -740,7 +741,7 @@ TINY_HOUSE.analysis = (function () {
         load_id++
 
         area_loads[load_id_snow] = {
-            "type": "two_way",
+            "type": "open_structure",
             "nodes": roof_leeward_nodes,
             "members": null,
             "mag": -snow,
@@ -748,7 +749,7 @@ TINY_HOUSE.analysis = (function () {
             "elevations": null,
             "mags": null,
             "column_direction": null,
-            "loaded_members_axis": null,
+            "loaded_members_axis": "all",
             "LG": "Snow"
         }
 

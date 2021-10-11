@@ -57,3 +57,5 @@ https://drive.google.com/file/d/1e5WYhAf89zCHHOtnKSwbJfdR4qi4doUf/view?usp=shari
 - Improvement of design report
 - Add plans and scheduling for printing
 - Add foundation/slab-on-grade
+- Integration of fabrication order to manufacturer
+- Add drawing/importing from plan functionality

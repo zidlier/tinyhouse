@@ -34,7 +34,6 @@ TINY_HOUSE.framing = (function () {
             spacing_vertical_stud
 		} = frame_constants
 
-
         let truss_hypotenuse = Math.sqrt((buildingLength*0.5)*(buildingLength*0.5) + (roofApex-eaveHeight)*(roofApex-eaveHeight))
         let num_purlins_half = Math.ceil(truss_hypotenuse/purlin_spacing)
 
@@ -43,7 +42,6 @@ TINY_HOUSE.framing = (function () {
         let number_of_trusses = Math.ceil(buildingWidth/truss_spacing)
 
         let vertical_web_length = Math.sqrt(vertical_truss_width*vertical_truss_width + ((eaveHeight-truss_height)/3)*((eaveHeight-truss_height)/3))
-
 
         let col_to_door_jamb_dist_front = (buildingWidth*0.5-door_width*0.5) - vertical_truss_width
         let num_vertical_studs_front = Math.ceil(col_to_door_jamb_dist_front/spacing_vertical_stud)
@@ -289,7 +287,6 @@ TINY_HOUSE.framing = (function () {
 
         }
 
-    
         // HORIZONTAL STUDS
         if ((num_horizontal_studs) > 1)  {
 
@@ -319,7 +316,6 @@ TINY_HOUSE.framing = (function () {
                 })
             }
         }
-
 
         // BACK PANEL - WITH WINDOW
         let back_panel = [
@@ -581,7 +577,6 @@ TINY_HOUSE.framing = (function () {
             }
         }
 
-
         // Sidepanel
         let side_panel_1 = [
             // TOP BEAM
@@ -784,7 +779,6 @@ TINY_HOUSE.framing = (function () {
                 "section_id": 1,
             }
         ]
-        
 
         if (num_vertical_studs_side > 1) {
             let vert_stud_space = col_to_wind_jamb_dist_side/num_vertical_studs_side
@@ -816,7 +810,6 @@ TINY_HOUSE.framing = (function () {
                 
             }
         }
-
 
         if ((eaveHeight - truss_height) > (door_height + door_truss_height)) {
             back_panel.push( 
@@ -879,20 +872,15 @@ TINY_HOUSE.framing = (function () {
             }
         }
 
-
-
         let final_assembly = []
 
         final_assembly = [...final_assembly, ...front_panel, ...back_panel, ...side_panel_1]
-
-
 
         let side_panel_1_ids = []
         for (let i = 1; i <= final_assembly.length; i++) {
             if (i > (front_panel.length+back_panel.length)) side_panel_1_ids.push(String(i))
         }
         
-
         final_assembly.push({
             cad_type: 'cad_repeat',
             type: 'vector',
@@ -901,8 +889,6 @@ TINY_HOUSE.framing = (function () {
             vector: [1, 0, 0], // or {x: 1, y: 2, z: 1},
             length: "~~building_width~~",
         })
-        
-
 
         if (noOfStories > 1) {
             let ground_storey_backpanel_ids = []
@@ -979,9 +965,6 @@ TINY_HOUSE.framing = (function () {
 
         }
         
-
-
-
         // ROOF ASSEMBLY
         let roof_assembly = functions.generateRoofTrusses('gable')
 
@@ -1009,11 +992,7 @@ TINY_HOUSE.framing = (function () {
             "segments": "~~front_number_of_panels~~",
         })
         
-        
-
         let purlins_assembly = []
-
-        
 
         let truss_spacing_applied = buildingWidth/number_of_trusses
 
@@ -1066,11 +1045,8 @@ TINY_HOUSE.framing = (function () {
 
         }
         
-        
         final_assembly = [...final_assembly, ...purlins_assembly]
         
-
-
         let assembly_obj = {
 			"id": 1,
 			"title": "Tiny House",
